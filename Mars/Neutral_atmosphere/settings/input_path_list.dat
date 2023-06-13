@@ -1,0 +1,6 @@
+CO2, H2O, CO2+
+Neutral_atmosphere/input/density
+CO2:CO2.dat;0
+H2O:H2O.dat;1
+CO2+:CO2+.dat;1
+N2:N2.dat;1

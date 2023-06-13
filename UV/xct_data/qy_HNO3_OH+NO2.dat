@@ -1,0 +1,26 @@
+# HNO3 -> OH + NO2       (1)
+#         HONO + O(3P)   (2)
+#         H + NO3        (3) very small
+#         HONO + O(1D)   (5)
+#
+# qy(OH)    : 1.00  @ 200-315nm (ref1)
+# qy(OH)    : 0.95  @ 248nm, 0.90  @ 222nm, 0.33 @ 193nm (ref2)
+# qy(O)     : 0.031 @ 248nm, 0.20  @ 222nm, 0.81 @ 193nm (ref2)
+# qy(O(3P)) : 0.031 @ 248nm, 0.126 @ 222nm, 0.53 @ 193nm (ref2)
+# qy(O(1D)) : 0.0   @ 248nm, 0.074 @ 222nm, 0.28 @ 193nm (ref2)
+# qy(O)     : 0.03  @ 260nm (ref3)
+#
+# 1: Johnston, H. S.; Chang, S.; Whitten, G. Photolysis of nitric acid vapor. J. Phys. Chem. 1974, 78, 1-7.
+# 2: Turnipseed, A. A.; Vaghjiani, G. L.; Thompson, J. E.; Ravishankara, A. R. 
+#    Photodissociation of HNO at 193, 222, and 248 nm: Products and quantum yields. 
+#    J. Chem. Phys. 1992, 96, 5887-5895.
+# 3: Margitan, J. J.; Watson, R. T. Kinetics of the reaction of hydroxyl radicals with nitric acid. 
+#    J. Phys. Chem. 1982, 86, 3819-3824, doi:10.1021/j100216a022.
+#
+#
+193 0.33
+222 0.90
+248 0.95
+260 0.97
+315 1.00
+350 1.00

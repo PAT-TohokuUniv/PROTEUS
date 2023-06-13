@@ -1,0 +1,7 @@
+CO2, SO2, NO, H2O
+Krasnopolsky_2007_no-S/input/density
+CO2:CO2.dat;0
+SO2:SO2.dat;0
+NO:NO.dat;0
+H2O:H2O.dat;0
+CO:CO.dat;0

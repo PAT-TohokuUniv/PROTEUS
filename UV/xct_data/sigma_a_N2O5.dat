@@ -1,0 +1,154 @@
+# 152 nm - 198 nm
+#
+#  AUTHOR(YEAR):	Osborne(2000)
+#  T:	195K
+#  λ:	152-240nm
+#  BIBLIOGRAPHY:	B.A. Osborne, G. Marston, L. Kaminski, N.C. Jones, J.M. Gingell, 
+#  N. Mason, I.C. Walker, J. Delwiche, and M.-J. Hubin-Franskin, 
+#  "Vacuum ultraviolet spectrum of dinitrogen pentoxide", 
+#  J. Quant. Spectrosc. Radiat. Transfer 64, 67-74 (2000); DOI: 10.1016/S0022-4073(99)00104-1
+#  COMMENTS:	Spectrum recorded using a synchrotron source
+#  Data at 2-nm intervals from Table 1
+#
+#
+# 200 nm - 260 nm
+#
+#  FORMULA:	N2O5
+#  AUTHOR(YEAR):	JPL-2010(2011)
+#  T:	195-300K
+#  λ:	200-420nm(rec)
+#  BIBLIOGRAPHY:	S.P. Sander, J. Abbatt, J. R. Barker, J. B. Burkholder, 
+#  R. R. Friedl, D. M. Golden, R. E. Huie, C. E. Kolb, M. J. Kurylo, G. K. Moortgat, 
+#  V. L. Orkin and P. H. Wine, 
+#  "Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies, Evaluation Number 17", 
+#  JPL Publication 10-6, Jet Propulsion Laboratory, Pasadena, 2011; http://jpldataeval.jpl.nasa.gov/
+#  
+#  COMMENTS:	JPL-2010 recommendation, adopting the earlier recommendation of
+#  S.P. Sander, R.R. Friedl, D.M. Golden, M.J. Kurylo, G.K. Moortgat, H. Keller-Rudek, 
+#  P.H. Wine, A.R. Ravishankara, C.E. Kolb, M.J. Molina, B.J. Finlayson-Pitts, R.E. Huie, 
+#  V.L. Orkin, 
+#  “Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies. Evaluation Number 15“, 
+#  JPL Publication 06-2, Jet Propulsion Laboratory, Pasadena, 2006; http://jpldataeval.jpl.nasa.gov/ :
+#  
+#  200-208 nm, mean of the data of
+#  
+#  F. Yao, I. Wilson, and H. Johnston, 
+#  "Temperature-dependent ultraviolet absorption spectrum for dinitrogen pentoxide," 
+#  J. Phys. Chem. 86, 3611-3615 (1982); DOI: 10.1021/j100215a023, and
+#  
+#  B.A. Osborne, G. Marston, L. Kaminski, N.C. Jones, J.M. Gingell, 
+#  N. Mason, I.C. Walker, J. Delwiche, and M.-J. Hubin-Franskin, 
+#  "Vacuum ultraviolet spectrum of dinitrogen pentoxide," 
+#  J. Quant. Spectrosc. Radiat. Transfer 64, 67-74 (2000); DOI: 10.1016/S0022-4073(99)00104-1,
+#  
+#  210-240 nm, mean of the data of
+#  
+#  F. Yao, I. Wilson, and H. Johnston, 
+#  "Temperature-dependent ultraviolet absorption spectrum for dinitrogen pentoxide," 
+#  J. Phys. Chem. 86, 3611-3615 (1982); DOI: 10.1021/j100215a023,
+#  
+#  B.A. Osborne, G. Marston, L. Kaminski, N.C. Jones, J.M. Gingell, N. Mason, 
+#  I.C. Walker, J. Delwiche, and M.-J. Hubin-Franskin, 
+#  "Vacuum ultraviolet spectrum of dinitrogen pentoxide," 
+#  J. Quant. Spectrosc. Radiat. Transfer 64, 67-74 (2000); 
+#  DOI: 10.1016/S0022-4073(99)00104-1 (two data sets), and
+#  
+#  M.H. Harwood, J.B. Burkholder, and A.R. Ravishankara, 
+#  "Photodissociation of BrONO2 and N2O5: Quantum yields for NO3 production at 248, 308, and 352.5 nm," 
+#  J. Phys. Chem. A 102, 1309-1317 (1998); DOI: 10.1021/jp9729829,
+#  
+#  242-398 nm, data of
+#  
+#  M.H. Harwood, J.B. Burkholder, and A.R. Ravishankara, 
+#  "Photodissociation of BrONO2 and N2O5: Quantum yields for NO3 production at 248, 308, and 352.5 nm," 
+#  J. Phys. Chem. A 102, 1309-1317 (1998); DOI: 10.1021/jp9729829,
+#  
+#  400-420 nm, data of
+#  
+#  M.H. Harwood, R.L. Jones, R.A. Cox, E. Lutman, and O.V. Rattigan, 
+#  "Temperature-dependent absorption cross sections of N2O5," 
+#  J. Photochem. Photobiol. A 73, 167-175 (1993); DOI: 10.1016/1010-6030(93)90001-2.
+#  
+#  Temperature coefficients for the parameterization
+#  
+#  log10 σ (cm2 molecule-1) = A + 1000B/T, valid over the range 233-295 K from
+#  
+#  M.H. Harwood, R.L. Jones, R.A. Cox, E. Lutman, and O.V. Rattigan, 
+#  "Temperature-dependent absorption cross sections of N2O5," 
+#  J. Photochem. Photobiol. A 73, 167-175 (1993); DOI: 10.1016/1010-6030(93)90001-2,
+#  
+#     ----------------------------------------------------------------
+#     λ(nm)  A(cm2 molec.-1)  B(cm2molec.-1 K-1)
+#     ----------------------------------------------------------------
+#     260       -18.27         -0.091
+#     270       -18.42         -0.104
+#     280       -18.59         -0.112
+#     290       -18.72         -0.135
+#     300       -18.84         -0.170
+#     310       -18.90         -0.226
+#     320       -18.93         -0.294
+#     330       -18.87         -0.388
+#     340       -18.77         -0.492
+#     350       -18.71         -0.583
+#     360       -18.31         -0.770
+#     370       -18.14         -0.885
+#     380       -18.01         -0.992
+#     390       -18.42         -0.949
+#     400       -18.59         -0.966
+#     410       -18.13         -1.160
+#    
+152    3.38e-17
+154    3.65e-17
+156    3.82e-17
+158    3.98e-17
+160    4.03e-17
+162    4.00e-17
+164    3.91e-17
+166    3.72e-17
+168    3.53e-17
+170    3.32e-17
+172    3.10e-17
+174    2.88e-17
+176    2.65e-17
+178    2.44e-17
+180    2.25e-17
+182    2.07e-17
+184    1.92e-17
+186    1.77e-17
+188    1.64e-17
+190    1.49e-17
+192    1.38e-17
+194    1.25e-17
+196    1.13e-17
+198    1.02e-17 
+200	   9.10e-18
+202	   8.42e-18
+204	   7.71e-18
+206	   6.82e-18
+208	   5.85e-18
+210	   4.45e-18
+212	   3.81e-18
+214	   3.22e-18
+216	   2.67e-18
+218	   2.20e-18
+220	   1.81e-18
+222	   1.51e-18
+224	   1.29e-18
+226	   1.13e-18
+228	   9.84e-19
+230	   8.82e-19
+232	   8.05e-19
+234	   7.40e-19
+236	   6.92e-19
+238	   6.46e-19
+240	   5.98e-19
+242	   5.31e-19
+244	   4.93e-19
+246	   4.56e-19
+248	   4.19e-19
+250	   3.86e-19
+252	   3.55e-19
+254	   3.26e-19
+256	   2.99e-19
+258	   2.75e-19
+260	   2.52e-19

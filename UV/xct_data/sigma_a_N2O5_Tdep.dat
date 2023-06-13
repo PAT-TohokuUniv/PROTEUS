@@ -1,0 +1,82 @@
+# 260 nm - 410 nm
+#
+#  FORMULA:	N2O5
+#  AUTHOR(YEAR):	JPL-2010(2011)
+#  T:	195-300K
+#  λ:	200-420nm(rec)
+#  BIBLIOGRAPHY:	S.P. Sander, J. Abbatt, J. R. Barker, J. B. Burkholder, 
+#  R. R. Friedl, D. M. Golden, R. E. Huie, C. E. Kolb, M. J. Kurylo, G. K. Moortgat, 
+#  V. L. Orkin and P. H. Wine, 
+#  "Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies, Evaluation Number 17", 
+#  JPL Publication 10-6, Jet Propulsion Laboratory, Pasadena, 2011; http://jpldataeval.jpl.nasa.gov/
+#  
+#  COMMENTS:	JPL-2010 recommendation, adopting the earlier recommendation of
+#  S.P. Sander, R.R. Friedl, D.M. Golden, M.J. Kurylo, G.K. Moortgat, H. Keller-Rudek, 
+#  P.H. Wine, A.R. Ravishankara, C.E. Kolb, M.J. Molina, B.J. Finlayson-Pitts, R.E. Huie, 
+#  V.L. Orkin, 
+#  “Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies. Evaluation Number 15“, 
+#  JPL Publication 06-2, Jet Propulsion Laboratory, Pasadena, 2006; http://jpldataeval.jpl.nasa.gov/ :
+#  
+#  200-208 nm, mean of the data of
+#  
+#  F. Yao, I. Wilson, and H. Johnston, 
+#  "Temperature-dependent ultraviolet absorption spectrum for dinitrogen pentoxide," 
+#  J. Phys. Chem. 86, 3611-3615 (1982); DOI: 10.1021/j100215a023, and
+#  
+#  B.A. Osborne, G. Marston, L. Kaminski, N.C. Jones, J.M. Gingell, 
+#  N. Mason, I.C. Walker, J. Delwiche, and M.-J. Hubin-Franskin, 
+#  "Vacuum ultraviolet spectrum of dinitrogen pentoxide," 
+#  J. Quant. Spectrosc. Radiat. Transfer 64, 67-74 (2000); DOI: 10.1016/S0022-4073(99)00104-1,
+#  
+#  210-240 nm, mean of the data of
+#  
+#  F. Yao, I. Wilson, and H. Johnston, 
+#  "Temperature-dependent ultraviolet absorption spectrum for dinitrogen pentoxide," 
+#  J. Phys. Chem. 86, 3611-3615 (1982); DOI: 10.1021/j100215a023,
+#  
+#  B.A. Osborne, G. Marston, L. Kaminski, N.C. Jones, J.M. Gingell, N. Mason, 
+#  I.C. Walker, J. Delwiche, and M.-J. Hubin-Franskin, 
+#  "Vacuum ultraviolet spectrum of dinitrogen pentoxide," 
+#  J. Quant. Spectrosc. Radiat. Transfer 64, 67-74 (2000); 
+#  DOI: 10.1016/S0022-4073(99)00104-1 (two data sets), and
+#  
+#  M.H. Harwood, J.B. Burkholder, and A.R. Ravishankara, 
+#  "Photodissociation of BrONO2 and N2O5: Quantum yields for NO3 production at 248, 308, and 352.5 nm," 
+#  J. Phys. Chem. A 102, 1309-1317 (1998); DOI: 10.1021/jp9729829,
+#  
+#  242-398 nm, data of
+#  
+#  M.H. Harwood, J.B. Burkholder, and A.R. Ravishankara, 
+#  "Photodissociation of BrONO2 and N2O5: Quantum yields for NO3 production at 248, 308, and 352.5 nm," 
+#  J. Phys. Chem. A 102, 1309-1317 (1998); DOI: 10.1021/jp9729829,
+#  
+#  400-420 nm, data of
+#  
+#  M.H. Harwood, R.L. Jones, R.A. Cox, E. Lutman, and O.V. Rattigan, 
+#  "Temperature-dependent absorption cross sections of N2O5," 
+#  J. Photochem. Photobiol. A 73, 167-175 (1993); DOI: 10.1016/1010-6030(93)90001-2.
+#  
+#  Temperature coefficients for the parameterization
+#  
+#  log10 σ (cm2 molecule-1) = A + 1000B/T, valid over the range 233-295 K from
+#  
+#  M.H. Harwood, R.L. Jones, R.A. Cox, E. Lutman, and O.V. Rattigan, 
+#  "Temperature-dependent absorption cross sections of N2O5," 
+#  J. Photochem. Photobiol. A 73, 167-175 (1993); DOI: 10.1016/1010-6030(93)90001-2,
+# 
+  260   -18.27   -0.091
+  270   -18.42   -0.104
+  280   -18.59   -0.112
+  290   -18.72   -0.135
+  300   -18.84   -0.170
+  310   -18.90   -0.226
+  320   -18.93   -0.294
+  330   -18.87   -0.388
+  340   -18.77   -0.492
+  350   -18.71   -0.583
+  360   -18.31   -0.770
+  370   -18.14   -0.885
+  380   -18.01   -0.992
+  390   -18.42   -0.949
+  400   -18.59   -0.966
+  410   -18.13   -1.160

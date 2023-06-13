@@ -1,0 +1,53 @@
+#
+#   JPL Publication 15-10
+#   Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies
+#   Evaluation Number 18
+#
+# following sentences are quated from the above document:
+#
+#    Knight et al. parameterized the temperature dependence using a two component model
+#    
+#      σ(T,λ) = σ0(λ)/Q + σ1(λ)(1–1/Q)
+#    
+#    where the partition function is given by Q = 1 + exp(-ΔE/(0.69T)) with ΔE = 988 cm –1 (O-O stretching 
+#    vibration) and T is in K. The Knight et al. parameterization is recommended.
+#
+# this parameterization is applied to T above 273K.
+#
+#  nm   σ0        σ1
+  280  8.73     80.316      
+  282  7.5672   76.9384   
+  284  6.4044   73.5608    
+  286  5.3508   70.6176   
+  288  4.4064   68.1088    
+  290  3.462    65.6       
+  292  2.906    61.5964   
+  294  2.35     57.5928   
+  296  1.8924   53.564   
+  298  1.5332   49.51    
+  300  1.174    45.456 
+  302  0.9688   41.13  
+  304  0.7636   36.804  
+  306  0.6002   32.7128  
+  308  0.4786   28.8564  
+  310  0.357    25      
+  312  0.2946   22.002   
+  314  0.2322   19.004  
+  316  0.1832   16.68
+  318  0.1476   15.03  
+  320  0.112    13.38   
+  322  0.09576  11.3568  
+  324  0.07952  9.33352   
+  326  0.0643   8.10646  
+  328  0.0501   7.67558 
+  330  0.0359   7.2447 
+  332  0.02846  6.43138 
+  334  0.02102  5.61806
+  336  0.01514  4.95092  
+  338  0.01082  4.42996   
+  340  0.0065   3.909    
+  342  0.00542  3.3866  
+  344  0.00434  2.8642  
+  346  0.0033   2.4781  
+  348  0.0023   2.2283  
+  350  0.0013   1.9785  

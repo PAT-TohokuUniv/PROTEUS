@@ -1,0 +1,2061 @@
+############################################
+############### species info ###############
+############################################
+
+
+### Fixed : 7 species ###
+
+--------------------------------------------
+ H₂
+--------------------------------------------
+path    : ./Jupiter/input/density/H2.dat
+mass    : 2.01588000
+charge  : 0
+
+--------------------------------------------
+ He
+--------------------------------------------
+path    : ./Jupiter/input/density/He.dat
+mass    : 4.00260200
+charge  : 0
+
+--------------------------------------------
+ CH₄
+--------------------------------------------
+path    : ./Jupiter/input/density/CH4.dat
+mass    : 16.04246000
+charge  : 0
+
+--------------------------------------------
+ C₂H₂
+--------------------------------------------
+path    : ./Jupiter/input/density/C2H2.dat
+mass    : 26.03728000
+charge  : 0
+
+--------------------------------------------
+ C₂H₄
+--------------------------------------------
+path    : ./Jupiter/input/density/C2H4.dat
+mass    : 28.05316000
+charge  : 0
+
+--------------------------------------------
+ C₂H₆
+--------------------------------------------
+path    : ./Jupiter/input/density/C2H6.dat
+mass    : 30.06904000
+charge  : 0
+
+--------------------------------------------
+ H₂(v>=4)
+--------------------------------------------
+path    : ./Jupiter/input/density/H2_v4.dat
+mass    : 2.01588000
+charge  : 0
+
+--------------------------------------------
+
+
+### Variable : 81 species ###
+
+--------------------------------------------
+ H
+--------------------------------------------
+・mass    : 1.00794000
+・charge  : 0
+・Produced by following 101 reactions:
+
+    ・R3      H₂   + hv   →  H⁺    + e⁻ + H        
+    ・R6      CH₄  + hv   →  CH₃⁺  + e⁻ + H        
+    ・R10     C₂H₄ + hv   →  C₂H₃⁺ + e⁻ + H        
+    ・R14     C₂H₆ + hv   →  C₂H₅⁺ + e⁻ + H        
+    ・R18     H⁺    + e⁻  →  H               
+    ・R20     HeH⁺  + e⁻  →  H    +  He      
+    ・R21     H₂⁺   + e⁻  →  H    +  H       
+    ・R22     H₃⁺   + e⁻  →  H₂   +  H       
+    ・R23     H₃⁺   + e⁻  →  H    +  H +  H  
+    ・R25     CH⁺   + e⁻  →  C    +  H       
+    ・R26     CH₂⁺  + e⁻  →  CH   +  H       
+    ・R27     CH₃⁺  + e⁻  →  CH₂  +  H       
+    ・R28     CH₄⁺  + e⁻  →  CH₃  +  H       
+    ・R29     CH₄⁺  + e⁻  →  CH₂  +  H +  H  
+    ・R30     CH₅⁺  + e⁻  →  CH₂  +  H +  H₂ 
+    ・R31     CH₅⁺  + e⁻  →  CH₃  +  H +  H  
+    ・R33     C₂H⁺  + e⁻  →  C₂   +  H       
+    ・R35     C₂H₂⁺ + e⁻  →  C₂H  +  H       
+    ・R37     C₂H₃⁺ + e⁻  →  C₂H₂ +  H       
+    ・R39     C₂H₄⁺ + e⁻  →  C₂H₃ +  H       
+    ・R41     C₂H₅⁺ + e⁻  →  C₂H₄ +  H       
+    ・R43     C₂H₆⁺ + e⁻  →  C₂H₅ +  H       
+    ・R45     C₂H₇⁺ + e⁻  →  C₂H₆ +  H       
+    ・R61     H₂⁺   + H₂        →  H₃⁺   + H             
+    ・R63     H₂⁺   + He        →  HeH⁺  + H             
+    ・R64     H₂⁺   + CH₄       →  CH₅⁺  + H             
+    ・R66     H₂⁺   + CH₄       →  CH₃⁺  + H   + H₂      
+    ・R67     H₂⁺   + C₂H₂      →  C₂H₃⁺ + H             
+    ・R70     H₂⁺   + C₂H₆      →  C₂H₅⁺ + H   + H₂      
+    ・R72     H₂⁺   + C₂H₆      →  C₂H₃⁺ + H   + H₂ + H₂ 
+    ・R75     He⁺   + H₂        →  H⁺    + H   + He      
+    ・R76     He⁺   + H₂(v>=2)  →  H⁺    + H   + He      
+    ・R78     He⁺   + CH₄       →  CH⁺   + H₂  + H  + He 
+    ・R80     He⁺   + CH₄       →  CH₃⁺  + H   + He      
+    ・R83     He⁺   + C₂H₂      →  C₂H⁺  + H   + He      
+    ・R87     He⁺   + C₂H₄      →  C₂H₃⁺ + H   + He      
+    ・R89     He⁺   + C₂H₄      →  C₂H⁺  + H   + H₂ + He 
+    ・R92     He⁺   + C₂H₆      →  C₂H₃⁺ + H   + H₂ + He 
+    ・R95     H⁺    + CH₄       →  CH₄⁺  + H             
+    ・R97     H⁺    + C₂H₆      →  C₂H₄⁺ + H  +  H₂      
+    ・R99     H⁺    + H₂(v>=4)  →  H₂⁺   + H             
+    ・R102    HeH⁺  + C₂H₄      →  C₂H₄⁺ + H  +  He      
+    ・R112    C⁺    + CH₄       →  C₂H₃⁺ + H             
+    ・R113    C⁺    + C₂H₂      →  C₃H⁺  + H             
+    ・R116    C⁺    + C₂H₄      →  C₃H⁺  + H   +  H₂     
+    ・R118    C⁺    + C₂H₄      →  C₃H₃⁺ + H             
+    ・R122    C⁺    + C₂H₆      →  C₃H₃⁺ + H   +  H₂     
+    ・R124    CH⁺   + H₂        →  CH₂⁺  + H             
+    ・R125    CH⁺   + CH₄       →  C₂H₄⁺ + H             
+    ・R127    CH⁺   + CH₄       →  C₂H₂⁺ + H   +  H₂     
+    ・R128    CH⁺   + C₂H₂      →  C₃H₂⁺ + H             
+    ・R129    CH₂⁺  + H₂        →  CH₃⁺  + H             
+    ・R130    CH₂⁺  + CH₄       →  C₂H₅⁺ + H             
+    ・R132    CH₂⁺  + C₂H₂      →  C₃H₃⁺ + H             
+    ・R141    CH₄⁺  + H₂        →  CH₅⁺  + H             
+    ・R145    CH₄⁺  + C₂H₂      →  C₃H₃⁺ + H   +  H₂     
+    ・R148    CH₄⁺  + C₂H₄      →  C₃H₅⁺ + H   +  H₂     
+    ・R155    C₂⁺   + H₂        →  C₂H⁺  + H             
+    ・R158    C₂⁺   + CH₄       →  C₃H⁺  + H   +  H₂     
+    ・R160    C₂⁺   + CH₄       →  C₃H₃⁺ + H             
+    ・R161    C₂⁺   + C₂H₂      →  C₄H⁺  + H             
+    ・R163    C₂H⁺  + H₂        →  C₂H₂⁺ + H             
+    ・R166    C₂H⁺  + CH₄       →  C₃H₄⁺ + H             
+    ・R168    C₂H⁺  + C₂H₂      →  C₄H₂⁺ + H             
+    ・R170    C₂H₂⁺ + H₂        →  C₂H₃⁺ + H             
+    ・R172    C₂H₂⁺ + CH₄       →  C₃H₅⁺ + H             
+    ・R174    C₂H₂⁺ + C₂H₂      →  C₄H₃⁺ + H             
+    ・R177    C₂H₂⁺ + C₂H₄      →  C₄H₅⁺ + H             
+    ・R183    C₂H₂⁺ + C₂H₆      →  C₄H₅⁺ + H   +  H₂     
+    ・R184    C₂H₂⁺ + C₂H₆      →  C₄H₇⁺ + H             
+    ・R194    C₂H₄⁺ + C₂H₂      →  C₄H₅⁺ + H             
+    ・R196    C₂H₄⁺ + C₂H₄      →  C₄H₇⁺ + H             
+    ・R208    C₂H₆⁺ + C₂H₂      →  C₄H₇⁺ + H             
+    ・R241     Na      +  H⁺       →   Na⁺     +  H              
+    ・R242     Na      +  H₃⁺      →   Na⁺     +  H       +  H₂  
+    ・R261     Na      +  H₃O⁺     →   Na⁺     +  H₂O     +  H   
+    ・R265     NaH₂⁺   +  e⁻       →   NaH     +  H              
+    ・R282    Fe      +  H⁺       →   Fe⁺     +  H              
+    ・R283    Fe      +  H₃⁺      →   Fe⁺     +  H       +  H₂  
+    ・R305    FeH⁺    +  e⁻       →   Fe      +  H              
+    ・R306    FeH₂⁺   +  e⁻       →   FeH     +  H              
+    ・R323     Mg      +  H⁺       →   Mg⁺     +  H              
+    ・R324     Mg      +  H₃⁺      →   Mg⁺     +  H       +  H₂  
+    ・R327     Mg      +  CH₅⁺     →   Mg⁺     +  CH₄     +  H   
+    ・R347     MgH⁺    +  e⁻       →   Mg      +  H              
+    ・R349     MgH₂⁺   +  e⁻       →   MgH     +  H              
+    ・R363     Si⁺     +  CH₃      →   SiCnHm⁺ +  H               
+    ・R365     Si⁺     +  CH₄      →   SiCnHm⁺ +  H               
+    ・R366     Si⁺     +  C₂H₂     →   SiCnHm⁺ +  H               
+    ・R367     Si⁺     +  C₂H₄     →   SiCnHm⁺ +  CH₃     +  H    
+    ・R368     Si⁺     +  C₂H₄     →   SiCnHm⁺ +  H               
+    ・R372     Si⁺     +  H₂O      →   SiOH⁺   +  H               
+    ・R375     Si      +  H⁺       →   Si⁺     +  H               
+    ・R377     Si      +  CH₃⁺     →   SiCnHm⁺ +  H               
+    ・R379     Si      +  CH₅⁺     →   SiCnHm⁺ +  H               
+    ・R382     Si      +  C₂H₃⁺    →   SiCnHm⁺ +  H               
+    ・R399     Si      +  CH₂      →   SiCH    +  H               
+    ・R400     Si      +  CH₃      →   SiCH₂   +  H               
+    ・R403     SiH⁺    +  e⁻       →   Si      +  H               
+    ・R404     SiH₂⁺   +  e⁻       →   Si      +  H       +  H    
+    ・R405     SiH₂⁺   +  e⁻       →   SiH     +  H               
+
+・Lost by following 27 reactions:
+
+    ・R1      H    + hv   →  H⁺    + e⁻            
+    ・R62     H₂⁺   + H         →  H⁺    + H₂            
+    ・R101    HeH⁺  + H         →  H₂⁺   + He            
+    ・R123    CH⁺   + H         →  C⁺    + H₂            
+    ・R150    CH₅⁺  + H         →  CH₄⁺  + H₂            
+    ・R185    C₂H₃⁺ + H         →  C₂H₂⁺ + H₂            
+    ・R192    C₂H₄⁺ + H         →  C₂H₃⁺ + H₂            
+    ・R199    C₂H₅⁺ + H         →  C₂H₄⁺ + H₂            
+    ・R205    C₂H₆⁺ + H         →  C₂H₅⁺ + H₂            
+    ・R218    H     + H  + H₂  →  H₂    + H₂ 
+    ・R235     Na      +  H       +  H₂       →   NaH     +  H₂  
+    ・R262     NaH     +  H        →   Na      +  H₂             
+    ・R272    Fe      +  H       +  H₂       →   FeH     +  H₂  
+    ・R273    Fe⁺     +  H       +  H₂       →   FeH⁺    +  H₂  
+    ・R280    FeH⁺    +  H        →   Fe⁺     +  H₂             
+    ・R281    FeH₂⁺   +  H        →   FeH⁺    +  H₂             
+    ・R303    FeH     +  H        →   Fe      +  H₂             
+    ・R314     Mg      +  H       +  H₂       →   MgH     +  H₂  
+    ・R315     Mg⁺     +  H       +  H₂       →   MgH⁺    +  H₂  
+    ・R321     MgH⁺    +  H        →   Mg⁺     +  H₂             
+    ・R322     MgH₂⁺   +  H        →   MgH⁺    +  H₂             
+    ・R345     MgH     +  H        →   Mg      +  H₂             
+    ・R356     Si      +  H       +  H₂       →   SiH     +  H₂  
+    ・R357     Si⁺     +  H       +  H₂       →   SiH⁺    +  H₂  
+    ・R373     SiH⁺    +  H        →   Si⁺     +  H₂              
+    ・R374     SiH₂⁺   +  H        →   SiH⁺    +  H₂              
+    ・R401     SiH     +  H        →   Si      +  H₂              
+
+--------------------------------------------
+ H⁺
+--------------------------------------------
+・mass    : 1.00739142
+・charge  : 1
+・Produced by following 6 reactions:
+
+    ・R1      H    + hv   →  H⁺    + e⁻            
+    ・R3      H₂   + hv   →  H⁺    + e⁻ + H        
+    ・R62     H₂⁺   + H         →  H⁺    + H₂            
+    ・R75     He⁺   + H₂        →  H⁺    + H   + He      
+    ・R76     He⁺   + H₂(v>=2)  →  H⁺    + H   + He      
+    ・R77     He⁺   + CH₄       →  H⁺    + CH₃ + He      
+
+・Lost by following 12 reactions:
+
+    ・R18     H⁺    + e⁻  →  H               
+    ・R94     H⁺    + CH₄       →  CH₃⁺  + H₂            
+    ・R95     H⁺    + CH₄       →  CH₄⁺  + H             
+    ・R96     H⁺    + C₂H₆      →  C₂H₃⁺ + H₂ +  H₂      
+    ・R97     H⁺    + C₂H₆      →  C₂H₄⁺ + H  +  H₂      
+    ・R98     H⁺    + C₂H₆      →  C₂H₅⁺ + H₂            
+    ・R99     H⁺    + H₂(v>=4)  →  H₂⁺   + H             
+    ・R214    H⁺    + H₂ + H₂  →  H₃⁺   + H₂ 
+    ・R241     Na      +  H⁺       →   Na⁺     +  H              
+    ・R282    Fe      +  H⁺       →   Fe⁺     +  H              
+    ・R323     Mg      +  H⁺       →   Mg⁺     +  H              
+    ・R375     Si      +  H⁺       →   Si⁺     +  H               
+
+--------------------------------------------
+ e⁻
+--------------------------------------------
+・mass    : 0.00054858
+・charge  : -1
+・Produced by following 25 reactions:
+
+    ・R1      H    + hv   →  H⁺    + e⁻            
+    ・R2      H₂   + hv   →  H₂⁺   + e⁻            
+    ・R3      H₂   + hv   →  H⁺    + e⁻ + H        
+    ・R4      He   + hv   →  He⁺   + e⁻            
+    ・R5      CH₄  + hv   →  CH₄⁺  + e⁻            
+    ・R6      CH₄  + hv   →  CH₃⁺  + e⁻ + H        
+    ・R7      CH₄  + hv   →  H₂⁺   + e⁻ + products 
+    ・R8      C₂H₂ + hv   →  C₂H₂⁺ + e⁻            
+    ・R9      C₂H₄ + hv   →  C₂H₄⁺ + e⁻            
+    ・R10     C₂H₄ + hv   →  C₂H₃⁺ + e⁻ + H        
+    ・R11     C₂H₄ + hv   →  C₂H₂⁺ + e⁻ + products 
+    ・R12     C₂H₄ + hv   →  C₂H⁺  + e⁻ + products 
+    ・R13     C₂H₆ + hv   →  C₂H₆⁺ + e⁻            
+    ・R14     C₂H₆ + hv   →  C₂H₅⁺ + e⁻ + H        
+    ・R15     C₂H₆ + hv   →  C₂H₄⁺ + e⁻ + products 
+    ・R16     C₂H₆ + hv   →  C₂H₃⁺ + e⁻ + products 
+    ・R17     C₂H₆ + hv   →  C₂H₂⁺ + e⁻ + products 
+    ・R219     Na      +  hv       →   Na⁺     +  e⁻             
+    ・R220     Fe      +  hv       →   Fe⁺     +  e⁻             
+    ・R221     Mg      +  hv       →   Mg⁺     +  e⁻             
+    ・R222     Si      +  hv       →   Si⁺     +  e⁻             
+    ・R227    Meteoroid            →   Na⁺     + e⁻              
+    ・R228    Meteoroid            →   Fe⁺     + e⁻              
+    ・R229    Meteoroid            →   Mg⁺     + e⁻              
+    ・R230    Meteoroid            →   Si⁺     + e⁻              
+
+・Lost by following 79 reactions:
+
+    ・R18     H⁺    + e⁻  →  H               
+    ・R19     He⁺   + e⁻  →  He              
+    ・R20     HeH⁺  + e⁻  →  H    +  He      
+    ・R21     H₂⁺   + e⁻  →  H    +  H       
+    ・R22     H₃⁺   + e⁻  →  H₂   +  H       
+    ・R23     H₃⁺   + e⁻  →  H    +  H +  H  
+    ・R24     C⁺    + e⁻  →  C               
+    ・R25     CH⁺   + e⁻  →  C    +  H       
+    ・R26     CH₂⁺  + e⁻  →  CH   +  H       
+    ・R27     CH₃⁺  + e⁻  →  CH₂  +  H       
+    ・R28     CH₄⁺  + e⁻  →  CH₃  +  H       
+    ・R29     CH₄⁺  + e⁻  →  CH₂  +  H +  H  
+    ・R30     CH₅⁺  + e⁻  →  CH₂  +  H +  H₂ 
+    ・R31     CH₅⁺  + e⁻  →  CH₃  +  H +  H  
+    ・R32     C₂⁺   + e⁻  →  C    +  C       
+    ・R33     C₂H⁺  + e⁻  →  C₂   +  H       
+    ・R34     C₂H⁺  + e⁻  →  CH   +  C       
+    ・R35     C₂H₂⁺ + e⁻  →  C₂H  +  H       
+    ・R36     C₂H₂⁺ + e⁻  →  CH   +  CH      
+    ・R37     C₂H₃⁺ + e⁻  →  C₂H₂ +  H       
+    ・R38     C₂H₃⁺ + e⁻  →  CH₂  +  CH      
+    ・R39     C₂H₄⁺ + e⁻  →  C₂H₃ +  H       
+    ・R40     C₂H₄⁺ + e⁻  →  CH₂  +  CH₂     
+    ・R41     C₂H₅⁺ + e⁻  →  C₂H₄ +  H       
+    ・R42     C₂H₅⁺ + e⁻  →  CH₃  +  CH₂     
+    ・R43     C₂H₆⁺ + e⁻  →  C₂H₅ +  H       
+    ・R44     C₂H₆⁺ + e⁻  →  CH₃  +  CH₃     
+    ・R45     C₂H₇⁺ + e⁻  →  C₂H₆ +  H       
+    ・R46     C₃H⁺  + e⁻  →  products        
+    ・R47     C₃H₂⁺ + e⁻  →  products        
+    ・R48     C₃H₃⁺ + e⁻  →  products        
+    ・R49     C₃H₄⁺ + e⁻  →  products        
+    ・R50     C₃H₅⁺ + e⁻  →  products        
+    ・R51     C₃H₆⁺ + e⁻  →  products        
+    ・R52     C₃H₇⁺ + e⁻  →  products        
+    ・R53     C₃H₈⁺ + e⁻  →  products        
+    ・R54     C₃H₉⁺ + e⁻  →  products        
+    ・R55     C₄H⁺  + e⁻  →  products        
+    ・R56     C₄H₂⁺ + e⁻  →  products        
+    ・R57     C₄H₃⁺ + e⁻  →  products        
+    ・R58     C₄H₅⁺ + e⁻  →  products        
+    ・R59     C₄H₇⁺ + e⁻  →  products        
+    ・R60     C₄H₉⁺ + e⁻  →  products        
+    ・R263     Na⁺     +  e⁻       →   Na                        
+    ・R264     NaH₂⁺   +  e⁻       →   Na      +  H₂             
+    ・R265     NaH₂⁺   +  e⁻       →   NaH     +  H              
+    ・R266     NaCH₄⁺  +  e⁻       →   Na      +  products       
+    ・R267     NaC₂H₂⁺ +  e⁻       →   Na      +  products       
+    ・R268     NaC₂H₄⁺ +  e⁻       →   Na      +  products       
+    ・R269     NaCH₄⁺  +  e⁻       →   products                  
+    ・R270     NaC₂H₂⁺ +  e⁻       →   products                  
+    ・R271     NaC₂H₄⁺ +  e⁻       →   products                  
+    ・R304    Fe⁺     +  e⁻       →   Fe                        
+    ・R305    FeH⁺    +  e⁻       →   Fe      +  H              
+    ・R306    FeH₂⁺   +  e⁻       →   FeH     +  H              
+    ・R307    FeH₂⁺   +  e⁻       →   Fe      +  H₂             
+    ・R308    FeCH₄⁺  +  e⁻       →   Fe      +  products       
+    ・R309    FeC₂H₂⁺ +  e⁻       →   Fe      +  products       
+    ・R310    FeC₂H₄⁺ +  e⁻       →   Fe      +  products       
+    ・R311    FeCH₄⁺  +  e⁻       →   products                  
+    ・R312    FeC₂H₂⁺ +  e⁻       →   products                  
+    ・R313    FeC₂H₄⁺ +  e⁻       →   products                  
+    ・R346     Mg⁺     +  e⁻       →   Mg                        
+    ・R347     MgH⁺    +  e⁻       →   Mg      +  H              
+    ・R348     MgH₂⁺   +  e⁻       →   Mg      +  H₂             
+    ・R349     MgH₂⁺   +  e⁻       →   MgH     +  H              
+    ・R350     MgCH₄⁺  +  e⁻       →   Mg      +  products       
+    ・R351     MgC₂H₂⁺ +  e⁻       →   Mg      +  products       
+    ・R352     MgC₂H₄⁺ +  e⁻       →   Mg      +  products       
+    ・R353     MgCH₄⁺  +  e⁻       →   products                  
+    ・R354     MgC₂H₂⁺ +  e⁻       →   products                  
+    ・R355     MgC₂H₄⁺ +  e⁻       →   products                  
+    ・R402     Si⁺     +  e⁻       →   Si                         
+    ・R403     SiH⁺    +  e⁻       →   Si      +  H               
+    ・R404     SiH₂⁺   +  e⁻       →   Si      +  H       +  H    
+    ・R405     SiH₂⁺   +  e⁻       →   SiH     +  H               
+    ・R406     SiH₂⁺   +  e⁻       →   Si      +  H₂              
+    ・R407     SiCnHm⁺ +  e⁻       →   Si                         
+    ・R408     SiCnHm⁺ +  e⁻       →   products                   
+
+--------------------------------------------
+ H₂⁺
+--------------------------------------------
+・mass    : 2.01533142
+・charge  : 1
+・Produced by following 5 reactions:
+
+    ・R2      H₂   + hv   →  H₂⁺   + e⁻            
+    ・R7      CH₄  + hv   →  H₂⁺   + e⁻ + products 
+    ・R74     He⁺   + H₂        →  H₂⁺   + He            
+    ・R99     H⁺    + H₂(v>=4)  →  H₂⁺   + H             
+    ・R101    HeH⁺  + H         →  H₂⁺   + He            
+
+・Lost by following 14 reactions:
+
+    ・R21     H₂⁺   + e⁻  →  H    +  H       
+    ・R61     H₂⁺   + H₂        →  H₃⁺   + H             
+    ・R62     H₂⁺   + H         →  H⁺    + H₂            
+    ・R63     H₂⁺   + He        →  HeH⁺  + H             
+    ・R64     H₂⁺   + CH₄       →  CH₅⁺  + H             
+    ・R65     H₂⁺   + CH₄       →  CH₄⁺  + H₂            
+    ・R66     H₂⁺   + CH₄       →  CH₃⁺  + H   + H₂      
+    ・R67     H₂⁺   + C₂H₂      →  C₂H₃⁺ + H             
+    ・R68     H₂⁺   + C₂H₂      →  C₂H₂⁺ + H₂            
+    ・R69     H₂⁺   + C₂H₆      →  C₂H₆⁺ + H₂            
+    ・R70     H₂⁺   + C₂H₆      →  C₂H₅⁺ + H   + H₂      
+    ・R71     H₂⁺   + C₂H₆      →  C₂H₄⁺ + H₂  + H₂      
+    ・R72     H₂⁺   + C₂H₆      →  C₂H₃⁺ + H   + H₂ + H₂ 
+    ・R73     H₂⁺   + C₂H₆      →  C₂H₂⁺ + H₂  + H₂ + H₂ 
+
+--------------------------------------------
+ He⁺
+--------------------------------------------
+・mass    : 4.00205342
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R4      He   + hv   →  He⁺   + e⁻            
+
+・Lost by following 21 reactions:
+
+    ・R19     He⁺   + e⁻  →  He              
+    ・R74     He⁺   + H₂        →  H₂⁺   + He            
+    ・R75     He⁺   + H₂        →  H⁺    + H   + He      
+    ・R76     He⁺   + H₂(v>=2)  →  H⁺    + H   + He      
+    ・R77     He⁺   + CH₄       →  H⁺    + CH₃ + He      
+    ・R78     He⁺   + CH₄       →  CH⁺   + H₂  + H  + He 
+    ・R79     He⁺   + CH₄       →  CH₂⁺  + H₂  + He      
+    ・R80     He⁺   + CH₄       →  CH₃⁺  + H   + He      
+    ・R81     He⁺   + CH₄       →  CH₄⁺  + He            
+    ・R82     He⁺   + C₂H₂      →  C₂H₂⁺ + He            
+    ・R83     He⁺   + C₂H₂      →  C₂H⁺  + H   + He      
+    ・R84     He⁺   + C₂H₂      →  C₂⁺   + H₂  + He      
+    ・R85     He⁺   + C₂H₂      →  CH⁺   + CH  + He      
+    ・R86     He⁺   + C₂H₄      →  C₂H₄⁺ + He            
+    ・R87     He⁺   + C₂H₄      →  C₂H₃⁺ + H   + He      
+    ・R88     He⁺   + C₂H₄      →  C₂H₂⁺ + H₂  + He      
+    ・R89     He⁺   + C₂H₄      →  C₂H⁺  + H   + H₂ + He 
+    ・R90     He⁺   + C₂H₄      →  CH₂⁺  + CH₂ + He      
+    ・R91     He⁺   + C₂H₆      →  C₂H₄⁺ + H₂  + He      
+    ・R92     He⁺   + C₂H₆      →  C₂H₃⁺ + H   + H₂ + He 
+    ・R93     He⁺   + C₂H₆      →  C₂H₂⁺ + H₂  + H₂ + He 
+
+--------------------------------------------
+ CH₄⁺
+--------------------------------------------
+・mass    : 16.04191142
+・charge  : 1
+・Produced by following 5 reactions:
+
+    ・R5      CH₄  + hv   →  CH₄⁺  + e⁻            
+    ・R65     H₂⁺   + CH₄       →  CH₄⁺  + H₂            
+    ・R81     He⁺   + CH₄       →  CH₄⁺  + He            
+    ・R95     H⁺    + CH₄       →  CH₄⁺  + H             
+    ・R150    CH₅⁺  + H         →  CH₄⁺  + H₂            
+
+・Lost by following 11 reactions:
+
+    ・R28     CH₄⁺  + e⁻  →  CH₃  +  H       
+    ・R29     CH₄⁺  + e⁻  →  CH₂  +  H +  H  
+    ・R141    CH₄⁺  + H₂        →  CH₅⁺  + H             
+    ・R142    CH₄⁺  + CH₄       →  CH₅⁺  + CH₃           
+    ・R143    CH₄⁺  + C₂H₂      →  C₂H₂⁺ + CH₄           
+    ・R144    CH₄⁺  + C₂H₂      →  C₂H₃⁺ + CH₃           
+    ・R145    CH₄⁺  + C₂H₂      →  C₃H₃⁺ + H   +  H₂     
+    ・R146    CH₄⁺  + C₂H₄      →  C₂H₄⁺ + CH₄           
+    ・R147    CH₄⁺  + C₂H₄      →  C₂H₅⁺ + CH₃           
+    ・R148    CH₄⁺  + C₂H₄      →  C₃H₅⁺ + H   +  H₂     
+    ・R149    CH₄⁺  + C₂H₆      →  C₂H₄⁺ + CH₄ +  H₂     
+
+--------------------------------------------
+ CH₃⁺
+--------------------------------------------
+・mass    : 15.03397142
+・charge  : 1
+・Produced by following 5 reactions:
+
+    ・R6      CH₄  + hv   →  CH₃⁺  + e⁻ + H        
+    ・R66     H₂⁺   + CH₄       →  CH₃⁺  + H   + H₂      
+    ・R80     He⁺   + CH₄       →  CH₃⁺  + H   + He      
+    ・R94     H⁺    + CH₄       →  CH₃⁺  + H₂            
+    ・R129    CH₂⁺  + H₂        →  CH₃⁺  + H             
+
+・Lost by following 16 reactions:
+
+    ・R27     CH₃⁺  + e⁻  →  CH₂  +  H       
+    ・R133    CH₃⁺  + CH₄       →  C₂H₅⁺ + H₂            
+    ・R134    CH₃⁺  + C₂H₂      →  C₃H₃⁺ + H₂            
+    ・R135    CH₃⁺  + C₂H₄      →  C₂H₃⁺ + CH₄           
+    ・R136    CH₃⁺  + C₂H₄      →  C₃H₃⁺ + H₂  +  H₂     
+    ・R137    CH₃⁺  + C₂H₄      →  C₃H₅⁺ + H₂            
+    ・R138    CH₃⁺  + C₂H₆      →  C₂H₅⁺ + CH₄           
+    ・R139    CH₃⁺  + C₂H₆      →  C₃H₅⁺ + H₂  +  H₂     
+    ・R140    CH₃⁺  + C₂H₆      →  C₃H₇⁺ + H₂            
+    ・R215    CH₃⁺  + H₂ + H₂  →  CH₅⁺  + H₂ 
+    ・R216    CH₃⁺  + H₂ + He  →  CH₅⁺  + He 
+    ・R243     Na      +  CH₃⁺     →   Na⁺     +  CH₃            
+    ・R285    Fe      +  CH₃⁺     →   Fe⁺     +  CH₃            
+    ・R326     Mg      +  CH₃⁺     →   Mg⁺     +  CH₃            
+    ・R377     Si      +  CH₃⁺     →   SiCnHm⁺ +  H               
+    ・R378     Si      +  CH₃⁺     →   SiCnHm⁺ +  H₂              
+
+--------------------------------------------
+ C₂H₂⁺
+--------------------------------------------
+・mass    : 26.03673142
+・charge  : 1
+・Produced by following 16 reactions:
+
+    ・R8      C₂H₂ + hv   →  C₂H₂⁺ + e⁻            
+    ・R11     C₂H₄ + hv   →  C₂H₂⁺ + e⁻ + products 
+    ・R17     C₂H₆ + hv   →  C₂H₂⁺ + e⁻ + products 
+    ・R68     H₂⁺   + C₂H₂      →  C₂H₂⁺ + H₂            
+    ・R73     H₂⁺   + C₂H₆      →  C₂H₂⁺ + H₂  + H₂ + H₂ 
+    ・R82     He⁺   + C₂H₂      →  C₂H₂⁺ + He            
+    ・R88     He⁺   + C₂H₄      →  C₂H₂⁺ + H₂  + He      
+    ・R93     He⁺   + C₂H₆      →  C₂H₂⁺ + H₂  + H₂ + He 
+    ・R111    C⁺    + CH₄       →  C₂H₂⁺ + H₂            
+    ・R119    C⁺    + C₂H₆      →  C₂H₂⁺ + CH₄           
+    ・R127    CH⁺   + CH₄       →  C₂H₂⁺ + H   +  H₂     
+    ・R143    CH₄⁺  + C₂H₂      →  C₂H₂⁺ + CH₄           
+    ・R157    C₂⁺   + CH₄       →  C₂H₂⁺ + CH₂           
+    ・R163    C₂H⁺  + H₂        →  C₂H₂⁺ + H             
+    ・R164    C₂H⁺  + CH₄       →  C₂H₂⁺ + CH₃           
+    ・R185    C₂H₃⁺ + H         →  C₂H₂⁺ + H₂            
+
+・Lost by following 21 reactions:
+
+    ・R35     C₂H₂⁺ + e⁻  →  C₂H  +  H       
+    ・R36     C₂H₂⁺ + e⁻  →  CH   +  CH      
+    ・R170    C₂H₂⁺ + H₂        →  C₂H₃⁺ + H             
+    ・R171    C₂H₂⁺ + CH₄       →  C₃H₄⁺ + H₂            
+    ・R172    C₂H₂⁺ + CH₄       →  C₃H₅⁺ + H             
+    ・R173    C₂H₂⁺ + C₂H₂      →  C₄H₂⁺ + H₂            
+    ・R174    C₂H₂⁺ + C₂H₂      →  C₄H₃⁺ + H             
+    ・R175    C₂H₂⁺ + C₂H₄      →  C₂H₄⁺ + C₂H₂          
+    ・R176    C₂H₂⁺ + C₂H₄      →  C₃H₃⁺ + CH₃           
+    ・R177    C₂H₂⁺ + C₂H₄      →  C₄H₅⁺ + H             
+    ・R178    C₂H₂⁺ + C₂H₆      →  C₂H₄⁺ + C₂H₄          
+    ・R179    C₂H₂⁺ + C₂H₆      →  C₂H₅⁺ + C₂H₃          
+    ・R180    C₂H₂⁺ + C₂H₆      →  C₃H₃⁺ + CH₃ +  H₂     
+    ・R181    C₂H₂⁺ + C₂H₆      →  C₃H₄⁺ + CH₄           
+    ・R182    C₂H₂⁺ + C₂H₆      →  C₃H₅⁺ + CH₃           
+    ・R183    C₂H₂⁺ + C₂H₆      →  C₄H₅⁺ + H   +  H₂     
+    ・R184    C₂H₂⁺ + C₂H₆      →  C₄H₇⁺ + H             
+    ・R217    C₂H₂⁺ + H₂ + He  →  C₂H₄⁺ + He 
+    ・R244     Na      +  C₂H₂⁺    →   Na⁺     +  C₂H₂           
+    ・R286    Fe      +  C₂H₂⁺    →   Fe⁺     +  C₂H₂           
+    ・R328     Mg      +  C₂H₂⁺    →   Mg⁺     +  C₂H₂           
+
+--------------------------------------------
+ C₂H₄⁺
+--------------------------------------------
+・mass    : 28.05261142
+・charge  : 1
+・Produced by following 18 reactions:
+
+    ・R9      C₂H₄ + hv   →  C₂H₄⁺ + e⁻            
+    ・R15     C₂H₆ + hv   →  C₂H₄⁺ + e⁻ + products 
+    ・R71     H₂⁺   + C₂H₆      →  C₂H₄⁺ + H₂  + H₂      
+    ・R86     He⁺   + C₂H₄      →  C₂H₄⁺ + He            
+    ・R91     He⁺   + C₂H₆      →  C₂H₄⁺ + H₂  + He      
+    ・R97     H⁺    + C₂H₆      →  C₂H₄⁺ + H  +  H₂      
+    ・R102    HeH⁺  + C₂H₄      →  C₂H₄⁺ + H  +  He      
+    ・R115    C⁺    + C₂H₄      →  C₂H₄⁺ + C             
+    ・R125    CH⁺   + CH₄       →  C₂H₄⁺ + H             
+    ・R131    CH₂⁺  + CH₄       →  C₂H₄⁺ + H₂            
+    ・R146    CH₄⁺  + C₂H₄      →  C₂H₄⁺ + CH₄           
+    ・R149    CH₄⁺  + C₂H₆      →  C₂H₄⁺ + CH₄ +  H₂     
+    ・R175    C₂H₂⁺ + C₂H₄      →  C₂H₄⁺ + C₂H₂          
+    ・R178    C₂H₂⁺ + C₂H₆      →  C₂H₄⁺ + C₂H₄          
+    ・R199    C₂H₅⁺ + H         →  C₂H₄⁺ + H₂            
+    ・R209    C₂H₆⁺ + C₂H₄      →  C₂H₄⁺ + C₂H₆          
+    ・R217    C₂H₂⁺ + H₂ + He  →  C₂H₄⁺ + He 
+    ・R278    Fe⁺     +  C₂H₆     →   Fe      +  C₂H₄⁺   +  H₂  
+
+・Lost by following 9 reactions:
+
+    ・R39     C₂H₄⁺ + e⁻  →  C₂H₃ +  H       
+    ・R40     C₂H₄⁺ + e⁻  →  CH₂  +  CH₂     
+    ・R192    C₂H₄⁺ + H         →  C₂H₃⁺ + H₂            
+    ・R193    C₂H₄⁺ + C₂H₂      →  C₃H₃⁺ + CH₃           
+    ・R194    C₂H₄⁺ + C₂H₂      →  C₄H₅⁺ + H             
+    ・R195    C₂H₄⁺ + C₂H₄      →  C₃H₅⁺ + CH₃           
+    ・R196    C₂H₄⁺ + C₂H₄      →  C₄H₇⁺ + H             
+    ・R197    C₂H₄⁺ + C₂H₆      →  C₃H₆⁺ + CH₄           
+    ・R198    C₂H₄⁺ + C₂H₆      →  C₃H₇⁺ + CH₃           
+
+--------------------------------------------
+ C₂H₃⁺
+--------------------------------------------
+・mass    : 27.04467142
+・charge  : 1
+・Produced by following 21 reactions:
+
+    ・R10     C₂H₄ + hv   →  C₂H₃⁺ + e⁻ + H        
+    ・R16     C₂H₆ + hv   →  C₂H₃⁺ + e⁻ + products 
+    ・R67     H₂⁺   + C₂H₂      →  C₂H₃⁺ + H             
+    ・R72     H₂⁺   + C₂H₆      →  C₂H₃⁺ + H   + H₂ + H₂ 
+    ・R87     He⁺   + C₂H₄      →  C₂H₃⁺ + H   + He      
+    ・R92     He⁺   + C₂H₆      →  C₂H₃⁺ + H   + H₂ + He 
+    ・R96     H⁺    + C₂H₆      →  C₂H₃⁺ + H₂ +  H₂      
+    ・R103    HeH⁺  + C₂H₄      →  C₂H₃⁺ + H₂ +  He      
+    ・R104    HeH⁺  + C₂H₆      →  C₂H₃⁺ + H₂ +  H₂ + He 
+    ・R107    H₃⁺   + C₂H₂      →  C₂H₃⁺ + H₂            
+    ・R109    H₃⁺   + C₂H₄      →  C₂H₃⁺ + H₂  +  H₂     
+    ・R112    C⁺    + CH₄       →  C₂H₃⁺ + H             
+    ・R114    C⁺    + C₂H₄      →  C₂H₃⁺ + CH            
+    ・R120    C⁺    + C₂H₆      →  C₂H₃⁺ + CH₃           
+    ・R126    CH⁺   + CH₄       →  C₂H₃⁺ + H₂            
+    ・R135    CH₃⁺  + C₂H₄      →  C₂H₃⁺ + CH₄           
+    ・R144    CH₄⁺  + C₂H₂      →  C₂H₃⁺ + CH₃           
+    ・R151    CH₅⁺  + C₂H₂      →  C₂H₃⁺ + CH₄           
+    ・R170    C₂H₂⁺ + H₂        →  C₂H₃⁺ + H             
+    ・R192    C₂H₄⁺ + H         →  C₂H₃⁺ + H₂            
+    ・R212    C₂H₇⁺ + C₂H₂      →  C₂H₃⁺ + C₂H₆          
+
+・Lost by following 11 reactions:
+
+    ・R37     C₂H₃⁺ + e⁻  →  C₂H₂ +  H       
+    ・R38     C₂H₃⁺ + e⁻  →  CH₂  +  CH      
+    ・R185    C₂H₃⁺ + H         →  C₂H₂⁺ + H₂            
+    ・R186    C₂H₃⁺ + CH₄       →  C₃H₅⁺ + H₂            
+    ・R187    C₂H₃⁺ + C₂H₂      →  C₄H₃⁺ + H₂            
+    ・R188    C₂H₃⁺ + C₂H₄      →  C₂H₅⁺ + C₂H₂          
+    ・R189    C₂H₃⁺ + C₂H₆      →  C₂H₅⁺ + C₂H₄          
+    ・R190    C₂H₃⁺ + C₂H₆      →  C₃H₅⁺ + CH₄           
+    ・R191    C₂H₃⁺ + C₂H₆      →  C₄H₇⁺ + H₂            
+    ・R381     Si      +  C₂H₃⁺    →   SiCnHm⁺ +  H₂              
+    ・R382     Si      +  C₂H₃⁺    →   SiCnHm⁺ +  H               
+
+--------------------------------------------
+ C₂H⁺
+--------------------------------------------
+・mass    : 25.02879142
+・charge  : 1
+・Produced by following 5 reactions:
+
+    ・R12     C₂H₄ + hv   →  C₂H⁺  + e⁻ + products 
+    ・R83     He⁺   + C₂H₂      →  C₂H⁺  + H   + He      
+    ・R89     He⁺   + C₂H₄      →  C₂H⁺  + H   + H₂ + He 
+    ・R155    C₂⁺   + H₂        →  C₂H⁺  + H             
+    ・R156    C₂⁺   + CH₄       →  C₂H⁺  + CH₃           
+
+・Lost by following 9 reactions:
+
+    ・R33     C₂H⁺  + e⁻  →  C₂   +  H       
+    ・R34     C₂H⁺  + e⁻  →  CH   +  C       
+    ・R163    C₂H⁺  + H₂        →  C₂H₂⁺ + H             
+    ・R164    C₂H⁺  + CH₄       →  C₂H₂⁺ + CH₃           
+    ・R165    C₂H⁺  + CH₄       →  C₃H₃⁺ + H₂            
+    ・R166    C₂H⁺  + CH₄       →  C₃H₄⁺ + H             
+    ・R167    C₂H⁺  + CH₄       →  C₃H₅⁺                 
+    ・R168    C₂H⁺  + C₂H₂      →  C₄H₂⁺ + H             
+    ・R169    C₂H⁺  + C₂H₄      →  products              
+
+--------------------------------------------
+ C₂H₆⁺
+--------------------------------------------
+・mass    : 30.06849142
+・charge  : 1
+・Produced by following 2 reactions:
+
+    ・R13     C₂H₆ + hv   →  C₂H₆⁺ + e⁻            
+    ・R69     H₂⁺   + C₂H₆      →  C₂H₆⁺ + H₂            
+
+・Lost by following 9 reactions:
+
+    ・R43     C₂H₆⁺ + e⁻  →  C₂H₅ +  H       
+    ・R44     C₂H₆⁺ + e⁻  →  CH₃  +  CH₃     
+    ・R205    C₂H₆⁺ + H         →  C₂H₅⁺ + H₂            
+    ・R206    C₂H₆⁺ + C₂H₂      →  C₂H₅⁺ + C₂H₃          
+    ・R207    C₂H₆⁺ + C₂H₂      →  C₃H₅⁺ + CH₃           
+    ・R208    C₂H₆⁺ + C₂H₂      →  C₄H₇⁺ + H             
+    ・R209    C₂H₆⁺ + C₂H₄      →  C₂H₄⁺ + C₂H₆          
+    ・R210    C₂H₆⁺ + C₂H₆      →  C₃H₈⁺ + CH₄           
+    ・R211    C₂H₆⁺ + C₂H₆      →  C₃H₉⁺ + CH₃           
+
+--------------------------------------------
+ C₂H₅⁺
+--------------------------------------------
+・mass    : 29.06055142
+・charge  : 1
+・Produced by following 19 reactions:
+
+    ・R14     C₂H₆ + hv   →  C₂H₅⁺ + e⁻ + H        
+    ・R70     H₂⁺   + C₂H₆      →  C₂H₅⁺ + H   + H₂      
+    ・R98     H⁺    + C₂H₆      →  C₂H₅⁺ + H₂            
+    ・R105    HeH⁺  + C₂H₆      →  C₂H₅⁺ + H₂ +  He      
+    ・R108    H₃⁺   + C₂H₄      →  C₂H₅⁺ + H₂            
+    ・R110    H₃⁺   + C₂H₆      →  C₂H₅⁺ + H₂  +  H₂     
+    ・R121    C⁺    + C₂H₆      →  C₂H₅⁺ + CH            
+    ・R130    CH₂⁺  + CH₄       →  C₂H₅⁺ + H             
+    ・R133    CH₃⁺  + CH₄       →  C₂H₅⁺ + H₂            
+    ・R138    CH₃⁺  + C₂H₆      →  C₂H₅⁺ + CH₄           
+    ・R147    CH₄⁺  + C₂H₄      →  C₂H₅⁺ + CH₃           
+    ・R152    CH₅⁺  + C₂H₄      →  C₂H₅⁺ + CH₄           
+    ・R153    CH₅⁺  + C₂H₆      →  C₂H₅⁺ + CH₄ +  H₂     
+    ・R179    C₂H₂⁺ + C₂H₆      →  C₂H₅⁺ + C₂H₃          
+    ・R188    C₂H₃⁺ + C₂H₄      →  C₂H₅⁺ + C₂H₂          
+    ・R189    C₂H₃⁺ + C₂H₆      →  C₂H₅⁺ + C₂H₄          
+    ・R205    C₂H₆⁺ + H         →  C₂H₅⁺ + H₂            
+    ・R206    C₂H₆⁺ + C₂H₂      →  C₂H₅⁺ + C₂H₃          
+    ・R213    C₂H₇⁺ + C₂H₄      →  C₂H₅⁺ + C₂H₆          
+
+・Lost by following 8 reactions:
+
+    ・R41     C₂H₅⁺ + e⁻  →  C₂H₄ +  H       
+    ・R42     C₂H₅⁺ + e⁻  →  CH₃  +  CH₂     
+    ・R199    C₂H₅⁺ + H         →  C₂H₄⁺ + H₂            
+    ・R200    C₂H₅⁺ + CH₄       →  C₃H₇⁺ + H₂            
+    ・R201    C₂H₅⁺ + C₂H₂      →  C₃H₃⁺ + CH₄           
+    ・R202    C₂H₅⁺ + C₂H₂      →  C₄H₅⁺ + H₂            
+    ・R203    C₂H₅⁺ + C₂H₄      →  C₃H₅⁺ + CH₄           
+    ・R204    C₂H₅⁺ + C₂H₆      →  C₄H₉⁺ + H₂            
+
+--------------------------------------------
+ HeH⁺
+--------------------------------------------
+・mass    : 5.00999342
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R63     H₂⁺   + He        →  HeH⁺  + H             
+
+・Lost by following 7 reactions:
+
+    ・R20     HeH⁺  + e⁻  →  H    +  He      
+    ・R100    HeH⁺  + H₂        →  H₃⁺   + He            
+    ・R101    HeH⁺  + H         →  H₂⁺   + He            
+    ・R102    HeH⁺  + C₂H₄      →  C₂H₄⁺ + H  +  He      
+    ・R103    HeH⁺  + C₂H₄      →  C₂H₃⁺ + H₂ +  He      
+    ・R104    HeH⁺  + C₂H₆      →  C₂H₃⁺ + H₂ +  H₂ + He 
+    ・R105    HeH⁺  + C₂H₆      →  C₂H₅⁺ + H₂ +  He      
+
+--------------------------------------------
+ H₃⁺
+--------------------------------------------
+・mass    : 3.02327142
+・charge  : 1
+・Produced by following 3 reactions:
+
+    ・R61     H₂⁺   + H₂        →  H₃⁺   + H             
+    ・R100    HeH⁺  + H₂        →  H₃⁺   + He            
+    ・R214    H⁺    + H₂ + H₂  →  H₃⁺   + H₂ 
+
+・Lost by following 11 reactions:
+
+    ・R22     H₃⁺   + e⁻  →  H₂   +  H       
+    ・R23     H₃⁺   + e⁻  →  H    +  H +  H  
+    ・R106    H₃⁺   + CH₄       →  CH₅⁺  + H₂            
+    ・R107    H₃⁺   + C₂H₂      →  C₂H₃⁺ + H₂            
+    ・R108    H₃⁺   + C₂H₄      →  C₂H₅⁺ + H₂            
+    ・R109    H₃⁺   + C₂H₄      →  C₂H₃⁺ + H₂  +  H₂     
+    ・R110    H₃⁺   + C₂H₆      →  C₂H₅⁺ + H₂  +  H₂     
+    ・R242     Na      +  H₃⁺      →   Na⁺     +  H       +  H₂  
+    ・R283    Fe      +  H₃⁺      →   Fe⁺     +  H       +  H₂  
+    ・R324     Mg      +  H₃⁺      →   Mg⁺     +  H       +  H₂  
+    ・R376     Si      +  H₃⁺      →   SiH⁺    +  H₂              
+
+--------------------------------------------
+ C⁺
+--------------------------------------------
+・mass    : 12.01015142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R123    CH⁺   + H         →  C⁺    + H₂            
+
+・Lost by following 15 reactions:
+
+    ・R24     C⁺    + e⁻  →  C               
+    ・R111    C⁺    + CH₄       →  C₂H₂⁺ + H₂            
+    ・R112    C⁺    + CH₄       →  C₂H₃⁺ + H             
+    ・R113    C⁺    + C₂H₂      →  C₃H⁺  + H             
+    ・R114    C⁺    + C₂H₄      →  C₂H₃⁺ + CH            
+    ・R115    C⁺    + C₂H₄      →  C₂H₄⁺ + C             
+    ・R116    C⁺    + C₂H₄      →  C₃H⁺  + H   +  H₂     
+    ・R117    C⁺    + C₂H₄      →  C₃H₂⁺ + H₂            
+    ・R118    C⁺    + C₂H₄      →  C₃H₃⁺ + H             
+    ・R119    C⁺    + C₂H₆      →  C₂H₂⁺ + CH₄           
+    ・R120    C⁺    + C₂H₆      →  C₂H₃⁺ + CH₃           
+    ・R121    C⁺    + C₂H₆      →  C₂H₅⁺ + CH            
+    ・R122    C⁺    + C₂H₆      →  C₃H₃⁺ + H   +  H₂     
+    ・R284    Fe      +  C⁺       →   Fe⁺     +  C              
+    ・R325     Mg      +  C⁺       →   Mg⁺     +  C              
+
+--------------------------------------------
+ C
+--------------------------------------------
+・mass    : 12.01070000
+・charge  : 0
+・Produced by following 7 reactions:
+
+    ・R24     C⁺    + e⁻  →  C               
+    ・R25     CH⁺   + e⁻  →  C    +  H       
+    ・R32     C₂⁺   + e⁻  →  C    +  C       
+    ・R34     C₂H⁺  + e⁻  →  CH   +  C       
+    ・R115    C⁺    + C₂H₄      →  C₂H₄⁺ + C             
+    ・R284    Fe      +  C⁺       →   Fe⁺     +  C              
+    ・R325     Mg      +  C⁺       →   Mg⁺     +  C              
+
+・There are no reactions losing C.
+
+--------------------------------------------
+ CH⁺
+--------------------------------------------
+・mass    : 13.01809142
+・charge  : 1
+・Produced by following 2 reactions:
+
+    ・R78     He⁺   + CH₄       →  CH⁺   + H₂  + H  + He 
+    ・R85     He⁺   + C₂H₂      →  CH⁺   + CH  + He      
+
+・Lost by following 7 reactions:
+
+    ・R25     CH⁺   + e⁻  →  C    +  H       
+    ・R123    CH⁺   + H         →  C⁺    + H₂            
+    ・R124    CH⁺   + H₂        →  CH₂⁺  + H             
+    ・R125    CH⁺   + CH₄       →  C₂H₄⁺ + H             
+    ・R126    CH⁺   + CH₄       →  C₂H₃⁺ + H₂            
+    ・R127    CH⁺   + CH₄       →  C₂H₂⁺ + H   +  H₂     
+    ・R128    CH⁺   + C₂H₂      →  C₃H₂⁺ + H             
+
+--------------------------------------------
+ CH₂⁺
+--------------------------------------------
+・mass    : 14.02603142
+・charge  : 1
+・Produced by following 3 reactions:
+
+    ・R79     He⁺   + CH₄       →  CH₂⁺  + H₂  + He      
+    ・R90     He⁺   + C₂H₄      →  CH₂⁺  + CH₂ + He      
+    ・R124    CH⁺   + H₂        →  CH₂⁺  + H             
+
+・Lost by following 5 reactions:
+
+    ・R26     CH₂⁺  + e⁻  →  CH   +  H       
+    ・R129    CH₂⁺  + H₂        →  CH₃⁺  + H             
+    ・R130    CH₂⁺  + CH₄       →  C₂H₅⁺ + H             
+    ・R131    CH₂⁺  + CH₄       →  C₂H₄⁺ + H₂            
+    ・R132    CH₂⁺  + C₂H₂      →  C₃H₃⁺ + H             
+
+--------------------------------------------
+ CH
+--------------------------------------------
+・mass    : 13.01864000
+・charge  : 0
+・Produced by following 7 reactions:
+
+    ・R26     CH₂⁺  + e⁻  →  CH   +  H       
+    ・R34     C₂H⁺  + e⁻  →  CH   +  C       
+    ・R36     C₂H₂⁺ + e⁻  →  CH   +  CH      
+    ・R38     C₂H₃⁺ + e⁻  →  CH₂  +  CH      
+    ・R85     He⁺   + C₂H₂      →  CH⁺   + CH  + He      
+    ・R114    C⁺    + C₂H₄      →  C₂H₃⁺ + CH            
+    ・R121    C⁺    + C₂H₆      →  C₂H₅⁺ + CH            
+
+・There are no reactions losing CH.
+
+--------------------------------------------
+ CH₂
+--------------------------------------------
+・mass    : 14.02658000
+・charge  : 0
+・Produced by following 8 reactions:
+
+    ・R27     CH₃⁺  + e⁻  →  CH₂  +  H       
+    ・R29     CH₄⁺  + e⁻  →  CH₂  +  H +  H  
+    ・R30     CH₅⁺  + e⁻  →  CH₂  +  H +  H₂ 
+    ・R38     C₂H₃⁺ + e⁻  →  CH₂  +  CH      
+    ・R40     C₂H₄⁺ + e⁻  →  CH₂  +  CH₂     
+    ・R42     C₂H₅⁺ + e⁻  →  CH₃  +  CH₂     
+    ・R90     He⁺   + C₂H₄      →  CH₂⁺  + CH₂ + He      
+    ・R157    C₂⁺   + CH₄       →  C₂H₂⁺ + CH₂           
+
+・Lost by following 1 reactions:
+
+    ・R399     Si      +  CH₂      →   SiCH    +  H               
+
+--------------------------------------------
+ CH₃
+--------------------------------------------
+・mass    : 15.03452000
+・charge  : 0
+・Produced by following 25 reactions:
+
+    ・R28     CH₄⁺  + e⁻  →  CH₃  +  H       
+    ・R31     CH₅⁺  + e⁻  →  CH₃  +  H +  H  
+    ・R42     C₂H₅⁺ + e⁻  →  CH₃  +  CH₂     
+    ・R44     C₂H₆⁺ + e⁻  →  CH₃  +  CH₃     
+    ・R77     He⁺   + CH₄       →  H⁺    + CH₃ + He      
+    ・R120    C⁺    + C₂H₆      →  C₂H₃⁺ + CH₃           
+    ・R142    CH₄⁺  + CH₄       →  CH₅⁺  + CH₃           
+    ・R144    CH₄⁺  + C₂H₂      →  C₂H₃⁺ + CH₃           
+    ・R147    CH₄⁺  + C₂H₄      →  C₂H₅⁺ + CH₃           
+    ・R156    C₂⁺   + CH₄       →  C₂H⁺  + CH₃           
+    ・R164    C₂H⁺  + CH₄       →  C₂H₂⁺ + CH₃           
+    ・R176    C₂H₂⁺ + C₂H₄      →  C₃H₃⁺ + CH₃           
+    ・R180    C₂H₂⁺ + C₂H₆      →  C₃H₃⁺ + CH₃ +  H₂     
+    ・R182    C₂H₂⁺ + C₂H₆      →  C₃H₅⁺ + CH₃           
+    ・R193    C₂H₄⁺ + C₂H₂      →  C₃H₃⁺ + CH₃           
+    ・R195    C₂H₄⁺ + C₂H₄      →  C₃H₅⁺ + CH₃           
+    ・R198    C₂H₄⁺ + C₂H₆      →  C₃H₇⁺ + CH₃           
+    ・R207    C₂H₆⁺ + C₂H₂      →  C₃H₅⁺ + CH₃           
+    ・R211    C₂H₆⁺ + C₂H₆      →  C₃H₉⁺ + CH₃           
+    ・R243     Na      +  CH₃⁺     →   Na⁺     +  CH₃            
+    ・R285    Fe      +  CH₃⁺     →   Fe⁺     +  CH₃            
+    ・R326     Mg      +  CH₃⁺     →   Mg⁺     +  CH₃            
+    ・R367     Si⁺     +  C₂H₄     →   SiCnHm⁺ +  CH₃     +  H    
+    ・R370     Si⁺     +  C₂H₆     →   SiCnHm⁺ +  CH₃             
+    ・R371     Si⁺     +  C₂H₆     →   SiCnHm⁺ +  CH₃     +  H₂   
+
+・Lost by following 4 reactions:
+
+    ・R236     Na      +  CH₃     +  H₂       →   NaCH₃   +  H₂  
+    ・R363     Si⁺     +  CH₃      →   SiCnHm⁺ +  H               
+    ・R364     Si⁺     +  CH₃      →   SiCnHm⁺ +  H₂              
+    ・R400     Si      +  CH₃      →   SiCH₂   +  H               
+
+--------------------------------------------
+ CH₅⁺
+--------------------------------------------
+・mass    : 17.04985142
+・charge  : 1
+・Produced by following 6 reactions:
+
+    ・R64     H₂⁺   + CH₄       →  CH₅⁺  + H             
+    ・R106    H₃⁺   + CH₄       →  CH₅⁺  + H₂            
+    ・R141    CH₄⁺  + H₂        →  CH₅⁺  + H             
+    ・R142    CH₄⁺  + CH₄       →  CH₅⁺  + CH₃           
+    ・R215    CH₃⁺  + H₂ + H₂  →  CH₅⁺  + H₂ 
+    ・R216    CH₃⁺  + H₂ + He  →  CH₅⁺  + He 
+
+・Lost by following 10 reactions:
+
+    ・R30     CH₅⁺  + e⁻  →  CH₂  +  H +  H₂ 
+    ・R31     CH₅⁺  + e⁻  →  CH₃  +  H +  H  
+    ・R150    CH₅⁺  + H         →  CH₄⁺  + H₂            
+    ・R151    CH₅⁺  + C₂H₂      →  C₂H₃⁺ + CH₄           
+    ・R152    CH₅⁺  + C₂H₄      →  C₂H₅⁺ + CH₄           
+    ・R153    CH₅⁺  + C₂H₆      →  C₂H₅⁺ + CH₄ +  H₂     
+    ・R154    CH₅⁺  + C₂H₆      →  C₂H₇⁺ + CH₄           
+    ・R327     Mg      +  CH₅⁺     →   Mg⁺     +  CH₄     +  H   
+    ・R379     Si      +  CH₅⁺     →   SiCnHm⁺ +  H               
+    ・R380     Si      +  CH₅⁺     →   SiCnHm⁺ +  H₂              
+
+--------------------------------------------
+ C₂⁺
+--------------------------------------------
+・mass    : 24.02085142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R84     He⁺   + C₂H₂      →  C₂⁺   + H₂  + He      
+
+・Lost by following 9 reactions:
+
+    ・R32     C₂⁺   + e⁻  →  C    +  C       
+    ・R155    C₂⁺   + H₂        →  C₂H⁺  + H             
+    ・R156    C₂⁺   + CH₄       →  C₂H⁺  + CH₃           
+    ・R157    C₂⁺   + CH₄       →  C₂H₂⁺ + CH₂           
+    ・R158    C₂⁺   + CH₄       →  C₃H⁺  + H   +  H₂     
+    ・R159    C₂⁺   + CH₄       →  C₃H₂⁺ + H₂            
+    ・R160    C₂⁺   + CH₄       →  C₃H₃⁺ + H             
+    ・R161    C₂⁺   + C₂H₂      →  C₄H⁺  + H             
+    ・R162    C₂⁺   + C₂H₄      →  products              
+
+--------------------------------------------
+ C₂
+--------------------------------------------
+・mass    : 24.02140000
+・charge  : 0
+・Produced by following 1 reactions:
+
+    ・R33     C₂H⁺  + e⁻  →  C₂   +  H       
+
+・There are no reactions losing C₂.
+
+--------------------------------------------
+ C₂H
+--------------------------------------------
+・mass    : 25.02934000
+・charge  : 0
+・Produced by following 1 reactions:
+
+    ・R35     C₂H₂⁺ + e⁻  →  C₂H  +  H       
+
+・There are no reactions losing C₂H.
+
+--------------------------------------------
+ C₂H₃
+--------------------------------------------
+・mass    : 27.04522000
+・charge  : 0
+・Produced by following 3 reactions:
+
+    ・R39     C₂H₄⁺ + e⁻  →  C₂H₃ +  H       
+    ・R179    C₂H₂⁺ + C₂H₆      →  C₂H₅⁺ + C₂H₃          
+    ・R206    C₂H₆⁺ + C₂H₂      →  C₂H₅⁺ + C₂H₃          
+
+・There are no reactions losing C₂H₃.
+
+--------------------------------------------
+ C₂H₅
+--------------------------------------------
+・mass    : 29.06110000
+・charge  : 0
+・Produced by following 1 reactions:
+
+    ・R43     C₂H₆⁺ + e⁻  →  C₂H₅ +  H       
+
+・There are no reactions losing C₂H₅.
+
+--------------------------------------------
+ C₂H₇⁺
+--------------------------------------------
+・mass    : 31.07643142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R154    CH₅⁺  + C₂H₆      →  C₂H₇⁺ + CH₄           
+
+・Lost by following 3 reactions:
+
+    ・R45     C₂H₇⁺ + e⁻  →  C₂H₆ +  H       
+    ・R212    C₂H₇⁺ + C₂H₂      →  C₂H₃⁺ + C₂H₆          
+    ・R213    C₂H₇⁺ + C₂H₄      →  C₂H₅⁺ + C₂H₆          
+
+--------------------------------------------
+ C₃H⁺
+--------------------------------------------
+・mass    : 37.03949142
+・charge  : 1
+・Produced by following 3 reactions:
+
+    ・R113    C⁺    + C₂H₂      →  C₃H⁺  + H             
+    ・R116    C⁺    + C₂H₄      →  C₃H⁺  + H   +  H₂     
+    ・R158    C₂⁺   + CH₄       →  C₃H⁺  + H   +  H₂     
+
+・Lost by following 5 reactions:
+
+    ・R46     C₃H⁺  + e⁻  →  products        
+    ・R245     Na      +  C₃H⁺     →   Na⁺     +  products       
+    ・R287    Fe      +  C₃H⁺     →   Fe⁺     +  products       
+    ・R329     Mg      +  C₃H⁺     →   Mg⁺     +  products       
+    ・R383     Si      +  C₃H⁺     →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₃H₂⁺
+--------------------------------------------
+・mass    : 38.04743142
+・charge  : 1
+・Produced by following 3 reactions:
+
+    ・R117    C⁺    + C₂H₄      →  C₃H₂⁺ + H₂            
+    ・R128    CH⁺   + C₂H₂      →  C₃H₂⁺ + H             
+    ・R159    C₂⁺   + CH₄       →  C₃H₂⁺ + H₂            
+
+・Lost by following 5 reactions:
+
+    ・R47     C₃H₂⁺ + e⁻  →  products        
+    ・R246     Na      +  C₃H₂⁺    →   Na⁺     +  products       
+    ・R288    Fe      +  C₃H₂⁺    →   Fe⁺     +  products       
+    ・R330     Mg      +  C₃H₂⁺    →   Mg⁺     +  products       
+    ・R384     Si      +  C₃H₂⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₃H₃⁺
+--------------------------------------------
+・mass    : 39.05537142
+・charge  : 1
+・Produced by following 12 reactions:
+
+    ・R118    C⁺    + C₂H₄      →  C₃H₃⁺ + H             
+    ・R122    C⁺    + C₂H₆      →  C₃H₃⁺ + H   +  H₂     
+    ・R132    CH₂⁺  + C₂H₂      →  C₃H₃⁺ + H             
+    ・R134    CH₃⁺  + C₂H₂      →  C₃H₃⁺ + H₂            
+    ・R136    CH₃⁺  + C₂H₄      →  C₃H₃⁺ + H₂  +  H₂     
+    ・R145    CH₄⁺  + C₂H₂      →  C₃H₃⁺ + H   +  H₂     
+    ・R160    C₂⁺   + CH₄       →  C₃H₃⁺ + H             
+    ・R165    C₂H⁺  + CH₄       →  C₃H₃⁺ + H₂            
+    ・R176    C₂H₂⁺ + C₂H₄      →  C₃H₃⁺ + CH₃           
+    ・R180    C₂H₂⁺ + C₂H₆      →  C₃H₃⁺ + CH₃ +  H₂     
+    ・R193    C₂H₄⁺ + C₂H₂      →  C₃H₃⁺ + CH₃           
+    ・R201    C₂H₅⁺ + C₂H₂      →  C₃H₃⁺ + CH₄           
+
+・Lost by following 5 reactions:
+
+    ・R48     C₃H₃⁺ + e⁻  →  products        
+    ・R247     Na      +  C₃H₃⁺    →   Na⁺     +  products       
+    ・R289    Fe      +  C₃H₃⁺    →   Fe⁺     +  products       
+    ・R331     Mg      +  C₃H₃⁺    →   Mg⁺     +  products       
+    ・R385     Si      +  C₃H₃⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₃H₄⁺
+--------------------------------------------
+・mass    : 40.06331142
+・charge  : 1
+・Produced by following 3 reactions:
+
+    ・R166    C₂H⁺  + CH₄       →  C₃H₄⁺ + H             
+    ・R171    C₂H₂⁺ + CH₄       →  C₃H₄⁺ + H₂            
+    ・R181    C₂H₂⁺ + C₂H₆      →  C₃H₄⁺ + CH₄           
+
+・Lost by following 5 reactions:
+
+    ・R49     C₃H₄⁺ + e⁻  →  products        
+    ・R248     Na      +  C₃H₄⁺    →   Na⁺     +  products       
+    ・R290    Fe      +  C₃H₄⁺    →   Fe⁺     +  products       
+    ・R332     Mg      +  C₃H₄⁺    →   Mg⁺     +  products       
+    ・R386     Si      +  C₃H₄⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₃H₅⁺
+--------------------------------------------
+・mass    : 41.07125142
+・charge  : 1
+・Produced by following 11 reactions:
+
+    ・R137    CH₃⁺  + C₂H₄      →  C₃H₅⁺ + H₂            
+    ・R139    CH₃⁺  + C₂H₆      →  C₃H₅⁺ + H₂  +  H₂     
+    ・R148    CH₄⁺  + C₂H₄      →  C₃H₅⁺ + H   +  H₂     
+    ・R167    C₂H⁺  + CH₄       →  C₃H₅⁺                 
+    ・R172    C₂H₂⁺ + CH₄       →  C₃H₅⁺ + H             
+    ・R182    C₂H₂⁺ + C₂H₆      →  C₃H₅⁺ + CH₃           
+    ・R186    C₂H₃⁺ + CH₄       →  C₃H₅⁺ + H₂            
+    ・R190    C₂H₃⁺ + C₂H₆      →  C₃H₅⁺ + CH₄           
+    ・R195    C₂H₄⁺ + C₂H₄      →  C₃H₅⁺ + CH₃           
+    ・R203    C₂H₅⁺ + C₂H₄      →  C₃H₅⁺ + CH₄           
+    ・R207    C₂H₆⁺ + C₂H₂      →  C₃H₅⁺ + CH₃           
+
+・Lost by following 5 reactions:
+
+    ・R50     C₃H₅⁺ + e⁻  →  products        
+    ・R249     Na      +  C₃H₅⁺    →   Na⁺     +  products       
+    ・R291    Fe      +  C₃H₅⁺    →   Fe⁺     +  products       
+    ・R333     Mg      +  C₃H₅⁺    →   Mg⁺     +  products       
+    ・R387     Si      +  C₃H₅⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₃H₆⁺
+--------------------------------------------
+・mass    : 42.07919142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R197    C₂H₄⁺ + C₂H₆      →  C₃H₆⁺ + CH₄           
+
+・Lost by following 5 reactions:
+
+    ・R51     C₃H₆⁺ + e⁻  →  products        
+    ・R250     Na      +  C₃H₆⁺    →   Na⁺     +  products       
+    ・R292    Fe      +  C₃H₆⁺    →   Fe⁺     +  products       
+    ・R334     Mg      +  C₃H₆⁺    →   Mg⁺     +  products       
+    ・R388     Si      +  C₃H₆⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₃H₇⁺
+--------------------------------------------
+・mass    : 43.08713142
+・charge  : 1
+・Produced by following 3 reactions:
+
+    ・R140    CH₃⁺  + C₂H₆      →  C₃H₇⁺ + H₂            
+    ・R198    C₂H₄⁺ + C₂H₆      →  C₃H₇⁺ + CH₃           
+    ・R200    C₂H₅⁺ + CH₄       →  C₃H₇⁺ + H₂            
+
+・Lost by following 5 reactions:
+
+    ・R52     C₃H₇⁺ + e⁻  →  products        
+    ・R251     Na      +  C₃H₇⁺    →   Na⁺     +  products       
+    ・R293    Fe      +  C₃H₇⁺    →   Fe⁺     +  products       
+    ・R335     Mg      +  C₃H₇⁺    →   Mg⁺     +  products       
+    ・R389     Si      +  C₃H₇⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₃H₈⁺
+--------------------------------------------
+・mass    : 44.09507142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R210    C₂H₆⁺ + C₂H₆      →  C₃H₈⁺ + CH₄           
+
+・Lost by following 5 reactions:
+
+    ・R53     C₃H₈⁺ + e⁻  →  products        
+    ・R252     Na      +  C₃H₈⁺    →   Na⁺     +  products       
+    ・R294    Fe      +  C₃H₈⁺    →   Fe⁺     +  products       
+    ・R336     Mg      +  C₃H₈⁺    →   Mg⁺     +  products       
+    ・R390     Si      +  C₃H₈⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₃H₉⁺
+--------------------------------------------
+・mass    : 45.10301142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R211    C₂H₆⁺ + C₂H₆      →  C₃H₉⁺ + CH₃           
+
+・Lost by following 5 reactions:
+
+    ・R54     C₃H₉⁺ + e⁻  →  products        
+    ・R253     Na      +  C₃H₉⁺    →   Na⁺     +  products       
+    ・R295    Fe      +  C₃H₉⁺    →   Fe⁺     +  products       
+    ・R337     Mg      +  C₃H₉⁺    →   Mg⁺     +  products       
+    ・R391     Si      +  C₃H₉⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₄H⁺
+--------------------------------------------
+・mass    : 49.05019142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R161    C₂⁺   + C₂H₂      →  C₄H⁺  + H             
+
+・Lost by following 5 reactions:
+
+    ・R55     C₄H⁺  + e⁻  →  products        
+    ・R254     Na      +  C₄H⁺     →   Na⁺     +  products       
+    ・R296    Fe      +  C₄H⁺     →   Fe⁺     +  products       
+    ・R338     Mg      +  C₄H⁺     →   Mg⁺     +  products       
+    ・R392     Si      +  C₄H⁺     →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₄H₂⁺
+--------------------------------------------
+・mass    : 50.05813142
+・charge  : 1
+・Produced by following 2 reactions:
+
+    ・R168    C₂H⁺  + C₂H₂      →  C₄H₂⁺ + H             
+    ・R173    C₂H₂⁺ + C₂H₂      →  C₄H₂⁺ + H₂            
+
+・Lost by following 5 reactions:
+
+    ・R56     C₄H₂⁺ + e⁻  →  products        
+    ・R255     Na      +  C₄H₂⁺    →   Na⁺     +  products       
+    ・R297    Fe      +  C₄H₂⁺    →   Fe⁺     +  products       
+    ・R339     Mg      +  C₄H₂⁺    →   Mg⁺     +  products       
+    ・R393     Si      +  C₄H₂⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₄H₃⁺
+--------------------------------------------
+・mass    : 51.06607142
+・charge  : 1
+・Produced by following 2 reactions:
+
+    ・R174    C₂H₂⁺ + C₂H₂      →  C₄H₃⁺ + H             
+    ・R187    C₂H₃⁺ + C₂H₂      →  C₄H₃⁺ + H₂            
+
+・Lost by following 5 reactions:
+
+    ・R57     C₄H₃⁺ + e⁻  →  products        
+    ・R256     Na      +  C₄H₃⁺    →   Na⁺     +  products       
+    ・R298    Fe      +  C₄H₃⁺    →   Fe⁺     +  products       
+    ・R340     Mg      +  C₄H₃⁺    →   Mg⁺     +  products       
+    ・R394     Si      +  C₄H₃⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₄H₅⁺
+--------------------------------------------
+・mass    : 53.08195142
+・charge  : 1
+・Produced by following 4 reactions:
+
+    ・R177    C₂H₂⁺ + C₂H₄      →  C₄H₅⁺ + H             
+    ・R183    C₂H₂⁺ + C₂H₆      →  C₄H₅⁺ + H   +  H₂     
+    ・R194    C₂H₄⁺ + C₂H₂      →  C₄H₅⁺ + H             
+    ・R202    C₂H₅⁺ + C₂H₂      →  C₄H₅⁺ + H₂            
+
+・Lost by following 5 reactions:
+
+    ・R58     C₄H₅⁺ + e⁻  →  products        
+    ・R257     Na      +  C₄H₅⁺    →   Na⁺     +  products       
+    ・R299    Fe      +  C₄H₅⁺    →   Fe⁺     +  products       
+    ・R341     Mg      +  C₄H₅⁺    →   Mg⁺     +  products       
+    ・R395     Si      +  C₄H₅⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₄H₇⁺
+--------------------------------------------
+・mass    : 55.09783142
+・charge  : 1
+・Produced by following 4 reactions:
+
+    ・R184    C₂H₂⁺ + C₂H₆      →  C₄H₇⁺ + H             
+    ・R191    C₂H₃⁺ + C₂H₆      →  C₄H₇⁺ + H₂            
+    ・R196    C₂H₄⁺ + C₂H₄      →  C₄H₇⁺ + H             
+    ・R208    C₂H₆⁺ + C₂H₂      →  C₄H₇⁺ + H             
+
+・Lost by following 5 reactions:
+
+    ・R59     C₄H₇⁺ + e⁻  →  products        
+    ・R258     Na      +  C₄H₇⁺    →   Na⁺     +  products       
+    ・R300    Fe      +  C₄H₇⁺    →   Fe⁺     +  products       
+    ・R342     Mg      +  C₄H₇⁺    →   Mg⁺     +  products       
+    ・R396     Si      +  C₄H₇⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ C₄H₉⁺
+--------------------------------------------
+・mass    : 57.11371142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R204    C₂H₅⁺ + C₂H₆      →  C₄H₉⁺ + H₂            
+
+・Lost by following 5 reactions:
+
+    ・R60     C₄H₉⁺ + e⁻  →  products        
+    ・R259     Na      +  C₄H₉⁺    →   Na⁺     +  products       
+    ・R301    Fe      +  C₄H₉⁺    →   Fe⁺     +  products       
+    ・R343     Mg      +  C₄H₉⁺    →   Mg⁺     +  products       
+    ・R397     Si      +  C₄H₉⁺    →   SiCnHm⁺ +  products        
+
+--------------------------------------------
+ H₂(v>=2)
+--------------------------------------------
+・mass    : 2.01588000
+・charge  : 0
+・There are no reactions producing H₂(v>=2).
+
+・Lost by following 1 reactions:
+
+    ・R76     He⁺   + H₂(v>=2)  →  H⁺    + H   + He      
+
+--------------------------------------------
+ Na
+--------------------------------------------
+・mass    : 22.98900000
+・charge  : 0
+・Produced by following 7 reactions:
+
+    ・R223    Meteoroid            →   Na                        
+    ・R262     NaH     +  H        →   Na      +  H₂             
+    ・R263     Na⁺     +  e⁻       →   Na                        
+    ・R264     NaH₂⁺   +  e⁻       →   Na      +  H₂             
+    ・R266     NaCH₄⁺  +  e⁻       →   Na      +  products       
+    ・R267     NaC₂H₂⁺ +  e⁻       →   Na      +  products       
+    ・R268     NaC₂H₄⁺ +  e⁻       →   Na      +  products       
+
+・Lost by following 27 reactions:
+
+    ・R219     Na      +  hv       →   Na⁺     +  e⁻             
+    ・R231    Na                   →   Condensation              
+    ・R235     Na      +  H       +  H₂       →   NaH     +  H₂  
+    ・R236     Na      +  CH₃     +  H₂       →   NaCH₃   +  H₂  
+    ・R241     Na      +  H⁺       →   Na⁺     +  H              
+    ・R242     Na      +  H₃⁺      →   Na⁺     +  H       +  H₂  
+    ・R243     Na      +  CH₃⁺     →   Na⁺     +  CH₃            
+    ・R244     Na      +  C₂H₂⁺    →   Na⁺     +  C₂H₂           
+    ・R245     Na      +  C₃H⁺     →   Na⁺     +  products       
+    ・R246     Na      +  C₃H₂⁺    →   Na⁺     +  products       
+    ・R247     Na      +  C₃H₃⁺    →   Na⁺     +  products       
+    ・R248     Na      +  C₃H₄⁺    →   Na⁺     +  products       
+    ・R249     Na      +  C₃H₅⁺    →   Na⁺     +  products       
+    ・R250     Na      +  C₃H₆⁺    →   Na⁺     +  products       
+    ・R251     Na      +  C₃H₇⁺    →   Na⁺     +  products       
+    ・R252     Na      +  C₃H₈⁺    →   Na⁺     +  products       
+    ・R253     Na      +  C₃H₉⁺    →   Na⁺     +  products       
+    ・R254     Na      +  C₄H⁺     →   Na⁺     +  products       
+    ・R255     Na      +  C₄H₂⁺    →   Na⁺     +  products       
+    ・R256     Na      +  C₄H₃⁺    →   Na⁺     +  products       
+    ・R257     Na      +  C₄H₅⁺    →   Na⁺     +  products       
+    ・R258     Na      +  C₄H₇⁺    →   Na⁺     +  products       
+    ・R259     Na      +  C₄H₉⁺    →   Na⁺     +  products       
+    ・R260     Na      +  Si⁺      →   Na⁺     +  Si             
+    ・R261     Na      +  H₃O⁺     →   Na⁺     +  H₂O     +  H   
+    ・R279    Fe⁺     +  Na       →   Fe      +  Na⁺            
+    ・R320     Mg⁺     +  Na       →   Mg      +  Na⁺            
+
+--------------------------------------------
+ Na⁺
+--------------------------------------------
+・mass    : 22.98845142
+・charge  : 1
+・Produced by following 25 reactions:
+
+    ・R219     Na      +  hv       →   Na⁺     +  e⁻             
+    ・R227    Meteoroid            →   Na⁺     + e⁻              
+    ・R241     Na      +  H⁺       →   Na⁺     +  H              
+    ・R242     Na      +  H₃⁺      →   Na⁺     +  H       +  H₂  
+    ・R243     Na      +  CH₃⁺     →   Na⁺     +  CH₃            
+    ・R244     Na      +  C₂H₂⁺    →   Na⁺     +  C₂H₂           
+    ・R245     Na      +  C₃H⁺     →   Na⁺     +  products       
+    ・R246     Na      +  C₃H₂⁺    →   Na⁺     +  products       
+    ・R247     Na      +  C₃H₃⁺    →   Na⁺     +  products       
+    ・R248     Na      +  C₃H₄⁺    →   Na⁺     +  products       
+    ・R249     Na      +  C₃H₅⁺    →   Na⁺     +  products       
+    ・R250     Na      +  C₃H₆⁺    →   Na⁺     +  products       
+    ・R251     Na      +  C₃H₇⁺    →   Na⁺     +  products       
+    ・R252     Na      +  C₃H₈⁺    →   Na⁺     +  products       
+    ・R253     Na      +  C₃H₉⁺    →   Na⁺     +  products       
+    ・R254     Na      +  C₄H⁺     →   Na⁺     +  products       
+    ・R255     Na      +  C₄H₂⁺    →   Na⁺     +  products       
+    ・R256     Na      +  C₄H₃⁺    →   Na⁺     +  products       
+    ・R257     Na      +  C₄H₅⁺    →   Na⁺     +  products       
+    ・R258     Na      +  C₄H₇⁺    →   Na⁺     +  products       
+    ・R259     Na      +  C₄H₉⁺    →   Na⁺     +  products       
+    ・R260     Na      +  Si⁺      →   Na⁺     +  Si             
+    ・R261     Na      +  H₃O⁺     →   Na⁺     +  H₂O     +  H   
+    ・R279    Fe⁺     +  Na       →   Fe      +  Na⁺            
+    ・R320     Mg⁺     +  Na       →   Mg      +  Na⁺            
+
+・Lost by following 5 reactions:
+
+    ・R237     Na⁺     +  H₂      +  H₂       →   NaH₂⁺   +  H₂  
+    ・R238     Na⁺     +  CH₄     +  H₂       →   NaCH₄⁺  +  H₂  
+    ・R239     Na⁺     +  C₂H₂    +  H₂       →   NaC₂H₂⁺ +  H₂  
+    ・R240     Na⁺     +  C₂H₄    +  H₂       →   NaC₂H₄⁺ +  H₂  
+    ・R263     Na⁺     +  e⁻       →   Na                        
+
+--------------------------------------------
+ Fe
+--------------------------------------------
+・mass    : 55.84500000
+・charge  : 0
+・Produced by following 10 reactions:
+
+    ・R224    Meteoroid            →   Fe                        
+    ・R278    Fe⁺     +  C₂H₆     →   Fe      +  C₂H₄⁺   +  H₂  
+    ・R279    Fe⁺     +  Na       →   Fe      +  Na⁺            
+    ・R303    FeH     +  H        →   Fe      +  H₂             
+    ・R304    Fe⁺     +  e⁻       →   Fe                        
+    ・R305    FeH⁺    +  e⁻       →   Fe      +  H              
+    ・R307    FeH₂⁺   +  e⁻       →   Fe      +  H₂             
+    ・R308    FeCH₄⁺  +  e⁻       →   Fe      +  products       
+    ・R309    FeC₂H₂⁺ +  e⁻       →   Fe      +  products       
+    ・R310    FeC₂H₄⁺ +  e⁻       →   Fe      +  products       
+
+・Lost by following 24 reactions:
+
+    ・R220     Fe      +  hv       →   Fe⁺     +  e⁻             
+    ・R232    Fe                   →   Condensation              
+    ・R272    Fe      +  H       +  H₂       →   FeH     +  H₂  
+    ・R282    Fe      +  H⁺       →   Fe⁺     +  H              
+    ・R283    Fe      +  H₃⁺      →   Fe⁺     +  H       +  H₂  
+    ・R284    Fe      +  C⁺       →   Fe⁺     +  C              
+    ・R285    Fe      +  CH₃⁺     →   Fe⁺     +  CH₃            
+    ・R286    Fe      +  C₂H₂⁺    →   Fe⁺     +  C₂H₂           
+    ・R287    Fe      +  C₃H⁺     →   Fe⁺     +  products       
+    ・R288    Fe      +  C₃H₂⁺    →   Fe⁺     +  products       
+    ・R289    Fe      +  C₃H₃⁺    →   Fe⁺     +  products       
+    ・R290    Fe      +  C₃H₄⁺    →   Fe⁺     +  products       
+    ・R291    Fe      +  C₃H₅⁺    →   Fe⁺     +  products       
+    ・R292    Fe      +  C₃H₆⁺    →   Fe⁺     +  products       
+    ・R293    Fe      +  C₃H₇⁺    →   Fe⁺     +  products       
+    ・R294    Fe      +  C₃H₈⁺    →   Fe⁺     +  products       
+    ・R295    Fe      +  C₃H₉⁺    →   Fe⁺     +  products       
+    ・R296    Fe      +  C₄H⁺     →   Fe⁺     +  products       
+    ・R297    Fe      +  C₄H₂⁺    →   Fe⁺     +  products       
+    ・R298    Fe      +  C₄H₃⁺    →   Fe⁺     +  products       
+    ・R299    Fe      +  C₄H₅⁺    →   Fe⁺     +  products       
+    ・R300    Fe      +  C₄H₇⁺    →   Fe⁺     +  products       
+    ・R301    Fe      +  C₄H₉⁺    →   Fe⁺     +  products       
+    ・R302    Fe      +  Si⁺      →   Fe⁺     +  Si             
+
+--------------------------------------------
+ Fe⁺
+--------------------------------------------
+・mass    : 55.84445142
+・charge  : 1
+・Produced by following 24 reactions:
+
+    ・R220     Fe      +  hv       →   Fe⁺     +  e⁻             
+    ・R228    Meteoroid            →   Fe⁺     + e⁻              
+    ・R280    FeH⁺    +  H        →   Fe⁺     +  H₂             
+    ・R282    Fe      +  H⁺       →   Fe⁺     +  H              
+    ・R283    Fe      +  H₃⁺      →   Fe⁺     +  H       +  H₂  
+    ・R284    Fe      +  C⁺       →   Fe⁺     +  C              
+    ・R285    Fe      +  CH₃⁺     →   Fe⁺     +  CH₃            
+    ・R286    Fe      +  C₂H₂⁺    →   Fe⁺     +  C₂H₂           
+    ・R287    Fe      +  C₃H⁺     →   Fe⁺     +  products       
+    ・R288    Fe      +  C₃H₂⁺    →   Fe⁺     +  products       
+    ・R289    Fe      +  C₃H₃⁺    →   Fe⁺     +  products       
+    ・R290    Fe      +  C₃H₄⁺    →   Fe⁺     +  products       
+    ・R291    Fe      +  C₃H₅⁺    →   Fe⁺     +  products       
+    ・R292    Fe      +  C₃H₆⁺    →   Fe⁺     +  products       
+    ・R293    Fe      +  C₃H₇⁺    →   Fe⁺     +  products       
+    ・R294    Fe      +  C₃H₈⁺    →   Fe⁺     +  products       
+    ・R295    Fe      +  C₃H₉⁺    →   Fe⁺     +  products       
+    ・R296    Fe      +  C₄H⁺     →   Fe⁺     +  products       
+    ・R297    Fe      +  C₄H₂⁺    →   Fe⁺     +  products       
+    ・R298    Fe      +  C₄H₃⁺    →   Fe⁺     +  products       
+    ・R299    Fe      +  C₄H₅⁺    →   Fe⁺     +  products       
+    ・R300    Fe      +  C₄H₇⁺    →   Fe⁺     +  products       
+    ・R301    Fe      +  C₄H₉⁺    →   Fe⁺     +  products       
+    ・R302    Fe      +  Si⁺      →   Fe⁺     +  Si             
+
+・Lost by following 8 reactions:
+
+    ・R273    Fe⁺     +  H       +  H₂       →   FeH⁺    +  H₂  
+    ・R274    Fe⁺     +  H₂      +  H₂       →   FeH₂⁺   +  H₂  
+    ・R275    Fe⁺     +  CH₄     +  H₂       →   FeCH₄⁺  +  H₂  
+    ・R276    Fe⁺     +  C₂H₂    +  H₂       →   FeC₂H₂⁺ +  H₂  
+    ・R277    Fe⁺     +  C₂H₄    +  H₂       →   FeC₂H₄⁺ +  H₂  
+    ・R278    Fe⁺     +  C₂H₆     →   Fe      +  C₂H₄⁺   +  H₂  
+    ・R279    Fe⁺     +  Na       →   Fe      +  Na⁺            
+    ・R304    Fe⁺     +  e⁻       →   Fe                        
+
+--------------------------------------------
+ Mg
+--------------------------------------------
+・mass    : 24.30500000
+・charge  : 0
+・Produced by following 9 reactions:
+
+    ・R225    Meteoroid            →   Mg                        
+    ・R320     Mg⁺     +  Na       →   Mg      +  Na⁺            
+    ・R345     MgH     +  H        →   Mg      +  H₂             
+    ・R346     Mg⁺     +  e⁻       →   Mg                        
+    ・R347     MgH⁺    +  e⁻       →   Mg      +  H              
+    ・R348     MgH₂⁺   +  e⁻       →   Mg      +  H₂             
+    ・R350     MgCH₄⁺  +  e⁻       →   Mg      +  products       
+    ・R351     MgC₂H₂⁺ +  e⁻       →   Mg      +  products       
+    ・R352     MgC₂H₄⁺ +  e⁻       →   Mg      +  products       
+
+・Lost by following 25 reactions:
+
+    ・R221     Mg      +  hv       →   Mg⁺     +  e⁻             
+    ・R233    Mg                   →   Condensation              
+    ・R314     Mg      +  H       +  H₂       →   MgH     +  H₂  
+    ・R323     Mg      +  H⁺       →   Mg⁺     +  H              
+    ・R324     Mg      +  H₃⁺      →   Mg⁺     +  H       +  H₂  
+    ・R325     Mg      +  C⁺       →   Mg⁺     +  C              
+    ・R326     Mg      +  CH₃⁺     →   Mg⁺     +  CH₃            
+    ・R327     Mg      +  CH₅⁺     →   Mg⁺     +  CH₄     +  H   
+    ・R328     Mg      +  C₂H₂⁺    →   Mg⁺     +  C₂H₂           
+    ・R329     Mg      +  C₃H⁺     →   Mg⁺     +  products       
+    ・R330     Mg      +  C₃H₂⁺    →   Mg⁺     +  products       
+    ・R331     Mg      +  C₃H₃⁺    →   Mg⁺     +  products       
+    ・R332     Mg      +  C₃H₄⁺    →   Mg⁺     +  products       
+    ・R333     Mg      +  C₃H₅⁺    →   Mg⁺     +  products       
+    ・R334     Mg      +  C₃H₆⁺    →   Mg⁺     +  products       
+    ・R335     Mg      +  C₃H₇⁺    →   Mg⁺     +  products       
+    ・R336     Mg      +  C₃H₈⁺    →   Mg⁺     +  products       
+    ・R337     Mg      +  C₃H₉⁺    →   Mg⁺     +  products       
+    ・R338     Mg      +  C₄H⁺     →   Mg⁺     +  products       
+    ・R339     Mg      +  C₄H₂⁺    →   Mg⁺     +  products       
+    ・R340     Mg      +  C₄H₃⁺    →   Mg⁺     +  products       
+    ・R341     Mg      +  C₄H₅⁺    →   Mg⁺     +  products       
+    ・R342     Mg      +  C₄H₇⁺    →   Mg⁺     +  products       
+    ・R343     Mg      +  C₄H₉⁺    →   Mg⁺     +  products       
+    ・R344     Mg      +  Si⁺      →   Mg⁺     +  Si             
+
+--------------------------------------------
+ Mg⁺
+--------------------------------------------
+・mass    : 24.30445142
+・charge  : 1
+・Produced by following 25 reactions:
+
+    ・R221     Mg      +  hv       →   Mg⁺     +  e⁻             
+    ・R229    Meteoroid            →   Mg⁺     + e⁻              
+    ・R321     MgH⁺    +  H        →   Mg⁺     +  H₂             
+    ・R323     Mg      +  H⁺       →   Mg⁺     +  H              
+    ・R324     Mg      +  H₃⁺      →   Mg⁺     +  H       +  H₂  
+    ・R325     Mg      +  C⁺       →   Mg⁺     +  C              
+    ・R326     Mg      +  CH₃⁺     →   Mg⁺     +  CH₃            
+    ・R327     Mg      +  CH₅⁺     →   Mg⁺     +  CH₄     +  H   
+    ・R328     Mg      +  C₂H₂⁺    →   Mg⁺     +  C₂H₂           
+    ・R329     Mg      +  C₃H⁺     →   Mg⁺     +  products       
+    ・R330     Mg      +  C₃H₂⁺    →   Mg⁺     +  products       
+    ・R331     Mg      +  C₃H₃⁺    →   Mg⁺     +  products       
+    ・R332     Mg      +  C₃H₄⁺    →   Mg⁺     +  products       
+    ・R333     Mg      +  C₃H₅⁺    →   Mg⁺     +  products       
+    ・R334     Mg      +  C₃H₆⁺    →   Mg⁺     +  products       
+    ・R335     Mg      +  C₃H₇⁺    →   Mg⁺     +  products       
+    ・R336     Mg      +  C₃H₈⁺    →   Mg⁺     +  products       
+    ・R337     Mg      +  C₃H₉⁺    →   Mg⁺     +  products       
+    ・R338     Mg      +  C₄H⁺     →   Mg⁺     +  products       
+    ・R339     Mg      +  C₄H₂⁺    →   Mg⁺     +  products       
+    ・R340     Mg      +  C₄H₃⁺    →   Mg⁺     +  products       
+    ・R341     Mg      +  C₄H₅⁺    →   Mg⁺     +  products       
+    ・R342     Mg      +  C₄H₇⁺    →   Mg⁺     +  products       
+    ・R343     Mg      +  C₄H₉⁺    →   Mg⁺     +  products       
+    ・R344     Mg      +  Si⁺      →   Mg⁺     +  Si             
+
+・Lost by following 7 reactions:
+
+    ・R315     Mg⁺     +  H       +  H₂       →   MgH⁺    +  H₂  
+    ・R316     Mg⁺     +  H₂      +  H₂       →   MgH₂⁺   +  H₂  
+    ・R317     Mg⁺     +  CH₄     +  H₂       →   MgCH₄⁺  +  H₂  
+    ・R318     Mg⁺     +  C₂H₂    +  H₂       →   MgC₂H₂⁺ +  H₂  
+    ・R319     Mg⁺     +  C₂H₄    +  H₂       →   MgC₂H₄⁺ +  H₂  
+    ・R320     Mg⁺     +  Na       →   Mg      +  Na⁺            
+    ・R346     Mg⁺     +  e⁻       →   Mg                        
+
+--------------------------------------------
+ Si
+--------------------------------------------
+・mass    : 28.08550000
+・charge  : 0
+・Produced by following 10 reactions:
+
+    ・R226    Meteoroid            →   Si                        
+    ・R260     Na      +  Si⁺      →   Na⁺     +  Si             
+    ・R302    Fe      +  Si⁺      →   Fe⁺     +  Si             
+    ・R344     Mg      +  Si⁺      →   Mg⁺     +  Si             
+    ・R401     SiH     +  H        →   Si      +  H₂              
+    ・R402     Si⁺     +  e⁻       →   Si                         
+    ・R403     SiH⁺    +  e⁻       →   Si      +  H               
+    ・R404     SiH₂⁺   +  e⁻       →   Si      +  H       +  H    
+    ・R406     SiH₂⁺   +  e⁻       →   Si      +  H₂              
+    ・R407     SiCnHm⁺ +  e⁻       →   Si                         
+
+・Lost by following 29 reactions:
+
+    ・R222     Si      +  hv       →   Si⁺     +  e⁻             
+    ・R234    Si                   →   Condensation              
+    ・R356     Si      +  H       +  H₂       →   SiH     +  H₂  
+    ・R375     Si      +  H⁺       →   Si⁺     +  H               
+    ・R376     Si      +  H₃⁺      →   SiH⁺    +  H₂              
+    ・R377     Si      +  CH₃⁺     →   SiCnHm⁺ +  H               
+    ・R378     Si      +  CH₃⁺     →   SiCnHm⁺ +  H₂              
+    ・R379     Si      +  CH₅⁺     →   SiCnHm⁺ +  H               
+    ・R380     Si      +  CH₅⁺     →   SiCnHm⁺ +  H₂              
+    ・R381     Si      +  C₂H₃⁺    →   SiCnHm⁺ +  H₂              
+    ・R382     Si      +  C₂H₃⁺    →   SiCnHm⁺ +  H               
+    ・R383     Si      +  C₃H⁺     →   SiCnHm⁺ +  products        
+    ・R384     Si      +  C₃H₂⁺    →   SiCnHm⁺ +  products        
+    ・R385     Si      +  C₃H₃⁺    →   SiCnHm⁺ +  products        
+    ・R386     Si      +  C₃H₄⁺    →   SiCnHm⁺ +  products        
+    ・R387     Si      +  C₃H₅⁺    →   SiCnHm⁺ +  products        
+    ・R388     Si      +  C₃H₆⁺    →   SiCnHm⁺ +  products        
+    ・R389     Si      +  C₃H₇⁺    →   SiCnHm⁺ +  products        
+    ・R390     Si      +  C₃H₈⁺    →   SiCnHm⁺ +  products        
+    ・R391     Si      +  C₃H₉⁺    →   SiCnHm⁺ +  products        
+    ・R392     Si      +  C₄H⁺     →   SiCnHm⁺ +  products        
+    ・R393     Si      +  C₄H₂⁺    →   SiCnHm⁺ +  products        
+    ・R394     Si      +  C₄H₃⁺    →   SiCnHm⁺ +  products        
+    ・R395     Si      +  C₄H₅⁺    →   SiCnHm⁺ +  products        
+    ・R396     Si      +  C₄H₇⁺    →   SiCnHm⁺ +  products        
+    ・R397     Si      +  C₄H₉⁺    →   SiCnHm⁺ +  products        
+    ・R398     Si      +  H₃O⁺     →   SiH⁺    +  H₃O             
+    ・R399     Si      +  CH₂      →   SiCH    +  H               
+    ・R400     Si      +  CH₃      →   SiCH₂   +  H               
+
+--------------------------------------------
+ Si⁺
+--------------------------------------------
+・mass    : 28.08495142
+・charge  : 1
+・Produced by following 4 reactions:
+
+    ・R222     Si      +  hv       →   Si⁺     +  e⁻             
+    ・R230    Meteoroid            →   Si⁺     + e⁻              
+    ・R373     SiH⁺    +  H        →   Si⁺     +  H₂              
+    ・R375     Si      +  H⁺       →   Si⁺     +  H               
+
+・Lost by following 20 reactions:
+
+    ・R260     Na      +  Si⁺      →   Na⁺     +  Si             
+    ・R302    Fe      +  Si⁺      →   Fe⁺     +  Si             
+    ・R344     Mg      +  Si⁺      →   Mg⁺     +  Si             
+    ・R357     Si⁺     +  H       +  H₂       →   SiH⁺    +  H₂  
+    ・R358     Si⁺     +  H₂      +  H₂       →   SiH₂⁺   +  H₂  
+    ・R359     Si⁺     +  CH₄     +  H₂       →   SiCnHm⁺ +  H₂  
+    ・R360     Si⁺     +  C₂H₂    +  H₂       →   SiCnHm⁺ +  H₂  
+    ・R361     Si⁺     +  C₂H₄    +  H₂       →   SiCnHm⁺ +  H₂  
+    ・R362     Si⁺     +  H₂       →   SiH₂⁺                      
+    ・R363     Si⁺     +  CH₃      →   SiCnHm⁺ +  H               
+    ・R364     Si⁺     +  CH₃      →   SiCnHm⁺ +  H₂              
+    ・R365     Si⁺     +  CH₄      →   SiCnHm⁺ +  H               
+    ・R366     Si⁺     +  C₂H₂     →   SiCnHm⁺ +  H               
+    ・R367     Si⁺     +  C₂H₄     →   SiCnHm⁺ +  CH₃     +  H    
+    ・R368     Si⁺     +  C₂H₄     →   SiCnHm⁺ +  H               
+    ・R369     Si⁺     +  C₂H₆     →   SiCnHm⁺ +  CH₄             
+    ・R370     Si⁺     +  C₂H₆     →   SiCnHm⁺ +  CH₃             
+    ・R371     Si⁺     +  C₂H₆     →   SiCnHm⁺ +  CH₃     +  H₂   
+    ・R372     Si⁺     +  H₂O      →   SiOH⁺   +  H               
+    ・R402     Si⁺     +  e⁻       →   Si                         
+
+--------------------------------------------
+ NaH
+--------------------------------------------
+・mass    : 23.99694000
+・charge  : 0
+・Produced by following 2 reactions:
+
+    ・R235     Na      +  H       +  H₂       →   NaH     +  H₂  
+    ・R265     NaH₂⁺   +  e⁻       →   NaH     +  H              
+
+・Lost by following 1 reactions:
+
+    ・R262     NaH     +  H        →   Na      +  H₂             
+
+--------------------------------------------
+ NaCH₃
+--------------------------------------------
+・mass    : 38.02352000
+・charge  : 0
+・Produced by following 1 reactions:
+
+    ・R236     Na      +  CH₃     +  H₂       →   NaCH₃   +  H₂  
+
+・There are no reactions losing NaCH₃.
+
+--------------------------------------------
+ NaH₂⁺
+--------------------------------------------
+・mass    : 25.00433142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R237     Na⁺     +  H₂      +  H₂       →   NaH₂⁺   +  H₂  
+
+・Lost by following 2 reactions:
+
+    ・R264     NaH₂⁺   +  e⁻       →   Na      +  H₂             
+    ・R265     NaH₂⁺   +  e⁻       →   NaH     +  H              
+
+--------------------------------------------
+ NaCH₄⁺
+--------------------------------------------
+・mass    : 39.03091142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R238     Na⁺     +  CH₄     +  H₂       →   NaCH₄⁺  +  H₂  
+
+・Lost by following 2 reactions:
+
+    ・R266     NaCH₄⁺  +  e⁻       →   Na      +  products       
+    ・R269     NaCH₄⁺  +  e⁻       →   products                  
+
+--------------------------------------------
+ NaC₂H₂⁺
+--------------------------------------------
+・mass    : 49.02573142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R239     Na⁺     +  C₂H₂    +  H₂       →   NaC₂H₂⁺ +  H₂  
+
+・Lost by following 2 reactions:
+
+    ・R267     NaC₂H₂⁺ +  e⁻       →   Na      +  products       
+    ・R270     NaC₂H₂⁺ +  e⁻       →   products                  
+
+--------------------------------------------
+ NaC₂H₄⁺
+--------------------------------------------
+・mass    : 51.04161142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R240     Na⁺     +  C₂H₄    +  H₂       →   NaC₂H₄⁺ +  H₂  
+
+・Lost by following 2 reactions:
+
+    ・R268     NaC₂H₄⁺ +  e⁻       →   Na      +  products       
+    ・R271     NaC₂H₄⁺ +  e⁻       →   products                  
+
+--------------------------------------------
+ H₃O⁺
+--------------------------------------------
+・mass    : 19.02267142
+・charge  : 1
+・There are no reactions producing H₃O⁺.
+
+・Lost by following 2 reactions:
+
+    ・R261     Na      +  H₃O⁺     →   Na⁺     +  H₂O     +  H   
+    ・R398     Si      +  H₃O⁺     →   SiH⁺    +  H₃O             
+
+--------------------------------------------
+ H₂O
+--------------------------------------------
+・mass    : 18.01528000
+・charge  : 0
+・Produced by following 1 reactions:
+
+    ・R261     Na      +  H₃O⁺     →   Na⁺     +  H₂O     +  H   
+
+・Lost by following 1 reactions:
+
+    ・R372     Si⁺     +  H₂O      →   SiOH⁺   +  H               
+
+--------------------------------------------
+ FeH
+--------------------------------------------
+・mass    : 56.85294000
+・charge  : 0
+・Produced by following 2 reactions:
+
+    ・R272    Fe      +  H       +  H₂       →   FeH     +  H₂  
+    ・R306    FeH₂⁺   +  e⁻       →   FeH     +  H              
+
+・Lost by following 1 reactions:
+
+    ・R303    FeH     +  H        →   Fe      +  H₂             
+
+--------------------------------------------
+ FeH⁺
+--------------------------------------------
+・mass    : 56.85239142
+・charge  : 1
+・Produced by following 2 reactions:
+
+    ・R273    Fe⁺     +  H       +  H₂       →   FeH⁺    +  H₂  
+    ・R281    FeH₂⁺   +  H        →   FeH⁺    +  H₂             
+
+・Lost by following 2 reactions:
+
+    ・R280    FeH⁺    +  H        →   Fe⁺     +  H₂             
+    ・R305    FeH⁺    +  e⁻       →   Fe      +  H              
+
+--------------------------------------------
+ FeH₂⁺
+--------------------------------------------
+・mass    : 57.86033142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R274    Fe⁺     +  H₂      +  H₂       →   FeH₂⁺   +  H₂  
+
+・Lost by following 3 reactions:
+
+    ・R281    FeH₂⁺   +  H        →   FeH⁺    +  H₂             
+    ・R306    FeH₂⁺   +  e⁻       →   FeH     +  H              
+    ・R307    FeH₂⁺   +  e⁻       →   Fe      +  H₂             
+
+--------------------------------------------
+ FeCH₄⁺
+--------------------------------------------
+・mass    : 71.88691142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R275    Fe⁺     +  CH₄     +  H₂       →   FeCH₄⁺  +  H₂  
+
+・Lost by following 2 reactions:
+
+    ・R308    FeCH₄⁺  +  e⁻       →   Fe      +  products       
+    ・R311    FeCH₄⁺  +  e⁻       →   products                  
+
+--------------------------------------------
+ FeC₂H₂⁺
+--------------------------------------------
+・mass    : 81.88173142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R276    Fe⁺     +  C₂H₂    +  H₂       →   FeC₂H₂⁺ +  H₂  
+
+・Lost by following 2 reactions:
+
+    ・R309    FeC₂H₂⁺ +  e⁻       →   Fe      +  products       
+    ・R312    FeC₂H₂⁺ +  e⁻       →   products                  
+
+--------------------------------------------
+ FeC₂H₄⁺
+--------------------------------------------
+・mass    : 83.89761142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R277    Fe⁺     +  C₂H₄    +  H₂       →   FeC₂H₄⁺ +  H₂  
+
+・Lost by following 2 reactions:
+
+    ・R310    FeC₂H₄⁺ +  e⁻       →   Fe      +  products       
+    ・R313    FeC₂H₄⁺ +  e⁻       →   products                  
+
+--------------------------------------------
+ MgH
+--------------------------------------------
+・mass    : 25.31294000
+・charge  : 0
+・Produced by following 2 reactions:
+
+    ・R314     Mg      +  H       +  H₂       →   MgH     +  H₂  
+    ・R349     MgH₂⁺   +  e⁻       →   MgH     +  H              
+
+・Lost by following 1 reactions:
+
+    ・R345     MgH     +  H        →   Mg      +  H₂             
+
+--------------------------------------------
+ MgH⁺
+--------------------------------------------
+・mass    : 25.31239142
+・charge  : 1
+・Produced by following 2 reactions:
+
+    ・R315     Mg⁺     +  H       +  H₂       →   MgH⁺    +  H₂  
+    ・R322     MgH₂⁺   +  H        →   MgH⁺    +  H₂             
+
+・Lost by following 2 reactions:
+
+    ・R321     MgH⁺    +  H        →   Mg⁺     +  H₂             
+    ・R347     MgH⁺    +  e⁻       →   Mg      +  H              
+
+--------------------------------------------
+ MgH₂⁺
+--------------------------------------------
+・mass    : 26.32033142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R316     Mg⁺     +  H₂      +  H₂       →   MgH₂⁺   +  H₂  
+
+・Lost by following 3 reactions:
+
+    ・R322     MgH₂⁺   +  H        →   MgH⁺    +  H₂             
+    ・R348     MgH₂⁺   +  e⁻       →   Mg      +  H₂             
+    ・R349     MgH₂⁺   +  e⁻       →   MgH     +  H              
+
+--------------------------------------------
+ MgCH₄⁺
+--------------------------------------------
+・mass    : 40.34691142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R317     Mg⁺     +  CH₄     +  H₂       →   MgCH₄⁺  +  H₂  
+
+・Lost by following 2 reactions:
+
+    ・R350     MgCH₄⁺  +  e⁻       →   Mg      +  products       
+    ・R353     MgCH₄⁺  +  e⁻       →   products                  
+
+--------------------------------------------
+ MgC₂H₂⁺
+--------------------------------------------
+・mass    : 50.34173142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R318     Mg⁺     +  C₂H₂    +  H₂       →   MgC₂H₂⁺ +  H₂  
+
+・Lost by following 2 reactions:
+
+    ・R351     MgC₂H₂⁺ +  e⁻       →   Mg      +  products       
+    ・R354     MgC₂H₂⁺ +  e⁻       →   products                  
+
+--------------------------------------------
+ MgC₂H₄⁺
+--------------------------------------------
+・mass    : 52.35761142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R319     Mg⁺     +  C₂H₄    +  H₂       →   MgC₂H₄⁺ +  H₂  
+
+・Lost by following 2 reactions:
+
+    ・R352     MgC₂H₄⁺ +  e⁻       →   Mg      +  products       
+    ・R355     MgC₂H₄⁺ +  e⁻       →   products                  
+
+--------------------------------------------
+ SiH
+--------------------------------------------
+・mass    : 29.09344000
+・charge  : 0
+・Produced by following 2 reactions:
+
+    ・R356     Si      +  H       +  H₂       →   SiH     +  H₂  
+    ・R405     SiH₂⁺   +  e⁻       →   SiH     +  H               
+
+・Lost by following 1 reactions:
+
+    ・R401     SiH     +  H        →   Si      +  H₂              
+
+--------------------------------------------
+ SiH⁺
+--------------------------------------------
+・mass    : 29.09289142
+・charge  : 1
+・Produced by following 4 reactions:
+
+    ・R357     Si⁺     +  H       +  H₂       →   SiH⁺    +  H₂  
+    ・R374     SiH₂⁺   +  H        →   SiH⁺    +  H₂              
+    ・R376     Si      +  H₃⁺      →   SiH⁺    +  H₂              
+    ・R398     Si      +  H₃O⁺     →   SiH⁺    +  H₃O             
+
+・Lost by following 2 reactions:
+
+    ・R373     SiH⁺    +  H        →   Si⁺     +  H₂              
+    ・R403     SiH⁺    +  e⁻       →   Si      +  H               
+
+--------------------------------------------
+ SiH₂⁺
+--------------------------------------------
+・mass    : 30.10083142
+・charge  : 1
+・Produced by following 2 reactions:
+
+    ・R358     Si⁺     +  H₂      +  H₂       →   SiH₂⁺   +  H₂  
+    ・R362     Si⁺     +  H₂       →   SiH₂⁺                      
+
+・Lost by following 4 reactions:
+
+    ・R374     SiH₂⁺   +  H        →   SiH⁺    +  H₂              
+    ・R404     SiH₂⁺   +  e⁻       →   Si      +  H       +  H    
+    ・R405     SiH₂⁺   +  e⁻       →   SiH     +  H               
+    ・R406     SiH₂⁺   +  e⁻       →   Si      +  H₂              
+
+--------------------------------------------
+ SiCnHm⁺
+--------------------------------------------
+・mass    : 28.08495142
+・charge  : 1
+・Produced by following 33 reactions:
+
+    ・R359     Si⁺     +  CH₄     +  H₂       →   SiCnHm⁺ +  H₂  
+    ・R360     Si⁺     +  C₂H₂    +  H₂       →   SiCnHm⁺ +  H₂  
+    ・R361     Si⁺     +  C₂H₄    +  H₂       →   SiCnHm⁺ +  H₂  
+    ・R363     Si⁺     +  CH₃      →   SiCnHm⁺ +  H               
+    ・R364     Si⁺     +  CH₃      →   SiCnHm⁺ +  H₂              
+    ・R365     Si⁺     +  CH₄      →   SiCnHm⁺ +  H               
+    ・R366     Si⁺     +  C₂H₂     →   SiCnHm⁺ +  H               
+    ・R367     Si⁺     +  C₂H₄     →   SiCnHm⁺ +  CH₃     +  H    
+    ・R368     Si⁺     +  C₂H₄     →   SiCnHm⁺ +  H               
+    ・R369     Si⁺     +  C₂H₆     →   SiCnHm⁺ +  CH₄             
+    ・R370     Si⁺     +  C₂H₆     →   SiCnHm⁺ +  CH₃             
+    ・R371     Si⁺     +  C₂H₆     →   SiCnHm⁺ +  CH₃     +  H₂   
+    ・R377     Si      +  CH₃⁺     →   SiCnHm⁺ +  H               
+    ・R378     Si      +  CH₃⁺     →   SiCnHm⁺ +  H₂              
+    ・R379     Si      +  CH₅⁺     →   SiCnHm⁺ +  H               
+    ・R380     Si      +  CH₅⁺     →   SiCnHm⁺ +  H₂              
+    ・R381     Si      +  C₂H₃⁺    →   SiCnHm⁺ +  H₂              
+    ・R382     Si      +  C₂H₃⁺    →   SiCnHm⁺ +  H               
+    ・R383     Si      +  C₃H⁺     →   SiCnHm⁺ +  products        
+    ・R384     Si      +  C₃H₂⁺    →   SiCnHm⁺ +  products        
+    ・R385     Si      +  C₃H₃⁺    →   SiCnHm⁺ +  products        
+    ・R386     Si      +  C₃H₄⁺    →   SiCnHm⁺ +  products        
+    ・R387     Si      +  C₃H₅⁺    →   SiCnHm⁺ +  products        
+    ・R388     Si      +  C₃H₆⁺    →   SiCnHm⁺ +  products        
+    ・R389     Si      +  C₃H₇⁺    →   SiCnHm⁺ +  products        
+    ・R390     Si      +  C₃H₈⁺    →   SiCnHm⁺ +  products        
+    ・R391     Si      +  C₃H₉⁺    →   SiCnHm⁺ +  products        
+    ・R392     Si      +  C₄H⁺     →   SiCnHm⁺ +  products        
+    ・R393     Si      +  C₄H₂⁺    →   SiCnHm⁺ +  products        
+    ・R394     Si      +  C₄H₃⁺    →   SiCnHm⁺ +  products        
+    ・R395     Si      +  C₄H₅⁺    →   SiCnHm⁺ +  products        
+    ・R396     Si      +  C₄H₇⁺    →   SiCnHm⁺ +  products        
+    ・R397     Si      +  C₄H₉⁺    →   SiCnHm⁺ +  products        
+
+・Lost by following 2 reactions:
+
+    ・R407     SiCnHm⁺ +  e⁻       →   Si                         
+    ・R408     SiCnHm⁺ +  e⁻       →   products                   
+
+--------------------------------------------
+ SiOH⁺
+--------------------------------------------
+・mass    : 45.09229142
+・charge  : 1
+・Produced by following 1 reactions:
+
+    ・R372     Si⁺     +  H₂O      →   SiOH⁺   +  H               
+
+・There are no reactions losing SiOH⁺.
+
+--------------------------------------------
+ H₃O
+--------------------------------------------
+・mass    : 19.02322000
+・charge  : 0
+・Produced by following 1 reactions:
+
+    ・R398     Si      +  H₃O⁺     →   SiH⁺    +  H₃O             
+
+・There are no reactions losing H₃O.
+
+--------------------------------------------
+ SiCH
+--------------------------------------------
+・mass    : 41.10414000
+・charge  : 0
+・Produced by following 1 reactions:
+
+    ・R399     Si      +  CH₂      →   SiCH    +  H               
+
+・There are no reactions losing SiCH.
+
+--------------------------------------------
+ SiCH₂
+--------------------------------------------
+・mass    : 42.11208000
+・charge  : 0
+・Produced by following 1 reactions:
+
+    ・R400     Si      +  CH₃      →   SiCH₂   +  H               
+
+・There are no reactions losing SiCH₂.
+
+--------------------------------------------
+

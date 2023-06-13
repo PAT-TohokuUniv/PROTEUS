@@ -1,0 +1,84 @@
+\documentclass[10pt,a4paper]{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{geometry}
+\usepackage{here}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{scalefnt}
+\geometry{left=10mm,right=25mm,top=30mm,bottom=30mm}
+
+\begin{document}
+
+\begin{table}[htb]
+\scalebox{0.7}{\begin{tabular}{lclll} \hline
+    \multicolumn{3}{c}{Reactions} & \multicolumn{1}{c}{Rate [cm$^{3}$/s]} & \multicolumn{1}{c}{Reference}\\\hline
+ CO$_2$    + hν & $\rightarrow$ & CO     + O       & Photodissociation & Chaffin et al. [2017] \\
+ CO$_2$    + hν & $\rightarrow$ & CO     + O($^1$D)   & Photodissociation & Chaffin et al. [2017] \\
+ H$_2$O    + hν & $\rightarrow$ & H      + OH      & Photodissociation & Chaffin et al. [2017] \\
+ H$_2$O    + hν & $\rightarrow$ & H$_2$     + O($^1$D)   & Photodissociation & Chaffin et al. [2017] \\
+ O$_3$     + hν & $\rightarrow$ & O$_2$     + O       & Photodissociation & Chaffin et al. [2017] \\
+ O$_3$     + hν & $\rightarrow$ & O$_2$     + O($^1$D)   & Photodissociation & Chaffin et al. [2017] \\
+ O$_2$     + hν & $\rightarrow$ & O      + O       & Photodissociation & Chaffin et al. [2017] \\
+ O$_2$     + hν & $\rightarrow$ & O      + O($^1$D)   & Photodissociation & Chaffin et al. [2017] \\
+ H$_2$     + hν & $\rightarrow$ & H      + H       & Photodissociation & Chaffin et al. [2017] \\
+ OH     + hν & $\rightarrow$ & O      + H       & Photodissociation & Chaffin et al. [2017] \\
+ OH     + hν & $\rightarrow$ & O($^1$D)  + H       & Photodissociation & Chaffin et al. [2017] \\
+ HO$_2$    + hν & $\rightarrow$ & OH     + O       & Photodissociation & Chaffin et al. [2017] \\
+ H$_2$O$_2$   + hν & $\rightarrow$ & OH     + OH      & Photodissociation & Chaffin et al. [2017] \\
+ H$_2$O$_2$   + hν & $\rightarrow$ & HO$_2$    + H       & Photodissociation & Chaffin et al. [2017] \\
+ H$_2$O$_2$   + hν & $\rightarrow$ & H$_2$O    + O($^1$D)   & Photodissociation & Chaffin et al. [2017] \\
+ O     + O   + M   & $\rightarrow$ & O$_2$   + M        & 5.4 $\times$ 10$^-$$^3$$^3$ $\times$ (300/$T_n$)$^3$$^.$$^2$$^5$ & Chaffin et al. [2017] \\
+ O     + O$_2$  + N$_2$  & $\rightarrow$ & O$_3$   + N$_2$       & 5.0 $\times$ 10$^-$$^3$$^5$ $\times$ exp(724/$T_n$) & Chaffin et al. [2017] \\
+ O     + O$_2$  + CO$_2$ & $\rightarrow$ & O$_3$   + CO$_2$      & 1.5 $\times$ 10$^-$$^3$$^3$ $\times$ (300/$T_n$)$^2$$^.$$^4$ & Chaffin et al. [2017] \\
+ O     + O$_3$        & $\rightarrow$ & O$_2$   + O$_2$       & 8.0 $\times$ 10$^-$$^1$$^2$ $\times$ exp(-2060/$T_n$) & Chaffin et al. [2017] \\
+ O     + CO  + M   & $\rightarrow$ & CO$_2$  + M        & 2.2 $\times$ 10$^-$$^3$$^3$ $\times$ exp(-1780/$T_n$) & Chaffin et al. [2017] \\
+ O($^1$D) + O$_2$        & $\rightarrow$ & O    + O$_2$       & 3.2 $\times$ 10$^-$$^1$$^1$ $\times$ exp(70/$T_n$) & Chaffin et al. [2017] \\
+ O($^1$D) + O$_3$        & $\rightarrow$ & O$_2$   + O$_2$       & 1.2 $\times$ 10$^-$$^1$$^0$ & Chaffin et al. [2017] \\
+ O($^1$D) + O$_3$        & $\rightarrow$ & O    + O  + O$_2$  & 1.2 $\times$ 10$^-$$^1$$^0$ & Chaffin et al. [2017] \\
+ O($^1$D) + H$_2$        & $\rightarrow$ & H    + OH       & 1.2 $\times$ 10$^-$$^1$$^0$ & Chaffin et al. [2017] \\
+ O($^1$D) + CO$_2$       & $\rightarrow$ & O    + CO$_2$      & 7.5 $\times$ 10$^-$$^1$$^1$ $\times$ exp(115/$T_n$) & Chaffin et al. [2017] \\
+ O($^1$D) + H$_2$O       & $\rightarrow$ & OH   + OH       & 1.63 $\times$ 10$^-$$^1$$^0$ $\times$ exp(60/$T_n$) & Chaffin et al. [2017] \\
+ H$_2$    + O         & $\rightarrow$ & OH   + H        & 6.34 $\times$ 10$^-$$^1$$^2$ $\times$ exp(-4000/$T_n$) & Chaffin et al. [2017] \\
+ OH    + H$_2$        & $\rightarrow$ & H$_2$O  + H        & 9.01 $\times$ 10$^-$$^1$$^3$ $\times$ exp(-1526/$T_n$) & Chaffin et al. [2017] \\
+ H     + H   + CO$_2$ & $\rightarrow$ & H$_2$   + CO$_2$      & 1.6 $\times$ 10$^-$$^3$$^2$ $\times$ (298/$T_n$)$^2$$^.$$^2$$^7$ & Chaffin et al. [2017] \\
+ H     + OH  + CO$_2$ & $\rightarrow$ & H$_2$O  + CO$_2$      & 1.292 $\times$ 10$^-$$^3$$^0$ $\times$ (300/$T_n$)$^2$$^.$& Chaffin et al. [2017] \\
+ H     + HO$_2$       & $\rightarrow$ & OH   + OH       & 7.2 $\times$ 10$^-$$^1$$^1$ & Chaffin et al. [2017] \\
+ H     + HO$_2$       & $\rightarrow$ & H$_2$O  + O($^1$D)    & 1.6 $\times$ 10$^-$$^1$$^2$ & Chaffin et al. [2017] \\
+ H     + HO$_2$       & $\rightarrow$ & H$_2$   + O$_2$       & 3.45 $\times$ 10$^-$$^1$$^2$ & Chaffin et al. [2017] \\
+ H     + H$_2$O$_2$      & $\rightarrow$ & HO$_2$  + H$_2$       & 2.8 $\times$ 10$^-$$^1$$^2$ $\times$ exp(-1890/$T_n$) & Chaffin et al. [2017] \\
+ H     + H$_2$O$_2$      & $\rightarrow$ & H$_2$O  + OH       & 1.7 $\times$ 10$^-$$^1$$^1$ $\times$ exp(-1800/$T_n$) & Chaffin et al. [2017] \\
+ H     + O$_2$  + M   & $\rightarrow$ & HO$_2$  + M        & k$_0$ = 8.8 $\times$ 10$^-$$^3$$^2$ $\times$ (300/$T_n$)$^1$$^.$$^3$ &\\
+ & & & k∞ = 7.5 $\times$ 10$^-$$^1$$^1$ $\times$ (300/$T_n$)$^-$$^0$$^.$$^2$ & Chaffin et al. [2017] \\
+ H     + O$_3$        & $\rightarrow$ & OH   + O$_2$       & 1.4 $\times$ 10$^-$$^1$$^0$ $\times$ exp(-470/$T_n$) & Chaffin et al. [2017] \\
+ O     + OH        & $\rightarrow$ & O$_2$   + H        & 1.8 $\times$ 10$^-$$^1$$^1$ $\times$ exp(180/$T_n$) & Chaffin et al. [2017] \\
+ O     + HO$_2$       & $\rightarrow$ & OH   + O$_2$       & 3.0 $\times$ 10$^-$$^1$$^1$ $\times$ exp(200/$T_n$) & Chaffin et al. [2017] \\
+ O     + H$_2$O$_2$      & $\rightarrow$ & OH   + HO$_2$      & 1.4 $\times$ 10$^-$$^1$$^2$ $\times$ exp(-2000/$T_n$) & Chaffin et al. [2017] \\
+ OH    + OH        & $\rightarrow$ & H$_2$O  + O        & 1.8 $\times$ 10$^-$$^1$$^2$ & Chaffin et al. [2017] \\
+ OH    + OH  + M   & $\rightarrow$ & H$_2$O$_2$ + M        & k$_0$ = 8.97 $\times$ 10$^-$$^3$$^1$ $\times$ (300/$T_n$)$^1$$^.$&\\
+ & & & k∞ = 2.6 $\times$ 10$^-$$^1$$^1$ & Chaffin et al. [2017] \\
+ OH    + O$_3$        & $\rightarrow$ & HO$_2$  + O$_2$       & 1.7 $\times$ 10$^-$$^1$$^2$ $\times$ exp(-940/$T_n$) & Chaffin et al. [2017] \\
+ OH    + HO$_2$       & $\rightarrow$ & H$_2$O  + O$_2$       & 4.8 $\times$ 10$^-$$^1$$^1$ $\times$ exp(250/$T_n$) & Chaffin et al. [2017] \\
+ OH    + H$_2$O$_2$      & $\rightarrow$ & H$_2$O  + HO$_2$      & 1.8 $\times$ 10$^-$$^1$$^2$ & Chaffin et al. [2017] \\
+ HO$_2$   + O$_3$        & $\rightarrow$ & OH   + O$_2$ + O$_2$  & 1.0 $\times$ 10$^-$$^1$$^4$ $\times$ exp(-490/$T_n$) & Chaffin et al. [2017] \\
+ HO$_2$   + HO$_2$       & $\rightarrow$ & H$_2$O$_2$ + O$_2$       & 3.0 $\times$ 10$^-$$^1$$^3$ $\times$ exp(460/$T_n$) & Chaffin et al. [2017] \\
+ HO$_2$   + HO$_2$ + M   & $\rightarrow$ & H$_2$O$_2$ + O$_2$ + M   & 4.2 $\times$ 10$^-$$^3$$^3$ $\times$ exp(920/$T_n$) & Chaffin et al. [2017] \\
+ CO    + OH  + M   & $\rightarrow$ & CO$_2$  + H  + M   & k$_0$M = 1.5 $\times$ 10$^-$$^1$$^3$ $\times$ (300/$T_n$)$^-$$^0$$^.$$^6$ &\\
+ & & & k∞M = 2.1 $\times$ 10$^9$ $\times$ (300/$T_n$)$^-$$^6$$^.$$^1$ & Chaffin et al. [2017] \\
+ CO    + OH  + M   & $\rightarrow$ & HOCO + M        & k$_0$ = 5.9 $\times$ 10$^-$$^3$$^3$ $\times$ (300/$T_n$)$^1$$^.$$^4$ &\\
+ & & & k∞ = 1.1 $\times$ 10$^-$$^1$$^2$ $\times$ (300/$T_n$)$^-$$^1$$^.$$^3$ & Chaffin et al. [2017] \\
+ HOCO  + O$_2$        & $\rightarrow$ & HO$_2$  + CO$_2$      & 2.0 $\times$ 10$^-$$^1$$^2$ & Chaffin et al. [2017] \\
+ CO$_2$$^+$  + H$_2$        & $\rightarrow$ & CO$_2$  + H  + H   & 8.7 $\times$ 10$^-$$^1$$^0$ & Chaffin et al. [2017] \\
+ H     + CO     + M   & $\rightarrow$ & HCO   + M      & 2.0 $\times$ 10$^-$$^3$$^3$ $\times$ exp(-850/$T_n$) & R7 in Pinto et al. [1980] \\
+ H     + HCO          & $\rightarrow$ & H$_2$    + CO     & 3.0 $\times$ 10$^-$$^1$$^0$ & R8 in Pinto et al. [1980] \\
+ HCO   + HCO          & $\rightarrow$ & H$_2$CO  + CO     & 6.3 $\times$ 10$^-$$^1$$^1$ & R9 in Pinto et al. [1980] \\
+ OH    + HCO          & $\rightarrow$ & H$_2$O   + CO     & 5.0 $\times$ 10$^-$$^1$$^1$ & R10 in Pinto et al. [1980] \\
+ O     + HCO          & $\rightarrow$ & H     + CO$_2$    & 1.0 $\times$ 10$^-$$^1$$^0$ & R11 in Pinto et al. [1980] \\
+ O     + HCO          & $\rightarrow$ & OH    + CO     & 1.0 $\times$ 10$^-$$^1$$^0$ & R12 in Pinto et al. [1980] \\
+ O$_2$    + HCO          & $\rightarrow$ & HO$_2$   + CO     & 5.0 $\times$ 10$^-$$^1$$^2$ & R13 in Pinto et al. [1980] \\
+ HO$_2$   + HCO          & $\rightarrow$ & H$_2$O$_2$  + CO     & 1.0 $\times$ 10$^-$$^1$$^1$ & R14 in Pinto et al. [1980] \\
+ H     + H$_2$CO         & $\rightarrow$ & H$_2$    + HCO    & 2.8 $\times$ 10$^-$$^1$$^1$ $\times$ exp(-1540/$T_n$) & R15 in Pinto et al. [1980] \\
+ OH    + H$_2$CO         & $\rightarrow$ & H$_2$O   + HCO    & 1.7 $\times$ 10$^-$$^1$$^1$ $\times$ exp(-100/$T_n$) & R16 in Pinto et al. [1980] \\
+    \end{tabular}
+    }
+\end{table}
+\end{document}

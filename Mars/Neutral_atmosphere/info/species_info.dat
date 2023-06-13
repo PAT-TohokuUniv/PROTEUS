@@ -1,0 +1,403 @@
+############################################
+############### species info ###############
+############################################
+
+
+### Fixed : 3 species ###
+
+--------------------------------------------
+ H₂O
+--------------------------------------------
+# path    : ./Mars/Neutral_atmosphere/input/density/H2O.dat
+# mass    : 18.00000000
+# charge  : 0
+
+--------------------------------------------
+ M
+--------------------------------------------
+# mass    : 10.00000000
+# charge  : 0
+
+--------------------------------------------
+ CO₂⁺
+--------------------------------------------
+# path    : ./Mars/Neutral_atmosphere/input/density/CO2+.dat
+# mass    : 43.99945142
+# charge  : 1
+
+--------------------------------------------
+
+
+### Variable : 15 species ###
+
+--------------------------------------------
+ CO₂
+--------------------------------------------
+# path    : ./Mars/Neutral_atmosphere/input/density/CO2.dat
+# mass    : 44.00000000
+# charge  : 0
+# Produced by following 9 reactions:
+
+    * R18     O     + O₂  + CO₂  →  O₃   + CO₂      
+    * R20     O     + CO  + M    →  CO₂  + M        
+    * R25     O(¹D) + CO₂        →  O    + CO₂      
+    * R29     H     + H   + CO₂  →  H₂   + CO₂      
+    * R30     H     + OH  + CO₂  →  H₂O  + CO₂      
+    * R49     CO    + OH  + M    →  CO₂  + H  + M   
+    * R51     HOCO  + O₂         →  HO₂  + CO₂      
+    * R52     CO₂⁺  + H₂         →  CO₂  + H  + H   
+    * R57     O     + HCO           →  H     + CO₂    
+
+# Lost by following 6 reactions:
+
+    * R1      CO₂    + hν  →  CO     + O       
+    * R2      CO₂    + hν  →  CO     + O(¹D)   
+    * R18     O     + O₂  + CO₂  →  O₃   + CO₂      
+    * R25     O(¹D) + CO₂        →  O    + CO₂      
+    * R29     H     + H   + CO₂  →  H₂   + CO₂      
+    * R30     H     + OH  + CO₂  →  H₂O  + CO₂      
+
+--------------------------------------------
+ CO
+--------------------------------------------
+# mass    : 28.00000000
+# charge  : 0
+# Produced by following 8 reactions:
+
+    * R1      CO₂    + hν  →  CO     + O       
+    * R2      CO₂    + hν  →  CO     + O(¹D)   
+    * R54     H     + HCO           →  H₂    + CO     
+    * R55     HCO   + HCO           →  H₂CO  + CO     
+    * R56     OH    + HCO           →  H₂O   + CO     
+    * R58     O     + HCO           →  OH    + CO     
+    * R59     O₂    + HCO           →  HO₂   + CO     
+    * R60     HO₂   + HCO           →  H₂O₂  + CO     
+
+# Lost by following 4 reactions:
+
+    * R20     O     + CO  + M    →  CO₂  + M        
+    * R49     CO    + OH  + M    →  CO₂  + H  + M   
+    * R50     CO    + OH  + M    →  HOCO + M        
+    * R53     H     + CO     + M    →  HCO   + M      
+
+--------------------------------------------
+ O
+--------------------------------------------
+# mass    : 16.00000000
+# charge  : 0
+# Produced by following 10 reactions:
+
+    * R1      CO₂    + hν  →  CO     + O       
+    * R5      O₃     + hν  →  O₂     + O       
+    * R7      O₂     + hν  →  O      + O       
+    * R8      O₂     + hν  →  O      + O(¹D)   
+    * R10     OH     + hν  →  O      + H       
+    * R12     HO₂    + hν  →  OH     + O       
+    * R21     O(¹D) + O₂         →  O    + O₂       
+    * R23     O(¹D) + O₃         →  O    + O  + O₂  
+    * R25     O(¹D) + CO₂        →  O    + CO₂      
+    * R41     OH    + OH         →  H₂O  + O        
+
+# Lost by following 11 reactions:
+
+    * R16     O     + O   + M    →  O₂   + M        
+    * R17     O     + O₂  + N₂   →  O₃   + N₂       
+    * R18     O     + O₂  + CO₂  →  O₃   + CO₂      
+    * R19     O     + O₃         →  O₂   + O₂       
+    * R20     O     + CO  + M    →  CO₂  + M        
+    * R27     H₂    + O          →  OH   + H        
+    * R38     O     + OH         →  O₂   + H        
+    * R39     O     + HO₂        →  OH   + O₂       
+    * R40     O     + H₂O₂       →  OH   + HO₂      
+    * R57     O     + HCO           →  H     + CO₂    
+    * R58     O     + HCO           →  OH    + CO     
+
+--------------------------------------------
+ O(¹D)
+--------------------------------------------
+# mass    : 16.00000000
+# charge  : 0
+# Produced by following 7 reactions:
+
+    * R2      CO₂    + hν  →  CO     + O(¹D)   
+    * R4      H₂O    + hν  →  H₂     + O(¹D)   
+    * R6      O₃     + hν  →  O₂     + O(¹D)   
+    * R8      O₂     + hν  →  O      + O(¹D)   
+    * R11     OH     + hν  →  O(¹D)  + H       
+    * R15     H₂O₂   + hν  →  H₂O    + O(¹D)   
+    * R32     H     + HO₂        →  H₂O  + O(¹D)    
+
+# Lost by following 6 reactions:
+
+    * R21     O(¹D) + O₂         →  O    + O₂       
+    * R22     O(¹D) + O₃         →  O₂   + O₂       
+    * R23     O(¹D) + O₃         →  O    + O  + O₂  
+    * R24     O(¹D) + H₂         →  H    + OH       
+    * R25     O(¹D) + CO₂        →  O    + CO₂      
+    * R26     O(¹D) + H₂O        →  OH   + OH       
+
+--------------------------------------------
+ H
+--------------------------------------------
+# mass    : 1.00000000
+# charge  : 0
+# Produced by following 12 reactions:
+
+    * R3      H₂O    + hν  →  H      + OH      
+    * R9      H₂     + hν  →  H      + H       
+    * R10     OH     + hν  →  O      + H       
+    * R11     OH     + hν  →  O(¹D)  + H       
+    * R14     H₂O₂   + hν  →  HO₂    + H       
+    * R24     O(¹D) + H₂         →  H    + OH       
+    * R27     H₂    + O          →  OH   + H        
+    * R28     OH    + H₂         →  H₂O  + H        
+    * R38     O     + OH         →  O₂   + H        
+    * R49     CO    + OH  + M    →  CO₂  + H  + M   
+    * R52     CO₂⁺  + H₂         →  CO₂  + H  + H   
+    * R57     O     + HCO           →  H     + CO₂    
+
+# Lost by following 12 reactions:
+
+    * R29     H     + H   + CO₂  →  H₂   + CO₂      
+    * R30     H     + OH  + CO₂  →  H₂O  + CO₂      
+    * R31     H     + HO₂        →  OH   + OH       
+    * R32     H     + HO₂        →  H₂O  + O(¹D)    
+    * R33     H     + HO₂        →  H₂   + O₂       
+    * R34     H     + H₂O₂       →  HO₂  + H₂       
+    * R35     H     + H₂O₂       →  H₂O  + OH       
+    * R36     H     + O₂  + M    →  HO₂  + M        
+    * R37     H     + O₃         →  OH   + O₂       
+    * R53     H     + CO     + M    →  HCO   + M      
+    * R54     H     + HCO           →  H₂    + CO     
+    * R61     H     + H₂CO          →  H₂    + HCO    
+
+--------------------------------------------
+ OH
+--------------------------------------------
+# mass    : 17.00000000
+# charge  : 0
+# Produced by following 13 reactions:
+
+    * R3      H₂O    + hν  →  H      + OH      
+    * R12     HO₂    + hν  →  OH     + O       
+    * R13     H₂O₂   + hν  →  OH     + OH      
+    * R24     O(¹D) + H₂         →  H    + OH       
+    * R26     O(¹D) + H₂O        →  OH   + OH       
+    * R27     H₂    + O          →  OH   + H        
+    * R31     H     + HO₂        →  OH   + OH       
+    * R35     H     + H₂O₂       →  H₂O  + OH       
+    * R37     H     + O₃         →  OH   + O₂       
+    * R39     O     + HO₂        →  OH   + O₂       
+    * R40     O     + H₂O₂       →  OH   + HO₂      
+    * R46     HO₂   + O₃         →  OH   + O₂ + O₂  
+    * R58     O     + HCO           →  OH    + CO     
+
+# Lost by following 14 reactions:
+
+    * R10     OH     + hν  →  O      + H       
+    * R11     OH     + hν  →  O(¹D)  + H       
+    * R28     OH    + H₂         →  H₂O  + H        
+    * R30     H     + OH  + CO₂  →  H₂O  + CO₂      
+    * R38     O     + OH         →  O₂   + H        
+    * R41     OH    + OH         →  H₂O  + O        
+    * R42     OH    + OH  + M    →  H₂O₂ + M        
+    * R43     OH    + O₃         →  HO₂  + O₂       
+    * R44     OH    + HO₂        →  H₂O  + O₂       
+    * R45     OH    + H₂O₂       →  H₂O  + HO₂      
+    * R49     CO    + OH  + M    →  CO₂  + H  + M   
+    * R50     CO    + OH  + M    →  HOCO + M        
+    * R56     OH    + HCO           →  H₂O   + CO     
+    * R62     OH    + H₂CO          →  H₂O   + HCO    
+
+--------------------------------------------
+ H₂
+--------------------------------------------
+# mass    : 2.00000000
+# charge  : 0
+# Produced by following 6 reactions:
+
+    * R4      H₂O    + hν  →  H₂     + O(¹D)   
+    * R29     H     + H   + CO₂  →  H₂   + CO₂      
+    * R33     H     + HO₂        →  H₂   + O₂       
+    * R34     H     + H₂O₂       →  HO₂  + H₂       
+    * R54     H     + HCO           →  H₂    + CO     
+    * R61     H     + H₂CO          →  H₂    + HCO    
+
+# Lost by following 5 reactions:
+
+    * R9      H₂     + hν  →  H      + H       
+    * R24     O(¹D) + H₂         →  H    + OH       
+    * R27     H₂    + O          →  OH   + H        
+    * R28     OH    + H₂         →  H₂O  + H        
+    * R52     CO₂⁺  + H₂         →  CO₂  + H  + H   
+
+--------------------------------------------
+ O₃
+--------------------------------------------
+# mass    : 48.00000000
+# charge  : 0
+# Produced by following 2 reactions:
+
+    * R17     O     + O₂  + N₂   →  O₃   + N₂       
+    * R18     O     + O₂  + CO₂  →  O₃   + CO₂      
+
+# Lost by following 8 reactions:
+
+    * R5      O₃     + hν  →  O₂     + O       
+    * R6      O₃     + hν  →  O₂     + O(¹D)   
+    * R19     O     + O₃         →  O₂   + O₂       
+    * R22     O(¹D) + O₃         →  O₂   + O₂       
+    * R23     O(¹D) + O₃         →  O    + O  + O₂  
+    * R37     H     + O₃         →  OH   + O₂       
+    * R43     OH    + O₃         →  HO₂  + O₂       
+    * R46     HO₂   + O₃         →  OH   + O₂ + O₂  
+
+--------------------------------------------
+ O₂
+--------------------------------------------
+# mass    : 32.00000000
+# charge  : 0
+# Produced by following 16 reactions:
+
+    * R5      O₃     + hν  →  O₂     + O       
+    * R6      O₃     + hν  →  O₂     + O(¹D)   
+    * R16     O     + O   + M    →  O₂   + M        
+    * R19     O     + O₃         →  O₂   + O₂       
+    * R21     O(¹D) + O₂         →  O    + O₂       
+    * R22     O(¹D) + O₃         →  O₂   + O₂       
+    * R23     O(¹D) + O₃         →  O    + O  + O₂  
+    * R33     H     + HO₂        →  H₂   + O₂       
+    * R37     H     + O₃         →  OH   + O₂       
+    * R38     O     + OH         →  O₂   + H        
+    * R39     O     + HO₂        →  OH   + O₂       
+    * R43     OH    + O₃         →  HO₂  + O₂       
+    * R44     OH    + HO₂        →  H₂O  + O₂       
+    * R46     HO₂   + O₃         →  OH   + O₂ + O₂  
+    * R47     HO₂   + HO₂        →  H₂O₂ + O₂       
+    * R48     HO₂   + HO₂ + M    →  H₂O₂ + O₂ + M   
+
+# Lost by following 8 reactions:
+
+    * R7      O₂     + hν  →  O      + O       
+    * R8      O₂     + hν  →  O      + O(¹D)   
+    * R17     O     + O₂  + N₂   →  O₃   + N₂       
+    * R18     O     + O₂  + CO₂  →  O₃   + CO₂      
+    * R21     O(¹D) + O₂         →  O    + O₂       
+    * R36     H     + O₂  + M    →  HO₂  + M        
+    * R51     HOCO  + O₂         →  HO₂  + CO₂      
+    * R59     O₂    + HCO           →  HO₂   + CO     
+
+--------------------------------------------
+ HO₂
+--------------------------------------------
+# mass    : 33.00000000
+# charge  : 0
+# Produced by following 8 reactions:
+
+    * R14     H₂O₂   + hν  →  HO₂    + H       
+    * R34     H     + H₂O₂       →  HO₂  + H₂       
+    * R36     H     + O₂  + M    →  HO₂  + M        
+    * R40     O     + H₂O₂       →  OH   + HO₂      
+    * R43     OH    + O₃         →  HO₂  + O₂       
+    * R45     OH    + H₂O₂       →  H₂O  + HO₂      
+    * R51     HOCO  + O₂         →  HO₂  + CO₂      
+    * R59     O₂    + HCO           →  HO₂   + CO     
+
+# Lost by following 10 reactions:
+
+    * R12     HO₂    + hν  →  OH     + O       
+    * R31     H     + HO₂        →  OH   + OH       
+    * R32     H     + HO₂        →  H₂O  + O(¹D)    
+    * R33     H     + HO₂        →  H₂   + O₂       
+    * R39     O     + HO₂        →  OH   + O₂       
+    * R44     OH    + HO₂        →  H₂O  + O₂       
+    * R46     HO₂   + O₃         →  OH   + O₂ + O₂  
+    * R47     HO₂   + HO₂        →  H₂O₂ + O₂       
+    * R48     HO₂   + HO₂ + M    →  H₂O₂ + O₂ + M   
+    * R60     HO₂   + HCO           →  H₂O₂  + CO     
+
+--------------------------------------------
+ H₂O₂
+--------------------------------------------
+# mass    : 34.00000000
+# charge  : 0
+# Produced by following 4 reactions:
+
+    * R42     OH    + OH  + M    →  H₂O₂ + M        
+    * R47     HO₂   + HO₂        →  H₂O₂ + O₂       
+    * R48     HO₂   + HO₂ + M    →  H₂O₂ + O₂ + M   
+    * R60     HO₂   + HCO           →  H₂O₂  + CO     
+
+# Lost by following 7 reactions:
+
+    * R13     H₂O₂   + hν  →  OH     + OH      
+    * R14     H₂O₂   + hν  →  HO₂    + H       
+    * R15     H₂O₂   + hν  →  H₂O    + O(¹D)   
+    * R34     H     + H₂O₂       →  HO₂  + H₂       
+    * R35     H     + H₂O₂       →  H₂O  + OH       
+    * R40     O     + H₂O₂       →  OH   + HO₂      
+    * R45     OH    + H₂O₂       →  H₂O  + HO₂      
+
+--------------------------------------------
+ N₂
+--------------------------------------------
+# mass    : 28.00000000
+# charge  : 0
+# Produced by following 1 reactions:
+
+    * R17     O     + O₂  + N₂   →  O₃   + N₂       
+
+# Lost by following 1 reactions:
+
+    * R17     O     + O₂  + N₂   →  O₃   + N₂       
+
+--------------------------------------------
+ HOCO
+--------------------------------------------
+# mass    : 45.00000000
+# charge  : 0
+# Produced by following 1 reactions:
+
+    * R50     CO    + OH  + M    →  HOCO + M        
+
+# Lost by following 1 reactions:
+
+    * R51     HOCO  + O₂         →  HO₂  + CO₂      
+
+--------------------------------------------
+ HCO
+--------------------------------------------
+# mass    : 29.00000000
+# charge  : 0
+# Produced by following 3 reactions:
+
+    * R53     H     + CO     + M    →  HCO   + M      
+    * R61     H     + H₂CO          →  H₂    + HCO    
+    * R62     OH    + H₂CO          →  H₂O   + HCO    
+
+# Lost by following 7 reactions:
+
+    * R54     H     + HCO           →  H₂    + CO     
+    * R55     HCO   + HCO           →  H₂CO  + CO     
+    * R56     OH    + HCO           →  H₂O   + CO     
+    * R57     O     + HCO           →  H     + CO₂    
+    * R58     O     + HCO           →  OH    + CO     
+    * R59     O₂    + HCO           →  HO₂   + CO     
+    * R60     HO₂   + HCO           →  H₂O₂  + CO     
+
+--------------------------------------------
+ H₂CO
+--------------------------------------------
+# mass    : 30.00000000
+# charge  : 0
+# Produced by following 1 reactions:
+
+    * R55     HCO   + HCO           →  H₂CO  + CO     
+
+# Lost by following 2 reactions:
+
+    * R61     H     + H₂CO          →  H₂    + HCO    
+    * R62     OH    + H₂CO          →  H₂O   + HCO    
+
+--------------------------------------------
+

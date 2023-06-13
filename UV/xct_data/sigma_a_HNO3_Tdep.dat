@@ -1,0 +1,103 @@
+#  FORMULA:	HONO2
+#  AUTHOR(YEAR):	JPL-2010(2011)
+#  T:	298K
+#  λ:	192-350nm(rec)
+#  BIBLIOGRAPHY:	S.P. Sander, J. Abbatt, J. R. Barker, J. B. Burkholder, R. R. Friedl, D. M. Golden, 
+#  R. E. Huie, C. E. Kolb, M. J. Kurylo, G. K. Moortgat, V. L. Orkin and P. H. Wine, 
+#  "Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies, Evaluation Number 17", 
+#  JPL Publication 10-6, Jet Propulsion Laboratory, Pasadena, 2011; http://jpldataeval.jpl.nasa.gov/
+#  
+#  COMMENTS:	JPL-2010 recommendation, adopting the earlier recommendation of
+#  S.P. Sander, R.R. Friedl, D.M. Golden, M.J. Kurylo, G.K. Moortgat, H. Keller-Rudek, P.H. Wine, 
+#  A.R. Ravishankara, C.E. Kolb, M.J. Molina, B.J. Finlayson-Pitts, R.E. Huie, V.L. Orkin, 
+#  “Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies. Evaluation Number 15“, 
+#  JPL Publication 06-2, Jet Propulsion Laboratory, Pasadena, 2006:
+#  
+#  192-350 nm, absorption cross sections σ and temperature coefficients B of
+#  
+#  J.B. Burkholder, R. Talukdar, A.R. Ravishankara, and S. Solomon, "Temperature dependence of the HNO3 UV #  absorption cross sections," J. Geophys. Res. 98(D12), 22937-22948 (1993); DOI: 10.1029/93JD02178
+#  
+#  Parameterization of the temperature dependence by
+#  
+#  σ(T, λ) = σ(298 K, λ) × exp[B × (T - 298)] with the temperature coefficients B:
+#  ---------------------
+#  λ(nm)  1000xB(K-1)
+#  ---------------------
+    196   1.70
+    198   1.65
+    200   1.66
+    202   1.69
+    204   1.74
+    206   1.77
+    208   1.85
+    210   1.97
+    212   2.08
+    214   2.17
+    216   2.17
+    218   2.21
+    220   2.15
+    222   2.06
+    224   1.96
+    226   1.84
+    228   1.78
+    230   1.80
+    232   1.86
+    234   1.90
+    236   1.97
+    238   1.97
+    240   1.97
+    242   1.88
+    244   1.75
+    246   1.61
+    248   1.44
+    250   1.34
+    252   1.23
+    254   1.18
+    256   1.14
+    258   1.12
+    260   1.14
+    262   1.14
+    264   1.18
+    266   1.22
+    268   1.25
+    270   1.45
+    272   1.49
+    274   1.56
+    276   1.64
+    278   1.69
+    280   1.78
+    282   1.87
+    284   1.94
+    286   2.04
+    288   2.15
+    290   2.27
+    292   2.38
+    294   2.52
+    296   2.70
+    298   2.92
+    300   3.10
+    302   3.24
+    304   3.52
+    306   3.77
+    308   3.91
+    310   4.23
+    312   4.70
+    314   5.15
+    316   5.25
+    318   5.74
+    320   6.45
+    322   6.70
+    324   7.16
+    326   7.55
+    328   8.16
+    330   9.75
+    332   9.93
+    334   9.60
+    336  10.50
+    338  10.80
+    340  11.80
+    342  11.80
+    344   9.30
+    346  12.10
+    348  11.90
+    350   9.30    

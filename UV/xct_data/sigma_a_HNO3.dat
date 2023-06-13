@@ -1,0 +1,102 @@
+#  FORMULA:	HONO2
+#  AUTHOR(YEAR):	JPL-2010(2011)
+#  T:	298K
+#  λ:	192-350nm(rec)
+#  BIBLIOGRAPHY:	S.P. Sander, J. Abbatt, J. R. Barker, J. B. Burkholder, R. R. Friedl, 
+#  D. M. Golden, R. E. Huie, C. E. Kolb, M. J. Kurylo, G. K. Moortgat, V. L. Orkin and P. H. Wine, 
+#  "Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies, Evaluation Number 17", 
+#  JPL Publication 10-6, Jet Propulsion Laboratory, Pasadena, 2011; http://jpldataeval.jpl.nasa.gov/
+#  
+#  COMMENTS:	JPL-2010 recommendation, adopting the earlier recommendation of
+#  S.P. Sander, R.R. Friedl, D.M. Golden, M.J. Kurylo, G.K. Moortgat, H. Keller-Rudek, 
+#  P.H. Wine, A.R. Ravishankara, C.E. Kolb, M.J. Molina, B.J. Finlayson-Pitts, R.E. Huie, V.L. Orkin, 
+#  “Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies. Evaluation Number 15“, 
+#  JPL Publication 06-2, Jet Propulsion Laboratory, Pasadena, 2006:
+#  
+#  192-350 nm, absorption cross sections σ and temperature coefficients B of
+#  
+#  J.B. Burkholder, R. Talukdar, A.R. Ravishankara, and S. Solomon, 
+#  "Temperature dependence of the HNO3 UV absorption cross sections," 
+#  J. Geophys. Res. 98(D12), 22937-22948 (1993); DOI: 10.1029/93JD02178
+#  
+#  
+192	1.225e-17
+194	1.095e-17
+196	9.40e-18
+198	7.70e-18
+200	5.88e-18
+202	4.47e-18
+204	3.28e-18
+206	2.31e-18
+208	1.56e-18
+210	1.04e-18
+212	6.75e-19
+214	4.39e-19
+216	2.92e-19
+218	2.00e-19
+220	1.49e-19
+222	1.18e-19
+224	9.61e-20
+226	8.02e-20
+228	6.82e-20
+230	5.75e-20
+232	4.87e-20
+234	4.14e-20
+236	3.36e-20
+238	2.93e-20
+240	2.58e-20
+242	2.34e-20
+244	2.16e-20
+246	2.06e-20
+248	2.00e-20
+250	1.97e-20
+252	1.96e-20
+254	1.95e-20
+256	1.95e-20
+258	1.93e-20
+260	1.91e-20
+262	1.87e-20
+264	1.83e-20
+266	1.77e-20
+268	1.70e-20
+270	1.62e-20
+272	1.53e-20
+274	1.44e-20
+276	1.33e-20
+278	1.23e-20
+280	1.12e-20
+282	1.01e-20
+284	9.09e-21
+286	8.07e-21
+288	7.09e-21
+290	6.15e-21
+292	5.32e-21
+294	4.53e-21
+296	3.81e-21
+298	3.16e-21
+300	2.63e-21
+302	2.08e-21
+304	1.67e-21
+306	1.33e-21
+308	1.05e-21
+310	8.14e-22
+312	6.28e-22
+314	4.68e-22
+316	3.62e-22
+318	2.71e-22
+320	1.97e-22
+322	1.54e-22
+324	1.08e-22
+326	8.20e-23
+328	6.13e-23
+330	4.31e-23
+332	3.19e-23
+334	2.43e-23
+336	1.96e-23
+338	1.42e-23
+340	1.03e-23
+342	8.6e-24
+344	6.9e-24
+346	5.0e-24
+348	4.2e-24
+350	4.2e-24
