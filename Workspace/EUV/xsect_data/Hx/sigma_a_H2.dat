@@ -1,0 +1,150 @@
+# 0          References for Cross Section of H2        Total   
+# Cross section:                                                                  
+# Lambda = 1.-200. A                                                              
+#    Cross section approximated by two times the cross section of atomic hydrogen 
+# Lambda = 209.3-452.2 A                                                          
+#    Samson, J. A. R., Cairns, R. B. (1965)                                       
+#    J. Opt. Soc. Am. 55, 1035                                                    
+# Lambda = 500.-844. A                                                            
+#    Cook, G. R., Metzger, P. H. (1964)                                           
+#    J. Opt. Soc. Am. 54, 968                                                     
+# Lambda = 584. A                                                                 
+#    Brolley, J. E., Porter, l. E., Sherman, R. H., Theobald, J. K., Fong, J. C. (
+#    J. Geophys. Res. 78, 1627                                                    
+#                                                                                 
+# 0          References for Cross Section of H2        H/H(2)  
+# Branching ratio:                                                                
+# Lambda = 770.-844. A                                                            
+#    Cook, G. R., Metzger, P. H. (1964)                                           
+#    J. Opt. Soc. Am. 54, 968                                                     
+#    (branching ratio for dissociation and ionization)                            
+# Threshold:                                                                      
+# Lambda = 844.79 A                                                               
+#    Herzberg, G., Monfils, A. (1960)                                             
+#    J. Mol. Spectr. 5, 482                                                       
+#    (dissociation limit for production of H + H(2s, 2p))                         
+#    (predissociation from lambda = 930.91-1109.60 A into H + H)                  
+#                                                                                 
+# 0          References for Cross Section of H2        H/H     
+#                                                                                 
+# 0          References for Cross Section of H2        H2+     
+# Branching ratios:                                                               
+# Lambda = 409.-685. A                                                            
+#    Browning, R., Fryar, J. (1973)                                               
+#    J. Phys. B, Atom. Mol. Phys. 6, 364                                          
+#    (branching ratio for ionization and dissociative ionization)                 
+# Thresholds:                                                                     
+# Lambda = 803.67 A                                                               
+#    Beutler, H., Juenger, H. O. (1936)                                           
+#    Z. Physik 100, 80                                                            
+#    (ionization threshold for J=0 - J=0)                                         
+# Lambda = 685.8 A                                                                
+#    Browning, R., Fryar, J. (1973)                                               
+#    J. Phys. B, Atom. Mol. Phys. 6, 364                                          
+#    (photodissociative ionization threshold)                                     
+#                                                                                 
+# 0 Branching ratio for H2       Total        4 branches
+#  Lambda  Total   
+    1.0 4.00E-27 
+   10.0 1.12E-24 
+   50.0 2.20E-21 
+  100.0 2.00E-20 
+  200.0 1.66E-19 
+  209.3 2.66E-19 
+  234.2 4.02E-19 
+  239.6 4.39E-19 
+  247.2 4.94E-19 
+  260.5 5.79E-19 
+  266.3 6.38E-19 
+  283.5 7.90E-19 
+  297.6 9.49E-19 
+  303.1 1.02E-18 
+  314.9 1.12E-18 
+  323.6 1.22E-18 
+  335.1 1.36E-18 
+  345.1 1.51E-18 
+  358.5 1.75E-18 
+  362.9 1.84E-18 
+  374.9 2.04E-18 
+  387.4 2.26E-18 
+  428.2 2.88E-18 
+  434.3 3.02E-18 
+  452.2 3.37E-18 
+  500.0 3.72E-18 
+  550.0 5.20E-18 
+  584.0 6.48E-18 
+  600.0 7.20E-18 
+  650.0 9.30E-18 
+  700.0 1.00E-17 
+  750.0 1.33E-17 
+  770.0 8.56E-18 
+  771.5 1.12E-17 
+  777.0 5.58E-18 
+  778.3 9.67E-18 
+  785.0 7.07E-18 
+  786.1 1.23E-17 
+  793.0 6.14E-18 
+  794.6 1.30E-17 
+  802.0 5.39E-18 
+  804.1 1.64E-17 
+  813.0 5.58E-18 
+  814.7 2.08E-17 
+  823.0 5.95E-18 
+  826.4 2.27E-17 
+  838.0 6.69E-18 
+  839.2 2.53E-17 
+  844.0 2.50E-17 
+  844.8 2.50E-17 
+  844.8 1.00E-35 
+  929.9 1.00E-35 
+  930.9 2.72E-17 
+  931.9 1.00E-35 
+  937.2 1.00E-35 
+  938.2 3.41E-17 
+  939.2 1.00E-35 
+  944.8 1.00E-35 
+  945.8 4.09E-17 
+  946.8 1.00E-35 
+  953.6 1.00E-35 
+  954.6 4.95E-17 
+  955.6 1.00E-35 
+  962.2 1.00E-35 
+  963.2 6.00E-17 
+  964.2 1.00E-35 
+  971.2 1.00E-35 
+  972.2 5.45E-17 
+  973.2 1.00E-35 
+  980.7 1.00E-35 
+  981.7 6.65E-17 
+  982.7 1.00E-35 
+  990.6 1.00E-35 
+  991.6 7.94E-17 
+  992.6 1.00E-35 
+ 1001.1 1.00E-35 
+ 1002.1 6.20E-17 
+ 1003.1 1.00E-35 
+ 1012.1 1.00E-35 
+ 1013.1 5.00E-17 
+ 1014.1 1.00E-35 
+ 1023.7 1.00E-35 
+ 1024.7 7.46E-18 
+ 1025.7 1.00E-35 
+ 1035.9 1.00E-35 
+ 1036.9 4.05E-18 
+ 1037.9 1.00E-35 
+ 1048.7 1.00E-35 
+ 1049.7 3.19E-19 
+ 1050.7 1.00E-35 
+ 1062.3 1.00E-35 
+ 1063.3 1.96E-20 
+ 1064.3 1.00E-35 
+ 1076.6 1.00E-35 
+ 1077.6 1.52E-21 
+ 1078.6 1.00E-35 
+ 1091.6 1.00E-35 
+ 1092.6 3.96E-24 
+ 1093.6 1.00E-35 
+ 1107.6 1.00E-35 
+ 1108.6 5.25E-26 
+ 1109.6 1.00E-35 
+ 2768.8 1.00E-35 

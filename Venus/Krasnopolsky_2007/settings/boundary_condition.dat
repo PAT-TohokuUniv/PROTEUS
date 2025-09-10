@@ -1,6 +1,0 @@
-CO2,SO2,H2O,OCS,H2SO4
-CO2 : L 1 lval 9.07e26 U 4 uval 0
-SO2 : L 1 lval 1.18e23 U 4 uval 0
-H2O : L 1 lval 2.72e22 U 4 uval 0
-OCS : L 1 lval 2.46e22 U 4 uval 0
-H2SO4 : L 4 lval 0 U 2 uval -2.2e16

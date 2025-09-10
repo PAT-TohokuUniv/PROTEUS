@@ -1,8 +1,0 @@
-SO2, HCl, NO, CO2, H2O
-Krasnopolsky_2013/input/density
-SO2:SO2.dat;1
-HCl:HCl.dat;1
-NO:NO.dat;1
-CO2:CO2.dat;0
-H2O:H2O.dat;0
-:;0

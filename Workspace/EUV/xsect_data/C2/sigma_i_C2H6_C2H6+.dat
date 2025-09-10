@@ -1,0 +1,109 @@
+# 0          References for Cross Section of C2H6      total   
+# Cross section:                                                                  
+# Lambda = 0.61-250. A                                                            
+#    Synthesized from atomic cross sections of 2*C + 6*H                          
+#    Barfield, W. D., Koontz, G. D., Huebner W. F. (1972)                         
+#    J. Quant. Spectr. Rad. Trans. 12, 1409                                       
+# Lambda = 354.-1127. A                                                           
+#    Koch, E. E., Skibowski, M. (1971)                                            
+#    Chem. Phys. Lett. 9, 429                                                     
+# Lambda = 1160.-1200. A                                                          
+#    Lombos, B. A., Sauvageau, P., Sandorfy, C. (1967)                            
+#    J. Mol. Spectr. 24, 253                                                      
+# Lambda = 1200.-1380. A                                                          
+#    Okabe, H., Becker, D. A. (1963)                                              
+#    J. Chem. Phys. 39, 2549                                                      
+# Lambda = 1380.-1600. A                                                          
+#    Mount, G. H., Moos, H. W. (1978)                                             
+#    Astrophys. J. 224, l35                                                       
+#                                                                                 
+# 0          References for Cross Section of C2H6      CH3/CH3 
+# Branching ratios:                                                               
+# Lambda = 1055., 1236., 1470. A                                                  
+#    Lias, S. G., Collin, G. J., Rebbert, R. E., Ausloos, P. (1970)               
+#    J. Chem. Phys. 52, 1841                                                      
+#                                                                                 
+# 0          References for Cross Section of C2H6      C2H5/H  
+#                                                                                 
+# 0          References for Cross Section of C2H6      1CH2/CH4
+#                                                                                 
+# 0          References for Cross Section of C2H6      C2H6+   
+#                                                                                 
+# 0 Branching ratio for C2H6     total        5 branches
+#  Lambda C2H6+    
+    0.6 7.90E-24 
+    1.2 7.99E-23 
+    2.4 6.69E-22 
+    6.2 1.09E-20 
+   12.6 8.90E-20 
+   24.6 5.57E-19 
+   40.8 2.12E-18 
+   42.5 8.65E-20 
+   62.1 2.93E-19 
+  121.7 9.79E-19 
+  248.6 3.72E-18 
+  354.0 6.80E-18 
+  365.0 7.37E-18 
+  376.0 7.92E-18 
+  387.0 8.45E-18 
+  400.0 8.93E-18 
+  413.0 9.39E-18 
+  428.0 1.10E-17 
+  442.0 1.20E-17 
+  459.0 1.46E-17 
+  477.0 1.70E-17 
+  496.0 1.93E-17 
+  517.0 2.02E-17 
+  539.0 2.15E-17 
+  564.0 2.30E-17 
+  590.0 2.42E-17 
+  620.0 2.41E-17 
+  653.0 2.54E-17 
+  689.0 2.52E-17 
+  729.0 2.45E-17 
+  775.0 2.27E-17 
+  827.0 1.89E-17 
+  886.0 1.47E-17 
+  954.0 8.87E-18 
+ 1033.0 3.44E-18 
+ 1064.0 0.00E+00 
+ 1127.0 0.00E+00 
+ 1160.0 0.00E+00 
+ 1180.0 0.00E+00 
+ 1200.0 0.00E+00 
+ 1220.0 0.00E+00 
+ 1240.0 0.00E+00 
+ 1260.0 0.00E+00 
+ 1280.0 0.00E+00 
+ 1300.0 0.00E+00 
+ 1320.0 0.00E+00 
+ 1340.0 0.00E+00 
+ 1360.0 0.00E+00 
+ 1380.0 0.00E+00 
+ 1396.0 0.00E+00 
+ 1400.0 0.00E+00 
+ 1409.0 0.00E+00 
+ 1417.0 0.00E+00 
+ 1420.0 0.00E+00 
+ 1427.0 0.00E+00 
+ 1440.0 0.00E+00 
+ 1450.0 0.00E+00 
+ 1460.0 0.00E+00 
+ 1470.0 0.00E+00 
+ 1480.0 0.00E+00 
+ 1490.0 0.00E+00 
+ 1500.0 0.00E+00 
+ 1510.0 0.00E+00 
+ 1520.0 0.00E+00 
+ 1530.0 0.00E+00 
+ 1540.0 0.00E+00 
+ 1550.0 0.00E+00 
+ 1560.0 0.00E+00 
+ 1570.0 0.00E+00 
+ 1580.0 0.00E+00 
+ 1590.0 0.00E+00 
+ 1600.0 0.00E+00 
+ 2726.0 0.00E+00 
+ 2900.0 0.00E+00 
+ 3220.0 0.00E+00 
+ 7150.0 0.00E+00 

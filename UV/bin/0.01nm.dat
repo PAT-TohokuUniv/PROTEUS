@@ -1,6 +1,0 @@
-# Definition of wavelength ranges and corresponding wavelength bins
-#     swl: start of wavelangth range [nm]
-#     ewl: end of wavelength range [nm]
-#     bin: wavelength bin corresponding to the above wavelength range [nm]
-# swl   ewl   bin
-  0.5  999.5  0.01

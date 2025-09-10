@@ -1,0 +1,233 @@
+# 0          References for Cross Section of CH4       Total   
+# Cross section:                                                                  
+# Lambda = 23.6-250 A                                                             
+#    Lukirskii, A. P., Brytov, I. A., Zimkina, T. M. (1964)                       
+#    Opt. Spektr. (Engl. Trans.) 17, 234                                          
+# Lambda = 160-1000 A                                                             
+#    Rustgi, O. P. (1964)                                                         
+#    J. Opt. Soc. Am. 54, 464                                                     
+# Lambda = 773.-1370. A                                                           
+#    Ditchburn, R. W. (1955)                                                      
+#    Proc. Roy. Soc. London 229a, 44                                              
+# Lambda = 951.9-1306.0 A                                                         
+#    Sun, H., Weissler, G. L. (1955)                                              
+#    J. Chem. Phys. 23, 1160                                                      
+# Lambda = 1380.-1600. A                                                          
+#    Mount, G. H., Moos, H. W. (1978)                                             
+#    Astrophys. J. (Letters) 224, l35                                             
+#                                                                                 
+# 0          References for Cross Section of CH4       sCH2/H2 
+# 1CH2 is equivalent to singlet state of CH2                                      
+# Lambda = 773.-1513. A                                                           
+#    Ditchburn, R. W. (1955)                                                      
+#    Proc. Roy. Soc. London 229a, 44                                              
+# Lambda = 951.9-1306.0 A                                                         
+#    Sun, H., Weissler, G. L. (1955)                                              
+#    J. Chem. Phys. 23, 1160                                                      
+# Branching ratio:                                                                
+#    For CH2 + H2                                                                 
+# Lambda = 1236. A                                                                
+#    Gordon, J. R., Ausloos, P. (1967)                                            
+#    J. Chem. Phys. 46, 4823                                                      
+#    Calvert, J. G., Pitts, J. N. (1966)                                          
+#    Photochemistry, John Wiley & Sons, Inc., N. Y.                               
+#    Stief, L. J.  Donn, B., Glicker, S., Gentieu, E. P., Mentall, J. E. (1972)   
+#    Astrophys. J. 171, 21.                                                       
+# Threshold:                                                                      
+#    From heat of formation                                                       
+#   Lambda = 2373. A                                                              
+#    Hayden, C. C., Neumark, D. M., Shobatake, K., Sparks, R. K., Lee, Y. T. (1982
+#    J. Chem. Phys. 76, 3607                                                      
+#                                                                                 
+# 0          References for Cross Section of CH4       CH3/H   
+# Lambda = 773.-1513.  A                                                          
+#    Ditchburn, R. W. (1955)                                                      
+#    Proc. Roy. Soc. London 229a, 44                                              
+# Lambda = 951.9-1306.0 A                                                         
+#    Sun, H., Weissler, G. L. (1955)                                              
+#    J. Chem. Phys. 23, 1160                                                      
+# Branching Ratio:                                                                
+# Lambda = 1057.5 A and 1236. A  CH + H2 + H                                      
+#    Gordon, J. R., Ausloos, P. (1967)                                            
+#    J. Chem. Phys. 46, 4823                                                      
+# Lambda = 1215.7 A                                                               
+#    Slanger, T. (1981)                                                           
+#    Planetary Atmospheres Principal Invest. Conf. NASA/GSFC, p. xiv-6            
+# Threshold:                                                                      
+# Lambda = 2770. A  from heats of formation                                       
+# Lambda = 2800. A  into CH3 + H                                                  
+#    Ditchburn, R. W. (1955)                                                      
+#    Proc. Roy. Soc. London 229a, 44                                              
+#                                                                                 
+# 0          References for Cross Section of CH4       CH2/H/H 
+#                                                                                 
+# 0          References for Cross Section of CH4       CH4+    
+# Lambda = 23.6-250. A                                                            
+#    Lukirskii, A. P., Brytov, I. A., Zimkina, T. M. (1964)                       
+#    Opt. Spektr. (Engl. Trans.) 17, 234                                          
+# Lambda = 278.-932.1 A                                                           
+#    Ditchburn, R. W. (1955)                                                      
+#    Proc. Roy. Soc. London 229a, 44                                              
+# Lambda = 304.-875. A                                                            
+#    Kronebusch, P. L., Berkowitz, J. (1976)                                      
+#    Int. J. Mass Spectry. Ion Phys. 22, 283                                      
+#                                                                                 
+# 0          References for Cross Section of CH4       CH3+H   
+# Lambda = 304.-875. A                                                            
+#    Kronebusch, P. L., Berkowitz, J. (1976)                                      
+#    Int. J. Mass Spectry. Ion Phys. 22, 283                                      
+#                                                                                 
+# 0          References for Cross Section of CH4       CH2+H2  
+# Lambda = 304.-875. A                                                            
+#    Kronebusch, P. L., Berkowitz, J. (1976)                                      
+#    Int. J. Mass Spectry. Ion Phys. 22, 283                                      
+#                                                                                 
+# 0          References for Cross Section of CH4       CH+H2/H 
+# Lambda = 304.-875. A                                                            
+#    Kronebusch, P. L., Berkowitz, J. (1976)                                      
+#    Int. J. Mass Spectry. Ion Phys. 22, 283                                      
+#                                                                                 
+# 0          References for Cross Section of CH4       H+CH3   
+# Lambda = 304.-875. A                                                            
+#    Kronebusch, P. L., Berkowitz, J. (1976)                                      
+#    Int. J. Mass Spectry. Ion Phys. 22, 283                                      
+#                                                                                 
+# 0 Branching ratio for CH4      Total        9 branches
+#  Lambda CH2+H2   
+    1.0 2.00E-22 
+   23.6 5.10E-20 
+   31.6 1.03E-19 
+   39.8 1.93E-19 
+   42.7 2.50E-19 
+   40.0 1.14E-20 
+   63.0 2.83E-20 
+  100.0 6.75E-20 
+  158.0 2.24E-19 
+  250.0 5.76E-19 
+  278.0 6.03E-19 
+  303.7 5.84E-19 
+  358.4 1.22E-18 
+  363.0 9.84E-19 
+  374.0 1.20E-18 
+  418.8 1.25E-18 
+  434.0 1.11E-18 
+  452.0 1.20E-18 
+  459.6 1.06E-18 
+  475.0 1.04E-18 
+  508.4 1.06E-18 
+  525.8 1.05E-18 
+  529.5 9.51E-19 
+  533.6 9.27E-19 
+  539.0 1.08E-18 
+  555.0 1.04E-18 
+  574.7 1.22E-18 
+  580.7 1.15E-18 
+  599.6 1.25E-18 
+  604.2 1.18E-18 
+  616.3 1.33E-18 
+  629.3 1.34E-18 
+  637.3 1.32E-18 
+  660.3 1.31E-18 
+  661.9 1.27E-18 
+  671.4 1.32E-18 
+  671.6 1.39E-18 
+  679.4 1.24E-18 
+  685.8 1.34E-18 
+  688.4 1.36E-18 
+  698.5 1.24E-18 
+  718.5 1.30E-18 
+  746.4 1.19E-18 
+  764.0 1.34E-18 
+  769.3 1.20E-18 
+  773.0 1.28E-18 
+  796.7 5.97E-19 
+  806.0 4.75E-19 
+  827.0 0.00E+00 
+  833.0 0.00E+00 
+  840.0 0.00E+00 
+  843.8 0.00E+00 
+  850.6 0.00E+00 
+  858.3 0.00E+00 
+  871.1 0.00E+00 
+  875.5 0.00E+00 
+  878.7 0.00E+00 
+  883.1 0.00E+00 
+  887.4 0.00E+00 
+  906.0 0.00E+00 
+  916.0 0.00E+00 
+  919.8 0.00E+00 
+  932.1 0.00E+00 
+  945.0 0.00E+00 
+  951.9 0.00E+00 
+  954.8 0.00E+00 
+  955.5 0.00E+00 
+  958.5 0.00E+00 
+  961.5 0.00E+00 
+  977.0 0.00E+00 
+  978.0 0.00E+00 
+  979.8 0.00E+00 
+  988.8 0.00E+00 
+  989.8 0.00E+00 
+  991.5 0.00E+00 
+ 1025.0 0.00E+00 
+ 1036.3 0.00E+00 
+ 1037.0 0.00E+00 
+ 1065.9 0.00E+00 
+ 1071.8 0.00E+00 
+ 1084.6 0.00E+00 
+ 1084.9 0.00E+00 
+ 1085.5 0.00E+00 
+ 1134.4 0.00E+00 
+ 1135.0 0.00E+00 
+ 1152.0 0.00E+00 
+ 1152.1 0.00E+00 
+ 1175.5 0.00E+00 
+ 1176.4 0.00E+00 
+ 1176.5 0.00E+00 
+ 1183.0 0.00E+00 
+ 1184.5 0.00E+00 
+ 1189.0 0.00E+00 
+ 1199.5 0.00E+00 
+ 1200.7 0.00E+00 
+ 1200.7 0.00E+00 
+ 1206.9 0.00E+00 
+ 1215.5 0.00E+00 
+ 1215.7 0.00E+00 
+ 1217.6 0.00E+00 
+ 1243.3 0.00E+00 
+ 1275.1 0.00E+00 
+ 1302.2 0.00E+00 
+ 1304.9 0.00E+00 
+ 1306.0 0.00E+00 
+ 1324.0 0.00E+00 
+ 1330.0 0.00E+00 
+ 1336.0 0.00E+00 
+ 1362.0 0.00E+00 
+ 1370.0 0.00E+00 
+ 1380.0 0.00E+00 
+ 1390.0 0.00E+00 
+ 1400.0 0.00E+00 
+ 1410.0 0.00E+00 
+ 1420.0 0.00E+00 
+ 1430.0 0.00E+00 
+ 1440.0 0.00E+00 
+ 1450.0 0.00E+00 
+ 1460.0 0.00E+00 
+ 1470.0 0.00E+00 
+ 1480.0 0.00E+00 
+ 1490.0 0.00E+00 
+ 1500.0 0.00E+00 
+ 1510.0 0.00E+00 
+ 1520.0 0.00E+00 
+ 1530.0 0.00E+00 
+ 1540.0 0.00E+00 
+ 1550.0 0.00E+00 
+ 1560.0 0.00E+00 
+ 1570.0 0.00E+00 
+ 1580.0 0.00E+00 
+ 1590.0 0.00E+00 
+ 1600.0 0.00E+00 
+ 1850.0 0.00E+00 
+ 2100.0 0.00E+00 
+ 2373.0 0.00E+00 
+ 2770.0 0.00E+00 
