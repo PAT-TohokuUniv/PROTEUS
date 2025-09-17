@@ -1,6 +1,6 @@
-# Photochemical and RadiatiOn Transport model for Extensive USe (PROTEUS) v2.0.0
+# Photochemical and RadiatiOn Transport model for Extensive USe (PROTEUS) v2.0.1
 
-Written by Yuki Nakamura, 10 September 2025
+Written by Yuki Nakamura, 17 September 2025
 
 - **PROTEUS v2** is a cross-platform software that utilizes a one-dimensional photochemical model to simulate the composition and temporal evolution of various planetary atmospheres.
 
