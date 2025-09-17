@@ -1191,9 +1191,6 @@ contains
 
       ! output cross sections ------
       if (outflag == 1) then 
-        dirname = './UV/xsect/absorption'
-        write(command,*) 'mkdir -p ', trim(dirname)
-        call system(command)
         iz = 1 ! select altitude grid
         do isp = 1, nsp
           if (nint(sigma_a(0,1,isp)) == 1) then 
@@ -1257,9 +1254,6 @@ contains
 
       ! output cross sections ------
       if (outflag == 1) then 
-        dirname = './UV/xsect/dissociation'
-        write(command,*) 'mkdir -p ', trim(dirname)
-        call system(command)
         iz = 1 ! select altitude grid
         do jch = 1, nch_photolysis
           ich = nint(sigma_dat(0,nsp+jch,0,0,0)) ! reaction index
