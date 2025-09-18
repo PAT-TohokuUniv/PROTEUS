@@ -1,0 +1,72 @@
+[
+	{
+		"state"  : "(1D)",
+		"display": "(<sup>1</sup>D)",
+		"gnuplot": "(^1D)"
+	},
+	{
+		"state"  : "(1S)",
+		"display": "(<sup>1</sup>S)",
+		"gnuplot": "(^1S)"
+	},
+	{
+		"state"  : "(2D)",
+		"display": "(<sup>2</sup>D)",
+		"gnuplot": "(^2D)"
+	},
+	{
+		"state"  : "(2P)",
+		"display": "(<sup>2</sup>P)",
+		"gnuplot": "(^2P)"
+	},
+	{
+		"state"  : "(3P)",
+		"display": "(<sup>3</sup>P)",
+		"gnuplot": "(^3P)"
+	},
+	{
+		"state"  : "(4P)",
+		"display": "(<sup>4</sup>P)",
+		"gnuplot": "(^4P)"
+	},
+	{
+		"state"  : "(4S)",
+		"display": "(<sup>4</sup>S)",
+		"gnuplot": "(^4S)"
+	},
+	{
+		"state"  : "(a1Deltag)",
+		"display": "(a<sup>1</sup>&Delta;<sub>g</sub>)",
+		"gnuplot": "(a^1{/Symbol D}_g)"
+	},
+	{
+		"state"  : "(a3Pi)",
+		"display": "(a<sup>3</sup>&Pi;)",
+		"gnuplot": "(a^3{/Symbol P})"
+	},
+	{
+		"state"  : "(X1Sigma)",
+		"display": "(X<sup>1</sup>&Sigma;)",
+		"gnuplot": "(X^1{/Symbol S})"
+	},
+	{
+		"state"  : "(v>=2)",
+		"display": "(v&#8805;2)",
+		"gnuplot": "(v>=2)"
+	},
+	{
+		"state"  : "(v>=4)",
+		"display": "(v&#8805;4)",
+		"gnuplot": "(v>=4)"
+	},
+	{
+		"state"  : "(v2)",
+		"display": "(v&#8805;2)",
+		"gnuplot": "(v>=2)"
+	},
+	{
+		"state"  : "(v4)",
+		"display": "(v&#8805;4)",
+		"gnuplot": "(v>=4)"
+	}
+]
