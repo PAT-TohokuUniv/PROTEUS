@@ -390,7 +390,7 @@ contains
     character(len=*), intent(in) :: flag
     integer, parameter :: photoionization = 2 ! reaction type index for photoionization
     integer iwl, iz, isp, ich, jch, swl, ewl
-    character(len=256) fname, dirname, command
+    character(len=256) fname
     real(dp), parameter :: pi = dacos(-1.0_dp)
 
     !----------------------------------------------------------------------------------------------------
