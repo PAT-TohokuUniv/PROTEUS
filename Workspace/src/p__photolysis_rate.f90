@@ -1130,7 +1130,7 @@ contains
     character(len=*), intent(in) :: flag
     integer, parameter :: photolysis = 2 ! reaction type index for photolysis
     integer iwl, iz, isp, ksp, ich, jch, kch, swl, ewl
-    character(len=256) fname, dirname, command
+    character(len=256) fname
     real(dp), parameter :: pi = dacos(-1.0_dp)
 
     !----------------------------------------------------------------------------------------------------
@@ -2291,8 +2291,8 @@ contains
 
     swl = nint(sigma_a(-2,1,isp)) ! start wavelength
     ewl = nint(sigma_a(-1,1,isp)) ! end wavelength
-    if (sigma_d(-2,1,isp) > dble(swl)) sigma_d(-2,1,isp) = dble(swl)
-    if (sigma_d(-1,1,isp) < dble(ewl)) sigma_d(-1,1,isp) = dble(ewl)
+    if (sigma_d(-2,1,ich) > dble(swl)) sigma_d(-2,1,ich) = dble(swl)
+    if (sigma_d(-1,1,ich) < dble(ewl)) sigma_d(-1,1,ich) = dble(ewl)
 
     a(0) = 557.95835182_dp
     a(1) = -7.31994058026_dp
