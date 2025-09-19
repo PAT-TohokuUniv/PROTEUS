@@ -1,72 +1,134 @@
 [
 	{
-		"state"  : "(1D)",
-		"display": "(<sup>1</sup>D)",
-		"gnuplot": "(^1D)"
+		"state"   : "O(3P)",
+		"elements": "O",
+		"display" : "O(<sup>3</sup>P)",
+		"gnuplot" : "O(^3P)"
 	},
 	{
-		"state"  : "(1S)",
-		"display": "(<sup>1</sup>S)",
-		"gnuplot": "(^1S)"
+		"state"   : "O(1D)",
+		"elements": "O",
+		"display" : "O(<sup>1</sup>D)",
+		"gnuplot" : "O(^1D)"
 	},
 	{
-		"state"  : "(2D)",
-		"display": "(<sup>2</sup>D)",
-		"gnuplot": "(^2D)"
+		"state"   : "O(1S)",
+		"elements": "O",
+		"display" : "O(<sup>1</sup>S)",
+		"gnuplot" : "O(^1S)"
 	},
 	{
-		"state"  : "(2P)",
-		"display": "(<sup>2</sup>P)",
-		"gnuplot": "(^2P)"
+		"state"   : "O+(4S)",
+		"elements": "O+",
+		"display" : "O<sup>+</sup>(<sup>4</sup>S)",
+		"gnuplot" : "O^+(^4S)"
 	},
 	{
-		"state"  : "(3P)",
-		"display": "(<sup>3</sup>P)",
-		"gnuplot": "(^3P)"
+		"state"   : "O+(2D)",
+		"elements": "O+",
+		"display" : "O<sup>+</sup>(<sup>2</sup>D)",
+		"gnuplot" : "O^+(^2D)"
 	},
 	{
-		"state"  : "(4P)",
-		"display": "(<sup>4</sup>P)",
-		"gnuplot": "(^4P)"
+		"state"   : "O+(2P)",
+		"elements": "O+",
+		"display" : "O<sup>+</sup>(<sup>2</sup>P)",
+		"gnuplot" : "O^+(^2P)"
 	},
 	{
-		"state"  : "(4S)",
-		"display": "(<sup>4</sup>S)",
-		"gnuplot": "(^4S)"
+		"state"   : "N(4S)",
+		"elements": "N",
+		"display" : "N(<sup>4</sup>S)",
+		"gnuplot" : "N(^4S)"
 	},
 	{
-		"state"  : "(a1Deltag)",
-		"display": "(a<sup>1</sup>&Delta;<sub>g</sub>)",
-		"gnuplot": "(a^1{/Symbol D}_g)"
+		"state"   : "N(2D)",
+		"elements": "N",
+		"display" : "N(<sup>2</sup>D)",
+		"gnuplot" : "N(^2D)"
 	},
 	{
-		"state"  : "(a3Pi)",
-		"display": "(a<sup>3</sup>&Pi;)",
-		"gnuplot": "(a^3{/Symbol P})"
+		"state"   : "N(2P)",
+		"elements": "N",
+		"display" : "N(<sup>2</sup>P)",
+		"gnuplot" : "N(^2P)"
 	},
 	{
-		"state"  : "(X1Sigma)",
-		"display": "(X<sup>1</sup>&Sigma;)",
-		"gnuplot": "(X^1{/Symbol S})"
+		"state"   : "C(1D)",
+		"elements": "C",
+		"display" : "C(<sup>1</sup>D)",
+		"gnuplot" : "C(^1D)"
 	},
 	{
-		"state"  : "(v>=2)",
-		"display": "(v&#8805;2)",
-		"gnuplot": "(v>=2)"
+		"state"   : "O2(a1Deltag)",
+		"elements": "O2",
+		"display" : "O<sub>2</sub>(a<sup>1</sup>&Delta;<sub>g</sub>)",
+		"gnuplot" : "O_2(a^1{/Symbol D}_g)"
 	},
 	{
-		"state"  : "(v>=4)",
-		"display": "(v&#8805;4)",
-		"gnuplot": "(v>=4)"
+		"state"   : "CO2+(X2Pig)",
+		"elements": "CO2+",
+		"display" : "CO<sub>2</sub><sup>+</sup>(X<sup>2</sup>&Pi;<sub>g</sub>)",
+		"gnuplot" : "CO_2^+(X^2{/Symbol P}_g)"
 	},
 	{
-		"state"  : "(v2)",
-		"display": "(v&#8805;2)",
-		"gnuplot": "(v>=2)"
+		"state"   : "CO2+(A2Piu)",
+		"elements": "CO2+",
+		"display" : "CO<sub>2</sub><sup>+</sup>(A<sup>2</sup>&Pi;<sub>u</sub>)",
+		"gnuplot" : "CO_2^+(A^2{/Symbol P}_u)"
 	},
 	{
-		"state"  : "(v4)",
-		"display": "(v&#8805;4)",
-		"gnuplot": "(v>=4)"
+		"state"   : "CO2+(B2Sigmau+)",
+		"elements": "CO2+",
+		"display" : "CO<sub>2</sub><sup>+</sup>(B<sup>2</sup>&Sigma;<sub>u</sub><sup>+</sup>)",
+		"gnuplot" : "CO_2^+(B^2{/Symbol S}_u^+)"
+	},
+	{
+		"state"   : "CO(X1Sigma)",
+		"elements": "CO",
+		"display" : "CO(X<sup>1</sup>&Sigma;)",
+		"gnuplot" : "CO(X^1{/Symbol S})"
+	},
+	{
+		"state"   : "CO(a3Pi)",
+		"elements": "CO",
+		"display" : "CO(a<sup>3</sup>&Pi;)",
+		"gnuplot" : "CO(a^3{/Symbol P})"
+	},
+	{
+		"state"   : "H2(v>=2)",
+		"elements": "H2",
+		"display" : "H<sub>2</sub>(v&#8805;2)",
+		"gnuplot" : "H_2(v>=2)"
+	},
+	{
+		"state"   : "H2(v>=4)",
+		"elements": "H2",
+		"display" : "H<sub>2</sub>(v&#8805;4)",
+		"gnuplot" : "H_2(v>=4)"
+	},
+	{
+		"state"   : "H2(v2)",
+		"elements": "H2",
+		"display" : "H<sub>2</sub>(v&#8805;2)",
+		"gnuplot" : "H_2(v>=2)"
+	},
+	{
+		"state"   : "H2(v4)",
+		"elements": "H2",
+		"display" : "H<sub>2</sub>(v&#8805;4)",
+		"gnuplot" : "H_2(v>=4)"
+	},
+	{
+		"state"   : "^1C",
+		"elements": "C",
+		"display" : "<sup>1</sup>C",
+		"gnuplot" : "^1C"
+	},
+	{
+		"state"   : "^3C",
+		"elements": "C",
+		"display" : "<sup>3</sup>C",
+		"gnuplot" : "^3C"
 	}
 ]
