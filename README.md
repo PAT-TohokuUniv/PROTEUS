@@ -1,4 +1,4 @@
-# Photochemical and RadiatiOn Transport model for Extensive USe (PROTEUS) v2.0.1
+# Photochemical and RadiatiOn Transport model for Extensive USe (PROTEUS) v2
 
 Written by Yuki Nakamura, 17 September 2025
 
