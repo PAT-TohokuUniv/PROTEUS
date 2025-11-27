@@ -77,14 +77,16 @@ contains
       call system(command)
 
       do isp = 1, spl%nsp
-        fname = trim(ADJUSTL(set%dir_name))//'/output/density/num/'//trim(ADJUSTL(spl%species(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/density/num/'&
+        &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
             write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%ni(iz,isp)
           end do
         close(11)
 
-        fname = trim(ADJUSTL(set%dir_name))//'/output/density/vmr/vmr_'//trim(ADJUSTL(spl%species(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/density/vmr/vmr_'&
+        &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
             write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%ni(iz,isp)/var%n_tot(iz)
@@ -93,7 +95,8 @@ contains
 
         if (spl%label_fix(isp) == 0) then
 
-          fname = trim(ADJUSTL(set%dir_name))//'/output/flux/'//trim(ADJUSTL(spl%species(isp)))//'.dat'
+          fname = trim(ADJUSTL(set%dir_name))//'/output/flux/'&
+          &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
           open(11, file = fname, status = 'replace' )
             do iz = 1, grd%nz+1
               if (iz==1) then 
@@ -111,7 +114,8 @@ contains
             end do
           close(11)
 
-          fname = trim(ADJUSTL(set%dir_name))//'/output/flux/v_'//trim(ADJUSTL(spl%species(isp)))//'.dat'
+          fname = trim(ADJUSTL(set%dir_name))//'/output/flux/v_'&
+          &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
           open(11, file = fname, status = 'replace' )
             do iz = 1, grd%nz+1
               if (iz==1) then 
@@ -132,7 +136,8 @@ contains
             end do
           close(11)
 
-          fname = trim(ADJUSTL(set%dir_name))//'/output/flux/D_'//trim(ADJUSTL(spl%species(isp)))//'.dat'
+          fname = trim(ADJUSTL(set%dir_name))//'/output/flux/D_'&
+          &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
           open(11, file = fname, status = 'replace' )
             do iz = 1, grd%nz
               write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%D_mol(iz,isp)
@@ -164,14 +169,16 @@ contains
 
       do isp = 1, spl%nsp_i
         jsp = spl%var_to_all(isp)
-        fname = trim(ADJUSTL(set%dir_name))//'/output/rate/P_'//trim(ADJUSTL(spl%species(jsp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/rate/P_'&
+        &  //trim(ADJUSTL(spl%species(jsp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
             write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%Pi(iz,isp) * 1.0e6_dp
           end do
         close(11)
 
-        fname = trim(ADJUSTL(set%dir_name))//'/output/rate/L_'//trim(ADJUSTL(spl%species(jsp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/rate/L_'&
+        &  //trim(ADJUSTL(spl%species(jsp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
             write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%Li(iz,isp) * 1.0e6_dp
@@ -199,7 +206,8 @@ contains
       call system(command)
 
       do isp = 1, spl%nsp
-        fname = trim(ADJUSTL(set%dir_name))//'/output/density/2DLAT/'//trim(ADJUSTL(spl%species(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/density/2DLAT/'&
+        &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
             write(11, fmt='(f10.3)', advance='no') grd%alt(iz)/1.0e3_dp
@@ -234,7 +242,8 @@ contains
       ch_out(ich) = ich
     end do 
     allocate(t_out(0:set%nstep))
-    allocate(cln_out(set%nsp_tout,0:set%nstep),n_out(grd%nz,set%nsp_tout,0:set%nstep),vmr_out(grd%nz,set%nsp_tout,0:set%nstep))
+    allocate(cln_out(set%nsp_tout,0:set%nstep),n_out(grd%nz,set%nsp_tout,0:set%nstep))
+    allocate(vmr_out(grd%nz,set%nsp_tout,0:set%nstep))
     allocate(rate_out(grd%nz,nch_out,0:set%nstep))
     allocate(Pi_out(grd%nz,set%nsp_tout,0:set%nstep),Li_out(grd%nz,set%nsp_tout,0:set%nstep))
     allocate(flux_down_out(grd%nz+1,set%nsp_tout,0:set%nstep),flux_up_out(grd%nz+1,set%nsp_tout,0:set%nstep))
@@ -346,49 +355,57 @@ contains
     do isp = 1, set%nsp_tout
       jsp = sp_index(spl,trim(ADJUSTL(set%species_tout(isp))))
       if (jsp >= 1 .and. jsp <= spl%nsp) then 
-        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/n_'//trim(ADJUSTL(set%species_tout(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/n_'&
+        &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             write(11, *) t_out(i), (n_out(iz,isp,i), iz = 1, grd%nz)
           end do
         close(11)
-        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/cln_'//trim(ADJUSTL(set%species_tout(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/cln_'&
+        &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             write(11, *) t_out(i), cln_out(isp,i)
           end do
         close(11)
-        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/vmr_'//trim(ADJUSTL(set%species_tout(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/vmr_'&
+        &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             write(11, *) t_out(i), (vmr_out(iz,isp,i), iz = 1, grd%nz)
           end do
         close(11)
-        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/Pi_'//trim(ADJUSTL(set%species_tout(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/Pi_'&
+        &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             if (spl%all_to_var(jsp)/=0) write(11, *) t_out(i), (Pi_out(iz,isp,i)*1.0e6_dp, iz = 1, grd%nz)
           end do
         close(11)
-        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/Li_'//trim(ADJUSTL(set%species_tout(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/Li_'&
+        &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             if (spl%all_to_var(jsp)/=0) write(11, *) t_out(i), (Li_out(iz,isp,i)*1.0e6_dp, iz = 1, grd%nz)
           end do
         close(11)
-        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/flux_down_'//trim(ADJUSTL(set%species_tout(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/flux_down_'&
+        &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             if (spl%all_to_var(jsp)/=0) write(11, *) t_out(i), (flux_down_out(iz,isp,i), iz = 1, grd%nz+1)
           end do
         close(11)
-        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/flux_up_'//trim(ADJUSTL(set%species_tout(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/flux_up_'&
+        &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             if (spl%all_to_var(jsp)/=0) write(11, *) t_out(i), (flux_up_out(iz,isp,i), iz = 1, grd%nz+1)
           end do
         close(11)
-        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/v_down_'//trim(ADJUSTL(set%species_tout(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/v_down_'&
+        &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             if (spl%all_to_var(jsp)/=0) then 
@@ -403,7 +420,8 @@ contains
             end if
           end do
         close(11)
-        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/v_up_'//trim(ADJUSTL(set%species_tout(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/v_up_'&
+        &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             if (spl%all_to_var(jsp)/=0) then 
@@ -424,7 +442,8 @@ contains
     if (set%rate_tout == 1) then 
       do ich= 1, spl%nch
         write(ci,*) ich
-        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/rate_'//trim(ADJUSTL(ci))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/rate_'&
+        &  //trim(ADJUSTL(ci))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             write(11, *) t_out(i), (rate_out(iz,ich,i)*1.0e6_dp, iz = 1, grd%nz)
@@ -449,6 +468,16 @@ contains
     namelist /altitude/ alt, dalt
     namelist /species_list/ species, m, q
 
+    outdir = trim(ADJUSTL(set%dir_name_win))//'\output\density\'&
+    &  //trim(ADJUSTL(set%mode))
+    write(command,*) 'mkdir ', trim(outdir)
+    call system(command)
+
+    fname = trim(ADJUSTL(set%dir_name_win))//'\output\density\'&
+    &  //trim(ADJUSTL(set%mode))//'\*.dat'
+    write(command,*) 'del /Q ', trim(fname)
+    call system(command)
+    
     fname = trim(ADJUSTL(set%dir_name))//'/output/density/'//trim(ADJUSTL(set%mode))//'/altitude.dat'
     open(11, file = fname, status = 'replace' )
       do iz = 1, grd%nz
@@ -465,30 +494,26 @@ contains
     nz = grd%nz
     alt = grd%alt 
     dalt = grd%dalt 
-    fname = trim(ADJUSTL(set%dir_name))//'/output/density/'//trim(ADJUSTL(set%mode))//'/grid.out'
+    fname = trim(ADJUSTL(set%dir_name))//'/output/density/'&
+    &  //trim(ADJUSTL(set%mode))//'/grid.out'
     open(11, file = fname, status = 'replace' )
     write(11,nml=grid)
     close(11)
-    fname = trim(ADJUSTL(set%dir_name))//'/output/density/'//trim(ADJUSTL(set%mode))//'/altitude.out'
+    fname = trim(ADJUSTL(set%dir_name))//'/output/density/'&
+    &  //trim(ADJUSTL(set%mode))//'/altitude.out'
     open(11, file = fname, status = 'replace' )
     write(11,nml=altitude)
     close(11)
-    fname = trim(ADJUSTL(set%dir_name))//'/output/density/'//trim(ADJUSTL(set%mode))//'/species.out'
+    fname = trim(ADJUSTL(set%dir_name))//'/output/density/'&
+    &  //trim(ADJUSTL(set%mode))//'/species.out'
     open(11, file = fname, status = 'replace' )
     write(11,nml=species_list)
     close(11)
 
-    outdir = trim(ADJUSTL(set%dir_name))//'/output/density/'//trim(ADJUSTL(set%mode))
-    write(command,*) 'mkdir ', trim(outdir)
-    call system(command)
-
-    fname = trim(ADJUSTL(set%dir_name))//'/output/density/'//trim(ADJUSTL(set%mode))//'/*.dat'
-    write(command,*) 'del /Q ', trim(fname)
-    call system(command)
-
     if (set%mode == '2DROT') then 
       do isp = 1, spl%nsp
-        fname = trim(ADJUSTL(set%dir_name))//'/output/density/'//trim(ADJUSTL(set%mode))//'/'//trim(ADJUSTL(spl%species(isp)))//'.dat'
+        fname = trim(ADJUSTL(set%dir_name))//'/output/density/'&
+        &  //trim(ADJUSTL(set%mode))//'/'//trim(ADJUSTL(spl%species(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do ix = 1, grd%nx
             lt = 24.0_dp*dble(ix-1)/dble(grd%nx-1)
@@ -505,13 +530,15 @@ contains
     end if
 
     if (set%mode == '3DROT') then 
-      fname = trim(ADJUSTL(set%dir_name))//'/output/density/'//trim(ADJUSTL(set%mode))//'/density.dat'
+      fname = trim(ADJUSTL(set%dir_name))//'/output/density/'&
+      &  //trim(ADJUSTL(set%mode))//'/density.dat'
       open(11, file = fname, status = 'replace', action = 'write', form = 'unformatted')
         write(11) var%ni_3d(1:grd%nx,1:grd%ny,1:grd%nz,1:spl%nsp)
       close(11)
     end if
 
-    fname = trim(ADJUSTL(set%dir_name))//'/output/density/'//trim(ADJUSTL(set%mode))//'/grid.dat'
+    fname = trim(ADJUSTL(set%dir_name))//'/output/density/'&
+    &  //trim(ADJUSTL(set%mode))//'/grid.dat'
     open(11, file = fname, status = 'replace' )
       write(11, *) grd%nx, grd%ny, grd%nz
     close(11)

@@ -25,6 +25,7 @@ contains
     set%use_1d = 1
     set%use_2d = 0
     set%F107 = 140.0_dp
+    set%F107a = 140.0_dp
     set%nstep = 10000
     set%fin_sec = 3.0e15_dp
     set%dtime_limit = 1.0e14_dp
@@ -449,7 +450,7 @@ contains
     close(11)
 
     ! input density profiles
-    var%ni   = 1.0e-50_dp
+    var%ni   = 1.0e-20_dp
 
     isp = sp_index(spl, 'CO2')
     if (isp >= 1 .and. isp <= spl%nsp) then

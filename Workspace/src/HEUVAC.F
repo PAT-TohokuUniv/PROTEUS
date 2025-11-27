@@ -13,32 +13,25 @@ C.. Written by Phil Richards, March 2004
       SUBROUTINE HEUVAC(IDIM,   !.. in: Array dimensions
      >                  F107,   !.. in: daily 10.7 cm flux index. 
      >                 F107A,   !.. in: 81 day average of daily F10.7 
-     >                  KMAX,   !.. in: number of bins for the flux
-     >                BINLAM,   !.. in: the wavelength (Angstrom) bin boundaries 
-     >              BIN_ANGS,   !.. out: fluxes (photons/cm2/s) in the bins
-     >                XS_OUT)   !.. out: Weighted cross section in the bins
+     >               LAM_EUV,   !.. out: Wavelengths bin
+     >                  FLUX)   !.. out: Flux 
 
       IMPLICIT NONE
 	INTEGER IDIM                     !.. array dimensions
 	INTEGER I,K                      !.. loop control variables
       INTEGER IFLUX                    !.. number of fluxes in reference spectrum
       INTEGER FREAD                    !.. signifies read status of reference spectrum
-      INTEGER KMAX                     !.. maximum bins and reference factor switch
 	REAL FLXFAC                      !.. solar activity factor
       REAL F107,F107A                  !.. solar activity indices
       REAL F10SAVE                     !.. previous solar activity index
       REAL LAM_EUV(IDIM),FLUX(IDIM)    !.. wavelength and scaled flux
       REAL FLUX_REF(IDIM)              !.. Reference flux, no F10.7 scaling
-	INTEGER IWLXS                    !.. Number of photoionization cross sections
-	REAL WLXS(IDIM),XS(15,IDIM)      !.. Photoionization wavelengths and cross sections 
-      REAL BINLAM(IDIM),BIN_ANGS(IDIM) !.. Bins for summing fluxes
-      REAL XS_OUT(15,IDIM)             !.. Weighted cross section
 
 	!.. If F107 hasn't changed, return
 	DATA F10SAVE/-9/
 	IF(F107+F107A.EQ.F10SAVE) RETURN
       F10SAVE=F107+F107A
-
+      
       !.. On the first call only, get reference F74113 spectrum and cross sections
 	DATA FREAD/-9/
 	IF(FREAD.EQ.-9) THEN
@@ -59,7 +52,7 @@ C.. Written by Phil Richards, March 2004
       ENDDO
 
       !.. Bin the fluxes into user specified wavelength bins
-      CALL BIN_FLUX(IDIM,IFLUX,KMAX,LAM_EUV,FLUX,BINLAM,BIN_ANGS)
+      !..CALL BIN_FLUX(IDIM,IFLUX,KMAX,LAM_EUV,FLUX,BINLAM,BIN_ANGS)
 
 	!.. calculate the flux weighted cross sections
       !.. CALL BIN_XS_WL(IDIM,IWLXS,WLXS,XS,IFLUX,LAM_EUV,FLUX,

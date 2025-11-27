@@ -306,6 +306,12 @@ contains
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
+    
+    fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO2_O+.dat'
+    ich = get_reaction_index(['CO2'], ['O+', 'e-', 'CO'])
+    call read_binning_data(fname, &
+      &                    'A', 'cm^2', &
+      &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO2_C+.dat'
     ich = get_reaction_index(['CO2'], ['C+', 'e-', 'O2'])
@@ -323,7 +329,7 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO_CO+.dat'
-    ich = get_reaction_index(['CO'], ['CO+', 'e- ', 'O  '])
+    ich = get_reaction_index(['CO'], ['CO+', 'e- '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
@@ -336,6 +342,12 @@ contains
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO_O+.dat'
     ich = get_reaction_index(['CO'], ['O+(4S)', 'e-    ', 'C     '])
+    call read_binning_data(fname, &
+      &                    'A', 'cm^2', &
+      &                    'i', ich)
+
+    fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO_O+.dat'
+    ich = get_reaction_index(['CO'], ['O+', 'e-', 'C '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
@@ -371,7 +383,13 @@ contains
       &                   'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/Ox/sigma_i_O_O+.dat'
-    ich = get_reaction_index(['O'], ['O+(4S)', 'e-    ', 'O     '])
+    ich = get_reaction_index(['O'], ['O+(4S)', 'e-    '])
+    call read_binning_data(fname, &
+      &                    'A', 'cm^2', &
+      &                    'i', ich)
+
+    fname = trim(ADJUSTL(dirname))//'/Ox/sigma_i_O_O+.dat'
+    ich = get_reaction_index(['O'], ['O+', 'e-'])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)

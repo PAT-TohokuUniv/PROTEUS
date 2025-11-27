@@ -521,6 +521,7 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/NOy/qy_HONO_OH+NO.dat'
+    ich = get_reaction_index(['HONO'], ['OH','NO'])
     call read_binning_data(fname, dummy, &
       &                    1, 1, 'nm', '', &
       &                    'qy', ich)
@@ -599,7 +600,7 @@ contains
       &                    'd', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C1/sigma_d_CH4_3CH2+H.dat'
-    ich = get_reaction_index(['CH4'], ['^3CH2','H    '])
+    ich = get_reaction_index(['CH4'], ['^3CH2','H    ','H    '])
     call read_binning_data(fname, dummy, &
       &                    1, 1, 'nm', 'cm^2', &
       &                    'd', ich)
@@ -620,7 +621,7 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/C2/qy_C2H6_3CH2+H2.dat'
-    ich = get_reaction_index(['C2H6'], ['^3CH2','H2   '])
+    ich = get_reaction_index(['C2H6'], ['^3CH2','^3CH2','H2   '])
     call read_binning_data(fname, dummy, &
       &                    1, 1, 'nm', '', &
       &                    'qy', ich)
@@ -632,13 +633,13 @@ contains
       &                    'qy', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C2/qy_C2H6_C2H2+H2.dat'
-    ich = get_reaction_index(['C2H6'], ['C2H2 ','H2   '])
+    ich = get_reaction_index(['C2H6'], ['C2H2 ','H2   ','H2   '])
     call read_binning_data(fname, dummy, &
       &                    1, 1, 'nm', '', &
       &                    'qy', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C2/qy_C2H6_C2H4+H.dat'
-    ich = get_reaction_index(['C2H6'], ['C2H4','H   '])
+    ich = get_reaction_index(['C2H6'], ['C2H4','H   ','H   '])
     call read_binning_data(fname, dummy, &
       &                    1, 1, 'nm', '', &
       &                    'qy', ich)
@@ -846,7 +847,7 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/C3/qy_C3H6_C2H2+CH3.dat'
-    ich = get_reaction_index(['C3H6'], ['C2H2','CH3 '])
+    ich = get_reaction_index(['C3H6'], ['C2H2','CH3 ','H   '])
     call read_binning_data(fname, dummy, &
       &                    1, 1, 'nm', '', &
       &                    'qy', ich)
@@ -864,7 +865,7 @@ contains
       &                    'qy', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C3/qy_C3H6_C2H+CH4.dat'
-    ich = get_reaction_index(['C3H6'], ['C2H','CH4'])
+    ich = get_reaction_index(['C3H6'], ['C2H','CH4','H  '])
     call read_binning_data(fname, dummy, &
       &                    1, 1, 'nm', '', &
       &                    'qy', ich)
@@ -945,6 +946,7 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/C3/qy_C3H3_C3H2+H.dat'
+    ich = get_reaction_index(['C3H3'], ['C3H2','H   '])
     call read_binning_data(fname, dummy, &
       &                    1, 1, 'nm', '', &
       &                    'qy', ich)
@@ -1729,7 +1731,9 @@ contains
 
         sigma_dat(0,id,1,1,1) = 1.0_dp ! existence flag
         sigma_dat(0,id,1,1,0) = sigma_dat(0,id,1,1,0) + dble(idtype)
-        if (dtype=='a' .or. dtype=='d' .or. dtype=='qy') sigma_dat(1,id,0,1,1) = sigma_dat(1,id,0,1,1) + dble(ndata) * 1000.0_dp
+        if (dtype=='a' .or. dtype=='d' .or. dtype=='qy') then 
+          sigma_dat(1,id,0,1,1) = sigma_dat(1,id,0,1,1) + dble(ndata) * 1000.0_dp
+        end if
         do i = sdata, edata
           idata(:,2) = rdata(:,i-sdata+1) ! copy data to idata
           call binning_cross_section(nl, idata,      &
@@ -2241,12 +2245,12 @@ contains
       if (Tclamp > 320.0_dp) Tclamp = 320.0_dp
 
       qy_O1D(l193:l225) = 1.37e-2_dp * lambda(l193:l225) - 2.16_dp
-      if (OorO1D == 'O(1D)') sigma_d(l193:l225,iz,ich) = sigma_a(l193:l225,iz,isp) * qy_O1D(l193:l225)
-      if (OorO1D == 'O')     sigma_d(l193:l225,iz,ich) = sigma_a(l193:l225,iz,isp) * (1.0_dp-qy_O1D(l193:l225))
+      if (OorO1D == 'O(1D)') sigma_d(l193:l225,iz,ich) = sigma_a(l193:l225,iz,isp)*qy_O1D(l193:l225)
+      if (OorO1D == 'O')     sigma_d(l193:l225,iz,ich) = sigma_a(l193:l225,iz,isp)*(1.0_dp-qy_O1D(l193:l225))
 
       qy_O1D(l225+1:l306-1) = 0.9_dp
-      if (OorO1D == 'O(1D)') sigma_d(l225+1:l306-1,iz,ich) = sigma_a(l225+1:l306-1,iz,isp) * qy_O1D(l225+1:l306-1)
-      if (OorO1D == 'O')     sigma_d(l225+1:l306-1,iz,ich) = sigma_a(l225+1:l306-1,iz,isp) * (1.0_dp-qy_O1D(l225+1:l306-1))
+      if (OorO1D == 'O(1D)') sigma_d(l225+1:l306-1,iz,ich) = sigma_a(l225+1:l306-1,iz,isp)*qy_O1D(l225+1:l306-1)
+      if (OorO1D == 'O')     sigma_d(l225+1:l306-1,iz,ich) = sigma_a(l225+1:l306-1,iz,isp)*(1.0_dp-qy_O1D(l225+1:l306-1))
 
       ! Analytic expression of O3 -> O1D at wavelength range 306-328 nm and at temperature range 200-320 K
       !   based on the review of Matsumi et al. (2002) doi:10.1029/2001JD000510.
@@ -2341,7 +2345,7 @@ contains
 
       ! Temperature and pressure dependent yield of H2 + CO
       a_300K(l250:l360) = 1.0_dp / qy_CO_300K(l250:l360) - 1.0_dp / (1.0_dp - qy_H(l250:l360))
-      a_T(l250:l360)    = a_300K(l250:l360) * ( 1.0_dp + 0.05_dp * (lambda(l250:l360)-329.0_dp)*((300.0_dp-Tclamp)/80.0_dp) )
+      a_T(l250:l360)    = a_300K(l250:l360) * (1.0_dp + 0.05_dp*(lambda(l250:l360)-329.0_dp)*((300.0_dp-Tclamp)/80.0_dp))
       qy_CO_T(l250:l360) = 1.0_dp / ( 1.0_dp / (1.0_dp-qy_H(l250:l360)) + a_T(l250:l360)*P )
 
       if (HorCO == 'H')  sigma_d(l250:l360,iz,ich) = sigma_a(l250:l360,iz,isp) * qy_H(l250:l360)

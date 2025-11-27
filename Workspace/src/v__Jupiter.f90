@@ -27,36 +27,11 @@ contains
 
     if ( spl%planet == 'Jupiter' ) then
 
-      isp = sp_index(spl, 'H2')
-
       if (var%nspecial == 0) nspecial = 1
       if (var%nspecial /= 0) nspecial = var%nspecial
       allocate(var%ich_special(nspecial), var%ki_special(nspecial,grd%nx,grd%ny,grd%nz))
 
       var%ki_special = 0.0_dp
-
-      ! auroral electron precipitation
-      if (var%nspecial >= 1) then
-        do ich = 1, spl%nch
-          jch = 1
-          if ( spl%reaction_type_char(ich) == 'electron impact' ) then
-            var%ich_special(1) = ich
-
-            fname = './Jupiter/k_aurora.dat'
-            open(11, file = fname, status = 'unknown' )
-              do iz = 1, grd%nz
-              do iy = 1, grd%ny
-              do ix = 1, grd%nx
-                read(11,*) tmp, tmp, tmp, tmp1
-                var%ki_special(jch,ix,iy,iz) = tmp1 / var%ni(iz,isp)
-              end do
-              end do
-              end do
-            close(11)
-          end if
-          jch = jch + 1
-        end do
-      end if
 
     end if
 

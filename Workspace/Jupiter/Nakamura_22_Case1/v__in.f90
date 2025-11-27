@@ -25,9 +25,10 @@ contains
     set%use_1d = 0
     set%use_2d = 1
     set%F107 = 140.0_dp
+    set%F107a = 140.0_dp
     set%nstep = 10000
-    set%fin_sec = 30000.0_dp
-    set%dtime_limit = 10000.0_dp
+    set%fin_sec = 3.0e5_dp
+    set%dtime_limit = 1.0e4_dp
     set%latitude = 0.0_dp
     set%sza = 0.0_dp
     set%lat_res = 1.0_dp
@@ -46,7 +47,7 @@ contains
     set%solar_flux = './UV/ref_solar_irradiance_whi-2008_ver2_1.dat'
     set%solar_flux_unit1 = 'nm'
     set%solar_flux_unit2 = 'W/m^2/nm'
-    set%euv_input = 'HEUVAC'
+    set%euv_input = 'EUVAC'
     set%euv_factor = 1.0_dp
     set%n_wl_bin = 1
     allocate(set%wl_bin(set%n_wl_bin,3))
@@ -931,7 +932,7 @@ contains
     close(11)
 
     ! input density profiles
-    var%ni   = 1.0e-50_dp
+    var%ni   = 1.0e-20_dp
 
     isp = sp_index(spl, 'H2')
     if (isp >= 1 .and. isp <= spl%nsp) then

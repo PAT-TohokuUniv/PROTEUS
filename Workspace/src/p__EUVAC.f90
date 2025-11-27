@@ -38,7 +38,7 @@ contains
 
     flx%multiplying_factor_EUV = set%euv_factor
     flx%F107 = set%F107 ! F10.7 at Earth
-    F107A = flx%F107
+    F107A = set%F107a
 
     ! [nm]
     flx%lambda_EUV(1)  =    75.0d-1

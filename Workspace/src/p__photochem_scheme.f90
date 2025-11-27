@@ -181,13 +181,16 @@ contains
         do iz = 1, grd%nz
           do isp = 1, spl%nsp
             ! delta_N / N
-            if ( var%ni(iz,isp) /= 0.0d0 .and. spl%label_fix(isp)==0) then
+            dni_ni(iz,isp) = 0.0_dp
+            if ( var%ni(iz,isp) > 1.0e-18_dp .and. var%ni_new(iz,isp) > 1.0e-18_dp &
+            & .and. spl%label_fix(isp)==0) then
               if(var%ni(iz,isp) < var%ni_new(iz,isp)) then 
                 dni_ni(iz,isp) = dabs(var%ni_new(iz,isp) - var%ni(iz,isp)) / var%ni(iz,isp)
               else if (var%ni(iz,isp) >= var%ni_new(iz,isp)) then
                 dni_ni(iz,isp) = dabs(var%ni_new(iz,isp) - var%ni(iz,isp)) / var%ni_new(iz,isp)
               end if
-            else if ( var%ni(iz,isp) == 0.0d0 .and. spl%label_fix(isp)==0) then
+            else if ( var%ni(iz,isp) <= 1.0e-18_dp .and. var%ni_new(iz,isp) <= 1.0e-18_dp &
+              & .and. spl%label_fix(isp)==0) then
               dni_ni(iz,isp) = 0.0d0
             end if
             if ( dni_ni(iz,isp) > var%max_dn_n(3) .and. spl%label_fix(isp)==0) then
@@ -230,7 +233,7 @@ contains
             end if
           end if
           if ( var%dtime  >= set%dtime_limit * 0.99_dp ) then
-            var%dtime = set%dtime_limit ! dt DO NOT excess set%dtime_limit <- set at v__'planet'__ini
+            var%dtime = set%dtime_limit ! dt DO NOT excess set%dtime_limit
           end if
         end if
 

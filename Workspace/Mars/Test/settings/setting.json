@@ -196,18 +196,21 @@
 			"src/p__photochem_scheme.f90",
 			"Mars/Test/p__PROTEUS.f90",
 			"Mars/Test/v__in.f90"
-		]
+		],
+		"dt_inc_eps": ""
 	},
 	"nvd3": {
-		"x1": 10000,
-		"x2": 1000000000000,
-		"z1": "-1",
-		"z2": "201",
-		"mode": "flux",
+		"x1": 0.1,
+		"x2": 1000000000000000000,
+		"z1": 0,
+		"z2": 200,
+		"mode": "density",
 		"species": [
+			"CO2",
 			"CO",
 			"O",
 			"O(1D)",
+			"H2O",
 			"H",
 			"OH",
 			"H2",

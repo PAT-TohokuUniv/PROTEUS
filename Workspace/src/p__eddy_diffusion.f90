@@ -83,15 +83,15 @@ contains
     !--------------------------------------------------------------------------------------
     if (spl%planet == 'Venus') then
 
-! eddy diffusion from Krasnopolsky 2007
-      do iz = 1, 30
-        var%K_eddy(iz) = 2.2d-1 
-      enddo
-      do iz = 31, 48
-        var%K_eddy(iz) = 10 ** ( 0.0387_dp * real(iz) - 1.819_dp )
-      enddo
-
-      var%K_eddy(:) = 0.8_dp * var%K_eddy(:)
+      ! eddy diffusion from Krasnopolsky 2007
+      var%K_eddy = 2.2d-1 
+      !do iz = 1, 30
+      !  var%K_eddy(iz) = 2.2d-1 
+      !enddo
+      !do iz = 31, 48
+      !  var%K_eddy(iz) = 10 ** ( 0.0387_dp * real(iz) - 1.819_dp )
+      !enddo
+      !var%K_eddy(:) = 0.8_dp * var%K_eddy(:)
       
     end if
   end subroutine p__eddy_diffusion__exe

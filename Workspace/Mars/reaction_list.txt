@@ -74,4 +74,3 @@
 
 # Pinto et al. [1980] Formaldehyde H2CO reactions
  HO2   + HCO          -> H2O2  + CO     : 1.0e-11 # R14 in Pinto et al. [1980] 
- 

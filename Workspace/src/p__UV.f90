@@ -61,8 +61,8 @@ contains
       &                          spl%reactant_list, spl%product_list, &
       &                          flx%lambda_UV(1:), flx%dlambda_UV(1:), flx%solar_UV(1:)) ! inout
     call load_cross_section_dat('./UV/xsect_data') ! in
-    call get_cross_section(var%Tn(1:), 'absorption', 1) ! out
-    call get_cross_section(var%Tn(1:), 'photolysis', 1) ! out
+    call get_cross_section(var%Tn(1:), 'absorption', 1) ! in
+    call get_cross_section(var%Tn(1:), 'photolysis', 1) ! in
 
   end subroutine p__UV_cross_section
 

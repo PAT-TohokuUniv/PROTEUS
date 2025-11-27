@@ -262,8 +262,8 @@
 		"lat": "",
 		"sza": "0.0",
 		"max_timestep": "10000",
-		"simulation_time": "30000.0",
-		"dt_limit": "10000.0",
+		"simulation_time": "3.0e5",
+		"dt_limit": "1.0e4",
 		"scheme": "implicit",
 		"grid": "uniform-dz",
 		"dz": "20.0",
@@ -276,7 +276,7 @@
 		"dt_rate": "",
 		"max_eps": "",
 		"solar_flux": "",
-		"euv_input": "HEUVAC",
+		"euv_input": "EUVAC",
 		"solar_flux_unit1": "nm",
 		"solar_flux_unit2": "W/m^2/nm",
 		"lambda": [
@@ -325,7 +325,8 @@
 			"src/p__photochem_scheme.f90",
 			"Jupiter/Nakamura_22_Case1/p__PROTEUS.f90",
 			"Jupiter/Nakamura_22_Case1/v__in.f90"
-		]
+		],
+		"dt_inc_eps": ""
 	},
 	"species_list": [
 		"H",

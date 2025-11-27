@@ -236,7 +236,8 @@ program e__main
         end if
 
         if (set%mode == '1D') then 
-          write(*,'("  time step = ",i6,"  dt = ",e9.3," s  t = ",e9.3," s  : max(dN/N) = ",e9.3,"  @ zgrid = ",i3,"  by ",a10)') &
+          write(*,'("  time step = ",i6,"  dt = ",e9.3," s  t = ",e9.3," s  : '&
+          & // 'max(dN/N) = ",e9.3,"  @ zgrid = ",i3,"  by ",a10)') &
             &             var%istep, &
             &             var%dtime, var%sum_time, &
             &             var%max_dn_n(3), nint(var%max_dn_n(2)), spl%species(nint(var%max_dn_n(1)))
@@ -290,7 +291,8 @@ program e__main
       if (set%use_1d == 1) then
         xs = (grd%nx-1)/2+1
         do isp = 1, spl%nsp
-          fname = './'//trim(ADJUSTL(set%dir_name))//'/output/density/num/'//trim(ADJUSTL(spl%species(isp)))//'.dat'
+          fname = './'//trim(ADJUSTL(set%dir_name))//'/output/density/num/'&
+          &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
           open(11, file = fname, status = 'unknown' )
             do iz = 1, grd%nz
               read(11, *) tmp, var%ni_stable(1,iz,isp) 
@@ -302,7 +304,8 @@ program e__main
       if (set%use_2d == 1) then
         xs = (grd%nx-1)/2+1
         do isp = 1, spl%nsp
-          fname = './'//trim(ADJUSTL(set%dir_name))//'/output/density/2DLAT/'//trim(ADJUSTL(spl%species(isp)))//'.dat'
+          fname = './'//trim(ADJUSTL(set%dir_name))//'/output/density/2DLAT/'&
+          &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
           open(11, file = fname, status = 'unknown' )
             do iz = 1, grd%nz
               read(11, *) tmp, (var%ni_stable(iy,iz,isp), iy = 1, grd%ny) 

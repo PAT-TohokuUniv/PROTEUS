@@ -11,7 +11,7 @@ module v__tdec
   ! settings
   type set_
     integer(sp)            :: nx, ny, resx, resy            ! number of horizontal grids, resolution
-    real(dp)                  latitude, sza, Ls, DOY, F107  ! latitude, solar zenith angle, solar longitude, day of year, F10.7
+    real(dp)                  latitude, sza, Ls, DOY, F107, F107a  ! latitude, solar zenith angle, solar longitude, day of year, F10.7
     real(dp)                  fin_sec, dtime_limit, dt_out, dt_rate, dt_inc_eps, max_eps  ! Calculation time, upper limit of delta t
     real(dp)                  lat_res, lt_res
     integer                   use_1d, use_2d
@@ -93,7 +93,6 @@ module v__tdec
     real(dp)               :: R   ! planetary radius
     real(dp)               :: m_u ! atomic mass unit
     real(dp)               :: q_e ! elementary charge
-    real(dp)               :: eV  ! electron volt
     real(dp)               :: daysec ! seconds in a day
     real(dp)               :: R_gas ! Gas constant
   end type cst_

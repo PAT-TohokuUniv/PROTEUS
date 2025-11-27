@@ -130,7 +130,8 @@ contains
       mi  = mass(isp)
       qi  = charge(isp)
 
-      if (species(isp) /= 'e-' .and. species(isp) /= 'M' .and. species(isp) /= 'products' .and. species(isp) /= 'hv') then
+      if (species(isp) /= 'e-' .and. species(isp) /= 'M' &
+      &  .and. species(isp) /= 'products' .and. species(isp) /= 'hv') then
 
         do iz = 2, nz-1
 

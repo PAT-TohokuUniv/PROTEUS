@@ -27,38 +27,35 @@ contains
     type(xct_),           intent(inout) :: xct
     type(flx_),           intent(inout) :: flx
     integer i, iwl, IDIM, KMAX, nwl_tmp, nwli, nwl
-    real(dp) F107, F107A
+    real(sp) F107, F107A
     real(dp), allocatable :: indata(:,:), dl(:), l(:)
-    real, allocatable :: BINLAM(:), XS_OUT(:), BIN_ANGS(:)
+    real(sp), allocatable :: FLUX(:), LAM_EUV(:)
 
     flx%multiplying_factor_EUV = set%euv_factor
 
     if (set%euv_input == "HEUVAC") then
 
-      IDIM = 10550
-      KMAX = IDIM-1
-      allocate(BINLAM(IDIM),XS_OUT(IDIM), BIN_ANGS(IDIM))
+      IDIM = 969 ! Do not change this. Fixed number of wavelength bin in HEUVAC.F
+      allocate(FLUX(IDIM))
+      allocate(LAM_EUV(IDIM))
       allocate(indata(IDIM,2))
-      do iwl = 1, IDIM
-        BINLAM(iwl) = dble(iwl) / 10.0d0
-      end do
-      F107 = set%F107 ! F10.7 at Earth
-      F107A = set%F107
+      F107 = real(set%F107) 
+      F107A = real(set%F107a)
 
       call HEUVAC(IDIM, &  !.. in: Array dimensions
         &         F107, &  !.. in: daily 10.7 cm flux index. 
         &        F107A, &  !.. in: 81 day average of daily F10.7 
-        &         KMAX, &  !.. in: number of bins for the flux
-        &       BINLAM, &  !.. in: the wavelength (Angstrom) bin boundaries 
-        &     BIN_ANGS, &  !.. out: fluxes (photons/cm2/s) in the bins
-        &       XS_OUT)    !.. out: Weighted cross section in the bins
-      
-      do iwl = 1, IDIM-1
-        indata(iwl,1) = dble(BINLAM(iwl)) / 10.0d0
-        indata(iwl,2) = dble(BIN_ANGS(iwl)) / dble(BINLAM(iwl+1)-BINLAM(iwl)) * 10.0d0
+        &      LAM_EUV, &  !.. out: Wavelengths bin
+        &         FLUX)    !.. out: EUV Flux
+
+      indata(1,1) = dble(LAM_EUV(1)) / 10.0d0
+      indata(1,2) = dble(FLUX(1)) / ( dble(LAM_EUV(2)-LAM_EUV(1)) ) * 10.0d0
+      do iwl = 2, IDIM-1
+        indata(iwl,1) = dble(LAM_EUV(iwl)) / 10.0d0
+        indata(iwl,2) = dble(FLUX(iwl)) / ( dble(LAM_EUV(iwl+1)-LAM_EUV(iwl-1)) / 2.0_dp ) * 10.0d0
       end do
-      indata(IDIM,1) = dble(BINLAM(IDIM)) / 10.0d0
-      indata(IDIM,1) = dble(BIN_ANGS(IDIM)) / dble(BINLAM(IDIM)-BINLAM(IDIM-1)) * 10.0d0
+      indata(IDIM,1) = dble(LAM_EUV(IDIM)) / 10.0d0
+      indata(IDIM,2) = dble(FLUX(iwl)) / ( dble(LAM_EUV(IDIM)-LAM_EUV(IDIM-1)) ) * 10.0d0
 
       nwl_tmp = 0
       do i = 1, set%n_wl_bin
@@ -107,7 +104,7 @@ contains
         end do
       close(10)
 
-      deallocate(indata, BINLAM, XS_OUT, BIN_ANGS)
+      deallocate(indata, LAM_EUV, FLUX, dl, l)
 
       do i = 1, flx%nwl_UV
         if (flx%lambda_UV(i)<105.5_dp) then 

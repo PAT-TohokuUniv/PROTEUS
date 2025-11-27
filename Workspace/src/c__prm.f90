@@ -188,7 +188,6 @@ contains
     ! Physical constant
     cst%pi  = dacos(-1.0_dp)
     cst%NA  = 6.022e23_dp
-    cst%eV  = 1.6022e-19_dp ![eV]
     cst%k_B = 1.38064852e-23_dp !Boltzmann constant [m^2 kg s^-2 K^-1]
     cst%q_e = 1.6022e-19_dp ![C]
     cst%m_u = 1.660538921e-27_dp ![kg]
