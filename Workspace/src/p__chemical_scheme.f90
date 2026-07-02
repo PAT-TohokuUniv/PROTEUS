@@ -14,7 +14,7 @@ contains
     &                                var_species_list, fix_species_list,             & ! in:    name of variable species and fixed species
     &                                nsp_var, nsp_fix, nch, nz,                      & ! in:    number of variable species, fixed species, chemical reactions, and vertical grids
     &                                n_var, n_fix,                                   & ! in:    number density of variable and fixed species
-    &                                n_lower_boundary,                               & ! in:    fixed density at lower boundary
+    &                                n_lower_boundary, n_upper_boundary,             & ! in:    fixed density at lower boundary
     &                                prod, loss, k_coef, dphi_dz,                    & ! in:    production and loss rate of variable species, reaction rate coefficients, and vertical gradient of vertical flux
     &                                d_dniu_dphi_dz, d_dni0_dphi_dz, d_dnil_dphi_dz, & ! in:    Jacobian terms of vertical diffusion
     &                                tAmtx, Umtx, tLmtx,                             & ! inout: transposed chemical Jacobian matrix, LU decomposition matrices
@@ -42,8 +42,8 @@ contains
     ! - n_var(nz,nsp_var), n_fix(nz,nsp_fix)
     !   * Number density of variable and fixed species in [cm^-3] in the simulation vertical grids.
     !
-    ! - n_lower_boundary(nsp,2)
-    !   * Lower boundary condition of number density of variable species in [cm^-3].
+    ! - n_lower_boundary(nsp,2), n_upper_boundary(nsp,2)
+    !   * Lower and upper boundary conditions of number density of variable species in [cm^-3].
     !     Column 1: label 0.0_dp or 1.0_dp for fixed or free boundary condition for number density.
     !     Column 2: number density of variable species in [cm^-3] fixed at the lower boundary.
     !
@@ -72,7 +72,7 @@ contains
     integer,          intent(in)    :: nsp_var, nsp_fix, nch, nz 
     character(len=*), intent(in)    :: scheme, var_species_list(nsp_var), fix_species_list(nsp_fix)
     real(dp),         intent(in)    :: n_var(nz,nsp_var), n_fix(nz,nsp_fix)
-    real(dp),         intent(in)    :: n_lower_boundary(nsp_var,2)
+    real(dp),         intent(in)    :: n_lower_boundary(nsp_var,2), n_upper_boundary(nsp_var,2)
     real(dp),         intent(in)    :: prod(nz,nsp_var), loss(nz,nsp_var), k_coef(nz,nch)
     real(dp),         intent(in)    :: dphi_dz(nz,nsp_var)
     real(dp),         intent(in)    :: d_dniu_dphi_dz(nz,nsp_var), d_dni0_dphi_dz(nz,nsp_var), d_dnil_dphi_dz(nz,nsp_var)
@@ -134,13 +134,19 @@ contains
           j = nsp_var + 1
 
           Fvec(i) = ( prod(iz,isp) - loss(iz,isp) ) - dphi_dz(iz,isp)
-          if (nint(n_lower_boundary(isp,1)) == 1.0_dp .and. iz == 1) then 
+          if (nint(n_lower_boundary(isp,1)) == 1 .and. iz == 1) then 
+            Fvec(i) = 0.0_dp
+          end if
+          if (nint(n_upper_boundary(isp,1)) == 1 .and. iz == nz) then 
             Fvec(i) = 0.0_dp
           end if
 
           tAmtx(j,i) = tAmtx(j,i) + d_dni0_dphi_dz(iz,isp)
-          if (nint(n_lower_boundary(isp,1)) == 1.0_dp .and. iz == 1) then 
-            tAmtx(j,i) = 0.0_dp
+          if (nint(n_lower_boundary(isp,1)) == 1 .and. iz == 1) then 
+            tAmtx(1:2*nsp_var+1,i) = 0.0_dp
+          end if
+          if (nint(n_upper_boundary(isp,1)) == 1 .and. iz == nz) then 
+            tAmtx(1:2*nsp_var+1,i) = 0.0_dp
           end if
         end do
       end do
@@ -150,10 +156,13 @@ contains
           i = (iz-1)*nsp_var+isp
           j = (iz-2)*nsp_var+isp + nsp_var + 1 - i
           tAmtx(j,i) = d_dnil_dphi_dz(iz,isp)
+          if (nint(n_upper_boundary(isp,1)) == 1 .and. iz == nz) then 
+            tAmtx(j,i) = 0.0_dp
+          end if
           i = (iz-2)*nsp_var+isp
           j = (iz-1)*nsp_var+isp + nsp_var + 1 - i
           tAmtx(j,i) = d_dniu_dphi_dz(iz-1,isp)
-          if (nint(n_lower_boundary(isp,1)) == 1.0_dp .and. iz == 2) then 
+          if (nint(n_lower_boundary(isp,1)) == 1 .and. iz == 2) then 
             tAmtx(j,i) = 0.0_dp
           end if
         end do

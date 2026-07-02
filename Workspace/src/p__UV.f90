@@ -55,14 +55,25 @@ contains
     type(grd_),   intent(inout)  :: grd
     type(flx_),   intent(inout)  :: flx
     type(var_),   intent(inout)  :: var
+    integer iz, isp
+
+    ! Total number density
+    do iz = 1, grd%nz
+      var%n_tot(iz) = 0.0_dp
+      do isp = 1, spl%nsp
+        if (spl%species(isp) /= 'M' .and. spl%species(isp) /= 'products' .and. spl%species(isp) /= 'hv') then
+          var%n_tot(iz) = var%n_tot(iz) + var%ni(iz,isp)
+        end if
+      end do
+    end do
 
     call p__photolysis_rate__ini(flx%nwl_UV, grd%nz, spl%nsp, spl%nch, &
       &                          spl%species(1:), var%m(1:), spl%reaction_type_list, &
       &                          spl%reactant_list, spl%product_list, &
       &                          flx%lambda_UV(1:), flx%dlambda_UV(1:), flx%solar_UV(1:)) ! inout
     call load_cross_section_dat('./UV/xsect_data') ! in
-    call get_cross_section(var%Tn(1:), 'absorption', 1) ! in
-    call get_cross_section(var%Tn(1:), 'photolysis', 1) ! in
+    call get_cross_section(var%Tn(1:), var%n_tot(1:), 'absorption', 1) ! out
+    call get_cross_section(var%Tn(1:), var%n_tot(1:), 'photolysis', 1) ! out
 
   end subroutine p__UV_cross_section
 

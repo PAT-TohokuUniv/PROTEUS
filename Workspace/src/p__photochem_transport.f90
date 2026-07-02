@@ -96,7 +96,7 @@ contains
           &                     (1.0_dp/(cst%k_B * var%Tn(grd%nz) / var%m_mean(grd%nz) &
           &                           / (cst%BigG*cst%Mplanet/(cst%R+grd%alt(grd%nz))**2.0_dp))&
           &                    - 1.0_dp/(cst%k_B * var%Tn(grd%nz) / var%m(isp) &
-          &                           / (cst%BigG*cst%Mplanet/(cst%R+grd%alt(grd%nz))**2.0_dp)))
+          &                           / (cst%BigG*cst%Mplanet/(cst%R+grd%alt(grd%nz))**2.0_dp))) * 1.0e2_dp
         end if
         if (nint(var%Upper_f(isp,1)) == 1) then 
           phi_upper_boundary(jsp) = var%Upper_f(isp,2) * 1.0e-4_dp

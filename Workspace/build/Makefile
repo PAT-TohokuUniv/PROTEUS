@@ -2,7 +2,7 @@
 
 #--- Project -------------------------------------------
 
-PROJECT = Jupiter/Nakamura_22_Case1
+PROJECT = Mars/Test
 
 #--- Compiler ------------------------------------------
 

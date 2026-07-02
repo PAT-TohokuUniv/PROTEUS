@@ -1,4 +1,4 @@
- module p__photoionization_rate
+module p__photoionization_rate
 
   implicit none
   integer(4), parameter :: sp = 4, dp = 8
@@ -18,7 +18,7 @@
 
   ! Public interfaces --------------------------------------------------------------------------------
   public :: p__photoionization_rate__ini, p__photoionization_rate__fin, &
-    &       load_cross_section_dat, get_cross_section, photoionization_rate
+    &       load_EUV_cross_section_dat, get_EUV_cross_section, photoionization_rate
 
 contains
 
@@ -104,7 +104,7 @@ contains
   !  Load photo-absorption and ionization cross section data from files and bin them to the simulation wavelength grid
   !
   !=======================================================================================================================
-  subroutine load_cross_section_dat(dirname) ! in
+  subroutine load_EUV_cross_section_dat(dirname) ! in
     implicit none
     character(len=*), intent(in) :: dirname
     integer isp, ich
@@ -117,7 +117,7 @@ contains
     sigma_dat(-1,:,:,1,1) = dble(1.0_dp)
 
     ! Template --------------------------------------------------------
-    !  isp = get_species_index('CO2') 
+    !  isp = get_species_index_i('CO2') 
     !------------------------------------------------------------------
     !
     !  fname = trim(ADJUSTL(dirname))//'/sigma_*.dat'
@@ -128,7 +128,7 @@ contains
     !   unit2: unit of column 2 of the datafile, 'cm2', 'm2', or 'Mb'.
     
     ! H2 data ---------------------------------------------------------
-    isp = get_species_index('H2')
+    isp = get_species_index_i('H2')
     !------------------------------------------------------------------
     
     fname = trim(ADJUSTL(dirname))//'/Hx/sigma_a_H2_eV.dat'
@@ -137,19 +137,19 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/Hx/sigma_i_H2_H2+_Kossmann1989.dat'
-    ich = get_reaction_index(['H2'], ['H2+', 'e- '])
+    ich = get_reaction_index_i(['H2'], ['H2+', 'e- '])
     call read_binning_data(fname, &
       &                    'eV', 'Mb', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/Hx/sigma_i_H2_H+.dat'
-    ich = get_reaction_index(['H2'], ['H+', 'e-', 'H '])
+    ich = get_reaction_index_i(['H2'], ['H+', 'e-', 'H '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     ! H data ----------------------------------------------------------
-    isp = get_species_index('H')
+    isp = get_species_index_i('H')
     !------------------------------------------------------------------
 
     fname = trim(ADJUSTL(dirname))//'/Hx/sigma_a_H.dat'
@@ -158,13 +158,13 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/Hx/sigma_i_H_H+.dat'
-    ich = get_reaction_index(['H'], ['H+', 'e-'])
+    ich = get_reaction_index_i(['H'], ['H+', 'e-'])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     ! He data ---------------------------------------------------------
-    isp = get_species_index('He')
+    isp = get_species_index_i('He')
     !------------------------------------------------------------------
 
     fname = trim(ADJUSTL(dirname))//'/He/sigma_a_He.dat'
@@ -173,13 +173,13 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/He/sigma_i_He_He+.dat'
-    ich = get_reaction_index(['He'], ['He+', 'e- '])
+    ich = get_reaction_index_i(['He'], ['He+', 'e- '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     ! CH4 data --------------------------------------------------------
-    isp = get_species_index('CH4')
+    isp = get_species_index_i('CH4')
     !------------------------------------------------------------------
 
     fname = trim(ADJUSTL(dirname))//'/C1/sigma_a_CH4.dat'
@@ -188,37 +188,37 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/C1/sigma_i_CH4_CH4+.dat'
-    ich = get_reaction_index(['CH4'], ['CH4+', 'e-  '])
+    ich = get_reaction_index_i(['CH4'], ['CH4+', 'e-  '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C1/sigma_i_CH4_CH3+.dat'
-    ich = get_reaction_index(['CH4'], ['CH3+', 'e-  ', 'H   '])
+    ich = get_reaction_index_i(['CH4'], ['CH3+', 'e-  ', 'H   '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C1/sigma_i_CH4_CH2+.dat'
-    ich = get_reaction_index(['CH4'], ['CH2+', 'e-  ', 'H2  '])
+    ich = get_reaction_index_i(['CH4'], ['CH2+', 'e-  ', 'H2  '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C1/sigma_i_CH4_CH+.dat'
-    ich = get_reaction_index(['CH4'], ['CH+', 'e- ', 'H2 ', 'H  '])
+    ich = get_reaction_index_i(['CH4'], ['CH+', 'e- ', 'H2 ', 'H  '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C1/sigma_i_CH4_H+.dat'
-    ich = get_reaction_index(['CH4'], ['H+ ', 'e- ', 'CH3'])
+    ich = get_reaction_index_i(['CH4'], ['H+ ', 'e- ', 'CH3'])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     ! C2H2 data -------------------------------------------------------
-    isp = get_species_index('C2H2')
+    isp = get_species_index_i('C2H2')
     !------------------------------------------------------------------
 
     fname = trim(ADJUSTL(dirname))//'/C2/sigma_a_C2H2.dat'
@@ -227,19 +227,19 @@ contains
       &                    'a', isp)
       
     fname = trim(ADJUSTL(dirname))//'/C2/sigma_i_C2H2_C2H2+.dat'
-    ich = get_reaction_index(['C2H2'], ['C2H2+', 'e-   '])
+    ich = get_reaction_index_i(['C2H2'], ['C2H2+', 'e-   '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C2/sigma_i_C2H2_C2H+.dat'
-    ich = get_reaction_index(['C2H2'], ['C2H+', 'e-  ', 'H   '])
+    ich = get_reaction_index_i(['C2H2'], ['C2H+', 'e-  ', 'H   '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     ! C2H4 data -------------------------------------------------------
-    isp = get_species_index('C2H4')
+    isp = get_species_index_i('C2H4')
     !------------------------------------------------------------------
 
     fname = trim(ADJUSTL(dirname))//'/C2/sigma_a_C2H4.dat'
@@ -248,25 +248,25 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/C2/sigma_i_C2H4_C2H4+.dat'
-    ich = get_reaction_index(['C2H4'], ['C2H4+', 'e-   '])
+    ich = get_reaction_index_i(['C2H4'], ['C2H4+', 'e-   '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C2/sigma_i_C2H4_C2H3+.dat'
-    ich = get_reaction_index(['C2H4'], ['C2H3+', 'e-   ', 'H    '])
+    ich = get_reaction_index_i(['C2H4'], ['C2H3+', 'e-   ', 'H    '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/C2/sigma_i_C2H4_C2H2+.dat'
-    ich = get_reaction_index(['C2H4'], ['C2H2+', 'e-   ', 'H2   '])
+    ich = get_reaction_index_i(['C2H4'], ['C2H2+', 'e-   ', 'H2   '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     ! C2H6 data -------------------------------------------------------
-    isp = get_species_index('C2H6')
+    isp = get_species_index_i('C2H6')
     !------------------------------------------------------------------
 
     fname = trim(ADJUSTL(dirname))//'/C2/sigma_a_C2H6.dat'
@@ -275,13 +275,13 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/C2/sigma_i_C2H6_C2H6+.dat'
-    ich = get_reaction_index(['C2H6'], ['C2H6+', 'e-   '])
+    ich = get_reaction_index_i(['C2H6'], ['C2H6+', 'e-   '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich) 
 
     ! CO2 data --------------------------------------------------------
-    isp = get_species_index('CO2')
+    isp = get_species_index_i('CO2')
     !------------------------------------------------------------------
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_a_CO2.dat'
@@ -290,37 +290,37 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO2_CO2+.dat'
-    ich = get_reaction_index(['CO2'], ['CO2+', 'e-  '])
+    ich = get_reaction_index_i(['CO2'], ['CO2+', 'e-  '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO2_CO+.dat'
-    ich = get_reaction_index(['CO2'], ['CO+', 'e- ', 'O  '])
+    ich = get_reaction_index_i(['CO2'], ['CO+', 'e- ', 'O  '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO2_O+.dat'
-    ich = get_reaction_index(['CO2'], ['O+(4S)', 'e-    ', 'CO    '])
+    ich = get_reaction_index_i(['CO2'], ['O+(4S)', 'e-    ', 'CO    '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
     
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO2_O+.dat'
-    ich = get_reaction_index(['CO2'], ['O+', 'e-', 'CO'])
+    ich = get_reaction_index_i(['CO2'], ['O+', 'e-', 'CO'])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO2_C+.dat'
-    ich = get_reaction_index(['CO2'], ['C+', 'e-', 'O2'])
+    ich = get_reaction_index_i(['CO2'], ['C+', 'e-', 'O2'])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     ! CO data ---------------------------------------------------------
-    isp = get_species_index('CO')
+    isp = get_species_index_i('CO')
     !------------------------------------------------------------------
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_a_CO.dat'
@@ -329,31 +329,31 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO_CO+.dat'
-    ich = get_reaction_index(['CO'], ['CO+', 'e- '])
+    ich = get_reaction_index_i(['CO'], ['CO+', 'e- '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO_C+.dat'
-    ich = get_reaction_index(['CO'], ['C+', 'e-', 'O '])
+    ich = get_reaction_index_i(['CO'], ['C+', 'e-', 'O '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO_O+.dat'
-    ich = get_reaction_index(['CO'], ['O+(4S)', 'e-    ', 'C     '])
+    ich = get_reaction_index_i(['CO'], ['O+(4S)', 'e-    ', 'C     '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/COx/sigma_i_CO_O+.dat'
-    ich = get_reaction_index(['CO'], ['O+', 'e-', 'C '])
+    ich = get_reaction_index_i(['CO'], ['O+', 'e-', 'C '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     ! N2 data ---------------------------------------------------------
-    isp = get_species_index('N2')
+    isp = get_species_index_i('N2')
     !------------------------------------------------------------------
 
     fname = trim(ADJUSTL(dirname))//'/Nx/sigma_a_N2.dat'
@@ -362,19 +362,19 @@ contains
       &                   'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/Nx/sigma_i_N2_N2+.dat'
-    ich = get_reaction_index(['N2'], ['N2+', 'e- '])
+    ich = get_reaction_index_i(['N2'], ['N2+', 'e- '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/Nx/sigma_i_N2_N+.dat'
-    ich = get_reaction_index(['N2'], ['N+   ', 'e-   ', 'N(2D)'])
+    ich = get_reaction_index_i(['N2'], ['N+   ', 'e-   ', 'N(2D)'])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     ! O data ----------------------------------------------------------
-    isp = get_species_index('O')
+    isp = get_species_index_i('O')
     !------------------------------------------------------------------
 
     fname = trim(ADJUSTL(dirname))//'/Ox/sigma_a_O.dat'
@@ -383,18 +383,18 @@ contains
       &                   'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/Ox/sigma_i_O_O+.dat'
-    ich = get_reaction_index(['O'], ['O+(4S)', 'e-    '])
+    ich = get_reaction_index_i(['O'], ['O+(4S)', 'e-    '])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
     fname = trim(ADJUSTL(dirname))//'/Ox/sigma_i_O_O+.dat'
-    ich = get_reaction_index(['O'], ['O+', 'e-'])
+    ich = get_reaction_index_i(['O'], ['O+', 'e-'])
     call read_binning_data(fname, &
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
-  end subroutine load_cross_section_dat
+  end subroutine load_EUV_cross_section_dat
 
 
   !=======================================================================================================================
@@ -402,7 +402,7 @@ contains
   !     Get cross section for absorption (sigma_a) or photoionization (sigma_i) 
   !
   !=======================================================================================================================
-  subroutine get_cross_section(flag, outflag)
+  subroutine get_EUV_cross_section(flag, outflag)
     implicit none       
     integer,    intent(in) :: outflag
     character(len=*), intent(in) :: flag
@@ -527,7 +527,7 @@ contains
     end if ! end if flag == photoionization
 
 
-  end subroutine get_cross_section
+  end subroutine get_EUV_cross_section
 
 
   !=======================================================================================================================
@@ -953,32 +953,32 @@ contains
   end subroutine calc_sigma_i
 
 
-  function get_species_index(species_in)
+  function get_species_index_i(species_in)
     implicit none
     character(len=*), intent(in) :: species_in
-    integer get_species_index
+    integer get_species_index_i
     integer isp
 
-    get_species_index = 0
+    get_species_index_i = 0
     loop: do isp = 1, nsp
       if( trim(ADJUSTL(species(isp))) == trim(ADJUSTL(species_in)) ) then
-        get_species_index = isp
+        get_species_index_i = isp
         exit loop
       end if
     end do loop
 
-  end function get_species_index
+  end function get_species_index_i
 
 
-  function get_reaction_index(in_reactant, in_product)
+  function get_reaction_index_i(in_reactant, in_product)
     ! this function should not be used for searching reactions other than photoionization.
     implicit none
     character(len=*), intent(in) :: in_reactant(:), in_product(:)
-    integer get_reaction_index
+    integer get_reaction_index_i
     integer i, ich
     character(len=256) reactants(20),  products(20)
 
-    get_reaction_index = 0
+    get_reaction_index_i = 0
 
     do ich = 1, nch
       ! check if the reaction type matches the given type
@@ -997,18 +997,18 @@ contains
         if (product_list(ich,0) == 1 .and. size(in_product) == 1) then 
           if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(1)))) then 
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           end if
         ! if the number of products is 2: 2 cases
         else if (product_list(ich,0) == 2 .and. size(in_product) == 2) then 
           if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(2)))) then 
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(1)))) then 
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           end if
         ! if the number of products is 3: 6 cases
         else if (product_list(ich,0) == 3 .and. size(in_product) == 3) then 
@@ -1016,32 +1016,32 @@ contains
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(3)))) then 
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(3)))) then 
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(2)))) then 
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(1)))) then 
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(1)))) then 
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(2)))) then 
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           end if
 
         ! if the number of products is 4: 24 cases
@@ -1051,145 +1051,145 @@ contains
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(4)))) then 
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(3)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(4)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(2)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(3)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(2)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(4)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(3)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(4)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(1)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(3)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(1)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(4)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(2)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(4)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(1)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(2)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(1)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(3)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(2)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(3)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(1)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(1))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(2)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           else if (    trim(ADJUSTL(reactants(1)))==trim(ADJUSTL(in_reactant(1))) &
             & .and. trim(ADJUSTL(products(1)))==trim(ADJUSTL(in_product(4))) &
             & .and. trim(ADJUSTL(products(2)))==trim(ADJUSTL(in_product(3))) &
             & .and. trim(ADJUSTL(products(3)))==trim(ADJUSTL(in_product(2))) &
             & .and. trim(ADJUSTL(products(4)))==trim(ADJUSTL(in_product(1)))) then
-              get_reaction_index = ich; exit
+              get_reaction_index_i = ich; exit
           end if
 
         end if
@@ -1198,7 +1198,7 @@ contains
 
     end do 
 
-  end function get_reaction_index
+  end function get_reaction_index_i
 
 
   subroutine get_header_line_number(nh, fname)

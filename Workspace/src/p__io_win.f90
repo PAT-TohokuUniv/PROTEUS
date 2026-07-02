@@ -81,7 +81,7 @@ contains
         &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
-            write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%ni(iz,isp)
+            write(11,*) grd%alt(iz)/1.0e3_dp, var%ni(iz,isp)
           end do
         close(11)
 
@@ -89,7 +89,7 @@ contains
         &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
-            write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%ni(iz,isp)/var%n_tot(iz)
+            write(11,*) grd%alt(iz)/1.0e3_dp, var%ni(iz,isp)/var%n_tot(iz)
           end do
         close(11)
 
@@ -108,7 +108,7 @@ contains
               if (iz==grd%nz+1) then 
                 alt = (grd%alt(grd%nz) + grd%dalt(grd%nz)/2.0d0) /1.0e3_dp
               end if
-              write(11, fmt='(f10.3, E20.10E4, E20.10E4)') alt, &
+              write(11,*) alt, &
                 & var%Fluxup(iz,spl%all_to_var(isp)), &
                 & var%Fluxdwn(iz,spl%all_to_var(isp))
             end do
@@ -120,7 +120,7 @@ contains
             do iz = 1, grd%nz+1
               if (iz==1) then 
                 alt = (grd%alt(1) - grd%dalt(1)/2.0d0) /1.0e3_dp
-                ni = var%ni(isp,1)
+                ni = var%ni(1,isp)
               end if
               if (iz>=2 .and. iz<=grd%nz) then 
                 alt = (grd%alt(iz) + grd%alt(iz-1)) /2.0d0 /1.0e3_dp
@@ -130,7 +130,7 @@ contains
                 alt = (grd%alt(grd%nz) + grd%dalt(grd%nz)/2.0d0) /1.0e3_dp
                 ni = var%ni(grd%nz,isp)
               end if
-              write(11, fmt='(f10.3, E20.10E4, E20.10E4)') alt, &
+              write(11,*) alt, &
                 & var%Fluxup(iz,spl%all_to_var(isp))/ni, &
                 & var%Fluxdwn(iz,spl%all_to_var(isp))/ni
             end do
@@ -140,7 +140,7 @@ contains
           &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
           open(11, file = fname, status = 'replace' )
             do iz = 1, grd%nz
-              write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%D_mol(iz,isp)
+              write(11,*) grd%alt(iz)/1.0e3_dp, var%D_mol(iz,isp)
             end do
           close(11)
 
@@ -152,7 +152,7 @@ contains
         fname = trim(ADJUSTL(set%dir_name))//'/output/rate/k'//trim(ADJUSTL(num))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
-            write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%ki(iz,ich)
+            write(11,*) grd%alt(iz)/1.0e3_dp, var%ki(iz,ich)
           end do
         close(11)
       end do
@@ -162,7 +162,7 @@ contains
         fname = trim(ADJUSTL(set%dir_name))//'/output/rate/rate'//trim(ADJUSTL(num))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
-            write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%rate(iz,ich)
+            write(11,*) grd%alt(iz)/1.0e3_dp, var%rate(iz,ich)
           end do
         close(11)
       end do
@@ -173,7 +173,7 @@ contains
         &  //trim(ADJUSTL(spl%species(jsp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
-            write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%Pi(iz,isp) * 1.0e6_dp
+            write(11,*) grd%alt(iz)/1.0e3_dp, var%Pi(iz,isp) * 1.0e6_dp
           end do
         close(11)
 
@@ -181,7 +181,7 @@ contains
         &  //trim(ADJUSTL(spl%species(jsp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
-            write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%Li(iz,isp) * 1.0e6_dp
+            write(11,*) grd%alt(iz)/1.0e3_dp, var%Li(iz,isp) * 1.0e6_dp
           end do
         close(11)
       end do
@@ -189,7 +189,7 @@ contains
       fname = trim(ADJUSTL(set%dir_name))//'/output/flux/K_eddy.dat'
       open(11, file = fname, status = 'replace' )
         do iz = 1, grd%nz
-          write(11, fmt='(f10.3, E15.5E4)') grd%alt(iz)/1.0e3_dp, var%K_eddy(iz)
+          write(11,*) grd%alt(iz)/1.0e3_dp, var%K_eddy(iz)
         end do
       close(11)
 
@@ -210,15 +210,15 @@ contains
         &  //trim(ADJUSTL(spl%species(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do iz = 1, grd%nz
-            write(11, fmt='(f10.3)', advance='no') grd%alt(iz)/1.0e3_dp
-            write(11, fmt='(E15.5E4)') (var%ni_stable(iy,iz,isp), iy = 1, grd%ny)
+            write(11,*) grd%alt(iz)/1.0e3_dp
+            write(11,*) (var%ni_stable(iy,iz,isp), iy = 1, grd%ny)
           end do
         close(11)
       end do
 
       fname = trim(ADJUSTL(set%dir_name))//'/output/density/2DLAT/grid.dat'
       open(11, file = fname, status = 'replace' )
-        write(11, *) grd%nx, grd%ny, grd%nz
+        write(11,*) grd%nx, grd%ny, grd%nz
       close(11)
 
     end if
@@ -332,7 +332,7 @@ contains
     fname = trim(ADJUSTL(set%dir_name))//'/output/alt_density.dat'
     open(11, file = fname, status = 'replace' )
       do iz = 1, grd%nz
-        write(11, *) grd%alt(iz) / 1.0e3_dp
+        write(11,*) grd%alt(iz) / 1.0e3_dp
       end do
     close(11)
 
@@ -341,14 +341,14 @@ contains
       do iz = 1, grd%nz+1
         if (iz == 1) tmp = grd%alt(1) - grd%dalt(1)/2.0_dp
         if (iz >= 2) tmp = grd%alt(iz-1) + grd%dalt(iz-1)/2.0_dp
-        write(11, *) tmp / 1.0e3_dp
+        write(11,*) tmp / 1.0e3_dp
       end do
     close(11)
 
     fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/timestamp.dat'
     open(11, file = fname, status = 'replace' )
       do i = 0, iout
-        write(11, *) t_out(i)
+        write(11,*) t_out(i)
       end do
     close(11)
 
@@ -359,49 +359,49 @@ contains
         &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
-            write(11, *) t_out(i), (n_out(iz,isp,i), iz = 1, grd%nz)
+            write(11,*) t_out(i), (n_out(iz,isp,i), iz = 1, grd%nz)
           end do
         close(11)
         fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/cln_'&
         &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
-            write(11, *) t_out(i), cln_out(isp,i)
+            write(11,*) t_out(i), cln_out(isp,i)
           end do
         close(11)
         fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/vmr_'&
         &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
-            write(11, *) t_out(i), (vmr_out(iz,isp,i), iz = 1, grd%nz)
+            write(11,*) t_out(i), (vmr_out(iz,isp,i), iz = 1, grd%nz)
           end do
         close(11)
         fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/Pi_'&
         &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
-            if (spl%all_to_var(jsp)/=0) write(11, *) t_out(i), (Pi_out(iz,isp,i)*1.0e6_dp, iz = 1, grd%nz)
+            if (spl%all_to_var(jsp)/=0) write(11,*) t_out(i), (Pi_out(iz,isp,i)*1.0e6_dp, iz = 1, grd%nz)
           end do
         close(11)
         fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/Li_'&
         &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
-            if (spl%all_to_var(jsp)/=0) write(11, *) t_out(i), (Li_out(iz,isp,i)*1.0e6_dp, iz = 1, grd%nz)
+            if (spl%all_to_var(jsp)/=0) write(11,*) t_out(i), (Li_out(iz,isp,i)*1.0e6_dp, iz = 1, grd%nz)
           end do
         close(11)
         fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/flux_down_'&
         &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
-            if (spl%all_to_var(jsp)/=0) write(11, *) t_out(i), (flux_down_out(iz,isp,i), iz = 1, grd%nz+1)
+            if (spl%all_to_var(jsp)/=0) write(11,*) t_out(i), (flux_down_out(iz,isp,i), iz = 1, grd%nz+1)
           end do
         close(11)
         fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/flux_up_'&
         &  //trim(ADJUSTL(set%species_tout(isp)))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
-            if (spl%all_to_var(jsp)/=0) write(11, *) t_out(i), (flux_up_out(iz,isp,i), iz = 1, grd%nz+1)
+            if (spl%all_to_var(jsp)/=0) write(11,*) t_out(i), (flux_up_out(iz,isp,i), iz = 1, grd%nz+1)
           end do
         close(11)
         fname = trim(ADJUSTL(set%dir_name))//'/output/timeseries/v_down_'&
@@ -409,12 +409,12 @@ contains
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             if (spl%all_to_var(jsp)/=0) then 
-              write(11, fmt='(E18.10E3)', advance='no') t_out(i)
+              write(11, fmt='(E25.15E4)', advance='no') t_out(i)
               do iz = 1, grd%nz+1
                 if (iz == 1) n_tmp = n_out(1,isp,i)
                 if (iz >= 2 .and. iz <= grd%nz) n_tmp = ( n_out(iz,isp,i) + n_out(iz-1,isp,i) ) / 2.0_dp
                 if (iz == grd%nz+1) n_tmp = n_out(grd%nz,isp,i)
-                write(11, fmt='(E18.10E3)', advance='no') flux_down_out(iz,isp,i)/n_tmp
+                write(11, fmt='(E25.15E4)', advance='no') flux_down_out(iz,isp,i)/n_tmp
               end do
               write(11,*)
             end if
@@ -425,12 +425,12 @@ contains
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
             if (spl%all_to_var(jsp)/=0) then 
-              write(11, fmt='(E18.10E3)', advance='no') t_out(i)
+              write(11, fmt='(E25.15E4)', advance='no') t_out(i)
               do iz = 1, grd%nz+1
                 if (iz == 1) n_tmp = n_out(1,isp,i)
                 if (iz >= 2 .and. iz <= grd%nz) n_tmp = ( n_out(iz,isp,i) + n_out(iz-1,isp,i) ) / 2.0_dp
                 if (iz == grd%nz+1) n_tmp = n_out(grd%nz,isp,i)
-                write(11, fmt='(E18.10E3)', advance='no') flux_up_out(iz,isp,i)/n_tmp
+                write(11, fmt='(E25.15E4)', advance='no') flux_up_out(iz,isp,i)/n_tmp
               end do
               write(11,*)
             end if
@@ -446,7 +446,7 @@ contains
         &  //trim(ADJUSTL(ci))//'.dat'
         open(11, file = fname, status = 'replace' )
           do i = 0, iout
-            write(11, *) t_out(i), (rate_out(iz,ich,i)*1.0e6_dp, iz = 1, grd%nz)
+            write(11,*) t_out(i), (rate_out(iz,ich,i)*1.0e6_dp, iz = 1, grd%nz)
           end do
         close(11)
       end do
@@ -481,7 +481,7 @@ contains
     fname = trim(ADJUSTL(set%dir_name))//'/output/density/'//trim(ADJUSTL(set%mode))//'/altitude.dat'
     open(11, file = fname, status = 'replace' )
       do iz = 1, grd%nz
-        write(11, *) grd%alt(iz) / 1.0e3_dp
+        write(11,*) grd%alt(iz) / 1.0e3_dp
       end do
     close(11)
 
@@ -540,7 +540,7 @@ contains
     fname = trim(ADJUSTL(set%dir_name))//'/output/density/'&
     &  //trim(ADJUSTL(set%mode))//'/grid.dat'
     open(11, file = fname, status = 'replace' )
-      write(11, *) grd%nx, grd%ny, grd%nz
+      write(11,*) grd%nx, grd%ny, grd%nz
     close(11)
 
 
@@ -557,30 +557,30 @@ contains
     fname = trim(ADJUSTL(set%dir_name))//'/progress.dat'
     open(11, file = fname, status = 'replace' )
 
-      write(11, *) '########################################'
-      write(11, *)
-      write(11, *) '            ',trim(ADJUSTL(spl%planet))
-      write(11, *)
-      write(11, *) '########################################'
-      write(11, *)
-      write(11, *)
+      write(11,*) '########################################'
+      write(11,*)
+      write(11,*) '            ',trim(ADJUSTL(spl%planet))
+      write(11,*)
+      write(11,*) '########################################'
+      write(11,*)
+      write(11,*)
 
       if ( set%mode == '1D' ) then
 
-        write(11, *) '----------------------------------------'
-        write(11, *) '         1D stable calculation          '
-        write(11, *) '----------------------------------------'
-        write(11, *)
+        write(11,*) '----------------------------------------'
+        write(11,*) '         1D stable calculation          '
+        write(11,*) '----------------------------------------'
+        write(11,*)
 
         if ( set%calc_stable == 0 ) then
-          write(11, *) 'skipped stable solution...'
+          write(11,*) 'skipped stable solution...'
         else if ( set%calc_stable == 1 ) then
-          write(11, *) 'calculate stable solution...'
+          write(11,*) 'calculate stable solution...'
           if ( grd%iy < grd%ny ) then
             write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-            write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+            write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
           else if ( grd%iy == grd%ny ) then
-            write(11, *) 'finished stable calculation!'
+            write(11,*) 'finished stable calculation!'
           end if
           write(11,*) 'dt     = ',var%dtime, ' [s]'
           write(11,*) 'sum_t  = ',var%sum_time, ' [s]'
@@ -589,20 +589,20 @@ contains
 
       else if ( set%mode == '2D Lat' ) then
 
-        write(11, *) '----------------------------------------'
-        write(11, *) '         2D stable calculation          '
-        write(11, *) '----------------------------------------'
-        write(11, *)
+        write(11,*) '----------------------------------------'
+        write(11,*) '         2D stable calculation          '
+        write(11,*) '----------------------------------------'
+        write(11,*)
 
         if ( set%calc_stable == 0 ) then
-          write(11, *) 'skipped stable solution...'
+          write(11,*) 'skipped stable solution...'
         else if ( set%calc_stable == 1 ) then
-          write(11, *) 'calculate stable solution...'
+          write(11,*) 'calculate stable solution...'
           if ( grd%iy < grd%ny ) then
             write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-            write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+            write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
           else if ( grd%iy == grd%ny ) then
-            write(11, *) 'finished stable calculation!'
+            write(11,*) 'finished stable calculation!'
           end if
           write(11,*) 'dt     = ',var%dtime, ' [s]'
           write(11,*) 'sum_t  = ',var%sum_time, ' [s]'
@@ -610,31 +610,31 @@ contains
         end if
 
       else if (set%mode == '2D Rot') then
-        write(11, *) '----------------------------------------'
-        write(11, *) '       2D rotational calculation     '
-        write(11, *) '----------------------------------------'
-        write(11, *)
+        write(11,*) '----------------------------------------'
+        write(11,*) '       2D rotational calculation     '
+        write(11,*) '----------------------------------------'
+        write(11,*)
 
         if ( set%calc_stable == 0 ) then
-          write(11, *) 'skipped stable solution...'
+          write(11,*) 'skipped stable solution...'
           if ( set%start_rot == 1 ) then
-            write(11, *) 'calculating rotational mode...'
+            write(11,*) 'calculating rotational mode...'
             if ( grd%iy < grd%ny ) then
               write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-              write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+              write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
             else if ( grd%iy == grd%ny ) then
-              write(11, *) 'finished rotational calculation!'
+              write(11,*) 'finished rotational calculation!'
             end if
             write(11,*) 'cpu_t  = ',var%t4-var%t3, ' [s]'
           end if
         else if ( set%calc_stable == 1 ) then
           if ( set%start_rot == 0 ) then
-            write(11, *) 'calculating stable solution...'
+            write(11,*) 'calculating stable solution...'
             if ( grd%iy < grd%ny ) then
               write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-              write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+              write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
             else if ( grd%iy == grd%ny ) then
-              write(11, *) 'finished stable calculation!'
+              write(11,*) 'finished stable calculation!'
             end if
             write(11,*) 'dt     = ',var%dtime, ' [s]'
             write(11,*) 'sum_t  = ',var%sum_time, ' [s]'
@@ -642,48 +642,48 @@ contains
             write(11,*)
           end if
           if ( set%start_rot == 1 ) then
-            write(11, *) 'finished stable calculation!'
+            write(11,*) 'finished stable calculation!'
             write(11,*) 'dt     = ',var%dtime, ' [s]'
             write(11,*) 'sum_t  = ',var%sum_time, ' [s]'
             write(11,*) 'cpu_t  = ',var%t2-var%t1, ' [s]'
             write(11,*)
             if ( grd%iy < grd%ny ) then
-              write(11, *) 'calculating rotational mode...'
+              write(11,*) 'calculating rotational mode...'
               write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-              write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+              write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
             else if ( grd%iy == grd%ny ) then
-              write(11, *) 'finished rotational calculation!'
+              write(11,*) 'finished rotational calculation!'
             end if
             write(11,*) 'cpu_t  = ',var%t4-var%t3, ' [s]'
           end if
         end if
 
       else if (set%mode == '3D Rot') then
-        write(11, *) '----------------------------------------'
-        write(11, *) '       3D rotational calculation     '
-        write(11, *) '----------------------------------------'
-        write(11, *)
+        write(11,*) '----------------------------------------'
+        write(11,*) '       3D rotational calculation     '
+        write(11,*) '----------------------------------------'
+        write(11,*)
 
         if ( set%calc_stable == 0 ) then
-          write(11, *) 'skipped stable solution...'
+          write(11,*) 'skipped stable solution...'
           if ( set%start_rot == 1 ) then
-            write(11, *) 'calculating rotational mode...'
+            write(11,*) 'calculating rotational mode...'
             if ( grd%iy < grd%ny ) then
               write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-              write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+              write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
             else if ( grd%iy == grd%ny ) then
-              write(11, *) 'finished rotational calculation!'
+              write(11,*) 'finished rotational calculation!'
             end if
             write(11,*) 'cpu_t  = ',var%t4-var%t3, ' [s]'
           end if
         else if ( set%calc_stable == 1 ) then
           if ( set%start_rot == 0 ) then
-            write(11, *) 'calculating stable solution...'
+            write(11,*) 'calculating stable solution...'
             if ( grd%iy < grd%ny ) then
               write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-              write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+              write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
             else if ( grd%iy == grd%ny ) then
-              write(11, *) 'finished stable calculation!'
+              write(11,*) 'finished stable calculation!'
             end if
             write(11,*) 'dt     = ',var%dtime, ' [s]'
             write(11,*) 'sum_t  = ',var%sum_time, ' [s]'
@@ -691,59 +691,59 @@ contains
             write(11,*)
           end if
           if ( set%start_rot == 1 ) then
-            write(11, *) 'finished stable calculation!'
+            write(11,*) 'finished stable calculation!'
             write(11,*) 'dt     = ',var%dtime, ' [s]'
             write(11,*) 'sum_t  = ',var%sum_time, ' [s]'
             write(11,*) 'cpu_t  = ',var%t2-var%t1, ' [s]'
             write(11,*)
             if ( grd%iy < grd%ny ) then
-              write(11, *) 'calculating rotational mode...'
+              write(11,*) 'calculating rotational mode...'
               write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-              write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+              write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
             else if ( grd%iy == grd%ny ) then
-              write(11, *) 'finished rotational calculation!'
+              write(11,*) 'finished rotational calculation!'
             end if
             write(11,*) 'cpu_t  = ',var%t4-var%t3, ' [s]'
           end if
         end if
 
       else if ( set%mode == '3D Global' ) then
-        write(11, *) '----------------------------------------'
-        write(11, *) '         3D global calculation          '
-        write(11, *) '----------------------------------------'
-        write(11, *)
+        write(11,*) '----------------------------------------'
+        write(11,*) '         3D global calculation          '
+        write(11,*) '----------------------------------------'
+        write(11,*)
 
         if ( set%calc_stable == 0 ) then
-          write(11, *) 'skipped stable solution...'
+          write(11,*) 'skipped stable solution...'
           if ( set%start_rot == 1 ) then
-            write(11, *) 'calculating rotational mode...'
+            write(11,*) 'calculating rotational mode...'
             if ( grd%iy < grd%ny ) then
               write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-              write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+              write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
             else if ( grd%iy == grd%ny ) then
-              write(11, *) 'finished rotational calculation!'
+              write(11,*) 'finished rotational calculation!'
             end if
             write(1,*) 'cpu_t  = ',var%t2-var%t1, ' [s]'
           end if
         else if ( set%calc_stable == 1 ) then
-          write(11, *) 'calculating stable solution...'
+          write(11,*) 'calculating stable solution...'
           if ( grd%iy < grd%ny ) then
             write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-            write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+            write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
           else if ( grd%iy == grd%ny ) then
-            write(11, *) 'finished stable calculation!'
+            write(11,*) 'finished stable calculation!'
           end if
           write(11,*) 'dt     = ',var%dtime, ' [s]'
           write(11,*) 'sum_t  = ',var%sum_time, ' [s]'
           write(11,*) 'cpu_t  = ',var%t2-var%t1, ' [s]'
           write(11,*)
           if ( set%start_rot == 1 ) then
-            write(11, *) 'calculating rotational mode...'
+            write(11,*) 'calculating rotational mode...'
             if ( grd%iy < grd%ny ) then
               write(char,'(f5.1)') 100.0_dp * dble(grd%iy)/dble(grd%ny)    
-              write(11, *) 'current progress = '//trim(ADJUSTL(char))//' %'
+              write(11,*) 'current progress = '//trim(ADJUSTL(char))//' %'
             else if ( grd%iy == grd%ny ) then
-              write(11, *) 'finished rotational calculation!'
+              write(11,*) 'finished rotational calculation!'
             end if
             write(11,*) 'cpu_t  = ',var%t2-var%t1, ' [s]'
           end if

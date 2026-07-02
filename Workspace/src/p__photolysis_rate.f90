@@ -177,6 +177,12 @@ contains
       &                    1, 1, 'nm', '', &
       &                    'qy', ich)
 
+    fname = trim(ADJUSTL(dirname))//'/COx/qy_CO2_C+O2.dat'
+    ich = get_reaction_index(['CO2'], ['C ','O2'])
+    call read_binning_data(fname, dummy, &
+      &                    1, 1, 'nm', '', &
+      &                    'qy', ich)
+
     ! ^13CO2 data -----------------------------------------------------
     isp = get_species_index('^13CO2')
     !------------------------------------------------------------------
@@ -895,7 +901,7 @@ contains
       &                    'a', isp)
 
     fname = trim(ADJUSTL(dirname))//'/C2/qy_CH2CO_CH2+CO.dat'
-    ich = get_reaction_index(['CH2CO'], ['CH2','CO '])
+    ich = get_reaction_index(['CH2CO'], ['^3CH2','CO   '])
     call read_binning_data(fname, dummy, &
       &                    1, 1, 'nm', '', &
       &                    'qy', ich)
@@ -1125,10 +1131,11 @@ contains
   !     Get cross section for absorption (sigma_a) or photolysis (sigma_d) 
   !
   !=======================================================================================================================
-  subroutine get_cross_section(T, flag, outflag)
+  subroutine get_cross_section(T, ntot, flag, outflag)
     implicit none       
     integer,    intent(in) :: outflag
     real(dp),   intent(in) :: T(1:)
+    real(dp),   intent(in) :: ntot(1:)
     character(len=*), intent(in) :: flag
     integer, parameter :: photolysis = 2 ! reaction type index for photolysis
     integer iwl, iz, isp, ksp, ich, jch, kch, swl, ewl
@@ -1241,9 +1248,9 @@ contains
         ksp = get_species_index('H2CO')
         if (ksp==isp) then 
           kch = get_reaction_index(['H2CO'], ['H2','CO'])
-          if (kch==jch) call calc_sigma_d_H2CO(isp, ich, T, 'CO') ! in
+          if (kch==jch) call calc_sigma_d_H2CO(isp, ich, T, ntot, 'CO') ! in
           kch = get_reaction_index(['H2CO'], ['HCO','H  '])
-          if (kch==jch) call calc_sigma_d_H2CO(isp, ich, T, 'H') ! in
+          if (kch==jch) call calc_sigma_d_H2CO(isp, ich, T, ntot, 'H') ! in
         end if
 
       end do !ich
@@ -1988,7 +1995,7 @@ contains
     end do 
 
     if (sigma_a(-2,1,isp) > dble(swl)) sigma_a(-2,:,isp) = dble(swl)
-    if (sigma_a(-2,1,isp) < dble(ewl)) sigma_a(-1,:,isp) = dble(ewl)
+    if (sigma_a(-1,1,isp) < dble(ewl)) sigma_a(-1,:,isp) = dble(ewl)
 
     ! Yoshino et al. (1992)
     sigma_a(swl:ewl,1,isp) = sigma_a(swl:ewl,1,isp) &
@@ -2111,7 +2118,7 @@ contains
     integer  iz, swl, ewl
     real(dp) Tz, invTz1000
 
-    sigma_a(0,isp,:) = 1.0_dp ! existence flag
+    sigma_a(0,:,isp) = 1.0_dp ! existence flag
 
     ! Harwood et al., 1993
     swl = nint(sigma_dat(-2,isp,2,1,1)) ! start wavelength
@@ -2146,7 +2153,7 @@ contains
     integer iz, swl, ewl
     real(dp) Tz
 
-    sigma_a(0,isp,:) = 1.0_dp ! existence flag
+    sigma_a(0,:,isp) = 1.0_dp ! existence flag
 
     ! Burkholder et al., 1993
     swl = nint(sigma_dat(-2,isp,2,1,1)) ! start wavelength
@@ -2173,7 +2180,7 @@ contains
     integer iz, swl, ewl
     real(dp) Tz, invQ
 
-    sigma_a(0,isp,:) = 1.0_dp ! existence flag
+    sigma_a(0,:,isp) = 1.0_dp ! existence flag
 
     ! Knight et al. 2002
     swl = nint(sigma_dat(-2,isp,2,1,1)) ! start wavelength
@@ -2280,10 +2287,11 @@ contains
   !------------------------------------------------------------------------------------
   ! Analytic expression of quantum yield for O3 photodissociation by JPL 2015
   !------------------------------------------------------------------------------------
-  subroutine calc_sigma_d_H2CO(isp, ich, T, HorCO)
+  subroutine calc_sigma_d_H2CO(isp, ich, T, ntot, HorCO)
     implicit none
     integer,               intent(in)    :: isp, ich
     real(dp),              intent(in)    :: T(1:)
+    real(dp),              intent(in)    :: ntot(1:)
     character(len=*),      intent(in)    :: HorCO
     integer i, iz, iwl, l250, l330, l338, l360, swl, ewl
     real(dp) l, Tclamp, P, kB
@@ -2339,9 +2347,9 @@ contains
       if (Tclamp < 220.0_dp) Tclamp = 220.0_dp
       if (Tclamp > 300.0_dp) Tclamp = 300.0_dp
 
-      P = 0.006_dp!var%n_tot(iz) * kB * T(iz) / 101325.0_dp ! [atm]
+      P = ntot(iz) * kB * T(iz) / 101325.0_dp ! [atm]
 
-      qy_CO_300K(l250:l360) = sigma_dat(l250:l360,ich,1,1,2) * 1.0e-24_dp ! quantum yield at 300K
+      qy_CO_300K(l250:l360) = sigma_dat(l250:l360,nsp+ich,1,1,2) ! quantum yield at 300K
 
       ! Temperature and pressure dependent yield of H2 + CO
       a_300K(l250:l360) = 1.0_dp / qy_CO_300K(l250:l360) - 1.0_dp / (1.0_dp - qy_H(l250:l360))
@@ -2351,7 +2359,10 @@ contains
       if (HorCO == 'H')  sigma_d(l250:l360,iz,ich) = sigma_a(l250:l360,iz,isp) * qy_H(l250:l360)
       if (HorCO == 'CO') sigma_d(l250:l360,iz,ich) = sigma_a(l250:l360,iz,isp) * qy_CO_T(l250:l360)
 
-      !print *, l, qy_H, qy_CO_300K, qy_CO_T
+      !do iwl = l250, l360
+      !  print *, iz, T(iz), P, lambda(iwl), qy_H(iwl), qy_CO_300K(iwl), qy_CO_T(iwl)
+      !end do 
+      !print *, '--------------------------------------------------------'
       
     end do
 

@@ -13,7 +13,7 @@ module p__photochem_scheme
 
   ! Module-level variables ------------------------------------------------------------------------
   real(dp),           allocatable, private :: n_var(:,:), n_fix(:,:), delta_ni(:,:)
-  real(dp),           allocatable, private :: dni_ni(:,:), n_lower_boundary(:,:)
+  real(dp),           allocatable, private :: dni_ni(:,:), n_lower_boundary(:,:), n_upper_boundary(:,:)
   character(len=256), allocatable, private :: species_var(:), species_fix(:)
   character(len=256), allocatable, private :: var_species_list(:), fix_species_list(:)
 
@@ -36,7 +36,7 @@ contains
     nz    = grd%nz
 
     allocate(n_var(nz, nsp_i), n_fix(nz, nsp_f), delta_ni(nz, nsp_i))
-    allocate(dni_ni(nz, nsp), n_lower_boundary(nsp_i, 2))
+    allocate(dni_ni(nz, nsp), n_lower_boundary(nsp_i, 2), n_upper_boundary(nsp_i, 2))
     allocate(species_var(nsp_i), species_fix(nsp_f))
     allocate(var_species_list(nsp_i), fix_species_list(nsp_f))
 
@@ -104,20 +104,22 @@ contains
       i = spl%var_to_all(isp)
       n_lower_boundary(isp,1) = var%Lower_n(i,1)
       n_lower_boundary(isp,2) = var%Lower_n(i,2)
+      n_upper_boundary(isp,1) = var%Upper_n(i,1)
+      n_upper_boundary(isp,2) = var%Upper_n(i,2)
     end do 
 
     var%Pi = var%Pi * 1.0e-6_dp
     var%Li = var%Li * 1.0e-6_dp
     var%dphi_dz = var%dphi_dz * 1.0e-6_dp
 
-    call  p__chemical_scheme__exe(set%scheme,                                                 & ! in:  
+    call  p__chemical_scheme__exe(set%scheme,                                                 & ! in:    'explicit' or 'implicit'
       &                           species_var, species_fix,                                   & ! in:    name of variable species and fixed species
-      &                           spl%nsp_i, spl%nsp-spl%nsp_i, spl%nch, grd%nz,              & ! in:    
+      &                           spl%nsp_i, spl%nsp-spl%nsp_i, spl%nch, grd%nz,              & ! in:    number of variable species, fixed species, chemical reactions, and vertical grids
       &                           n_var, n_fix,                                               & ! in:    number density of variable and fixed species
-      &                           n_lower_boundary,                                           & ! in:    reaction rate coefficients
-      &                           var%Pi, var%Li, var%ki, var%dphi_dz,                        & ! in:  
-      &                           var%d_dniu_dphi_dz, var%d_dni0_dphi_dz, var%d_dnil_dphi_dz, & ! in:  
-      &                           var%tAmtx, var%Umtx, var%tLmtx,                             & ! inout:  
+      &                           n_lower_boundary, n_upper_boundary,                         & ! in:    fixed density at lower boundary
+      &                           var%Pi, var%Li, var%ki, var%dphi_dz,                        & ! in:    production and loss rate of variable species, reaction rate coefficients, and vertical gradient of vertical flux
+      &                           var%d_dniu_dphi_dz, var%d_dni0_dphi_dz, var%d_dnil_dphi_dz, & ! in:    Jacobian terms of vertical diffusion
+      &                           var%tAmtx, var%Umtx, var%tLmtx,                             & ! inout: transposed chemical Jacobian matrix, LU decomposition matrices
       &                           var%dtime,                                                  & ! inout: timestep
       &                           delta_ni                                                    ) ! out:   change of number density of variable species
 

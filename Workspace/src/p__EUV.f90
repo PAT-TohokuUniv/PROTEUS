@@ -2,7 +2,7 @@ module p__EUV
   
   use v__tdec,                 only : var_, grd_, cst_, xct_, spl_, flx_, set_
   use c__prm,                  only : c__prm__ini
-  use p__photoionization_rate, only : p__photoionization_rate__ini, load_cross_section_dat, get_cross_section
+  use p__photoionization_rate, only : p__photoionization_rate__ini, load_EUV_cross_section_dat, get_EUV_cross_section
   use p__search,               only : p__search_reactant, p__search_product, ch_identify, sp_index
 
 
@@ -168,9 +168,9 @@ contains
       &                               spl%species(1:), var%m(1:), spl%reaction_type_list,        & ! in
       &                               spl%reactant_list, spl%product_list,                       & ! in
       &                               flx%lambda_EUV(1:), flx%dlambda_EUV(1:), flx%solar_EUV(1:) ) ! in
-    call load_cross_section_dat('./EUV/xsect_data') ! in
-    call get_cross_section('absorption', 1) ! in
-    call get_cross_section('photoionization', 1) ! in
+    call load_EUV_cross_section_dat('./EUV/xsect_data') ! in
+    call get_EUV_cross_section('absorption', 1) ! in
+    call get_EUV_cross_section('photoionization', 1) ! in
 
   end subroutine p__EUV_cross_section
 
