@@ -20,8 +20,9 @@ contains
     type(grd_),           intent(in)    :: grd
     type(var_),           intent(inout) :: var
     integer iz
-    real(dp) K0, K1, T
+    real(dp) K0, K1, T, P_loc, P_tro
     real(dp) tmp
+    logical :: flag
 
     !--------------------------------------------------------------------------------------
     !
@@ -31,11 +32,17 @@ contains
     ! var%n_tot(iz) is total neutral density in the unit of [/m^3]
     if (spl%planet == 'Earth') then
       
+      ! preset eddy diffusion for Earth atmosphere
+      ! Hu et al., 2012; Yoshida et al., 2024
+      P_tro = 0.1e5_dp
       do iz = 1, grd%nz
-        if (grd%alt(iz) <= 1.0e4_dp) var%K_eddy(iz) = 1.0d0 ![m^2/s]
-        if (grd%alt(iz) > 1.0e4_dp .and. grd%alt(iz) <= 4.0e4) var%K_eddy(iz) = 1.0d-1 ![m^2/s]
-        if (grd%alt(iz) > 4.0e4_dp) var%K_eddy(iz) = 1.0d0 ![m^2/s]
-      end do 
+        P_loc = var%n_tot(iz) * cst%k_B * var%Tn(iz)
+        if (P_loc >= P_tro) then
+          var%K_eddy(iz) = 10.0_dp
+        else
+          var%K_eddy(iz) = min(10.0_dp, 0.3_dp*dsqrt(P_tro/P_loc))
+        end if
+      end do
 
     end if
 
@@ -83,16 +90,9 @@ contains
     !--------------------------------------------------------------------------------------
     if (spl%planet == 'Venus') then
 
-      ! eddy diffusion from Krasnopolsky 2007
+      ! no preset is available now.
       var%K_eddy = 2.2d-1 
-      !do iz = 1, 30
-      !  var%K_eddy(iz) = 2.2d-1 
-      !enddo
-      !do iz = 31, 48
-      !  var%K_eddy(iz) = 10 ** ( 0.0387_dp * real(iz) - 1.819_dp )
-      !enddo
-      !var%K_eddy(:) = 0.8_dp * var%K_eddy(:)
-      
+
     end if
   end subroutine p__eddy_diffusion__exe
 

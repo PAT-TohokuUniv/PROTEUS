@@ -44,7 +44,6 @@ contains
       omega0     = 100.0_dp   ! angle between equinox and periherion
       e          = 0.093_dp ! eccentricity
 
-      cst%g      = 3.711_dp ! gravity acceleration @ Mars
       cst%Mplanet= 0.1075_dp*5.972e24_dp ! Mass of Mars
       cst%daysec = 24.0_dp * 3600.0_dp + 39.0_dp * 60.0_dp + 35.244_dp ! 1 day [sec] of Mars
 
@@ -63,7 +62,6 @@ contains
       omega0     = 0.0_dp    ! angle between equinox and periherion
       e          = 0.0_dp    ! eccentricity
 
-      cst%g      = 24.8_dp ! gravity acceleration @ Jupiter
       cst%Mplanet= 1.898e27_dp ! Mass of Jupiter
       cst%daysec = 35729.685_dp ! rotational period of Jupiter [sec]
 
@@ -84,7 +82,6 @@ contains
       omega0     = 0.0_dp    ! angle between equinox and periherion
       e          = 0.0_dp    ! eccentricity
 
-      cst%g      = 9.80_dp ! gravity acceleration @ Earth
       cst%Mplanet=  5.9724e24_dp ! Mass of Earth
       cst%daysec = 24.0_dp * 3600.0_dp
 
@@ -105,7 +102,6 @@ contains
       omega0     = 0.0_dp    ! angle between equinox and periherion
       e          = 0.0_dp    ! eccentricity
 
-      cst%g      = 1.35_dp ! gravity acceleration @ Earth
       cst%daysec = 24.0_dp * 3600.0_dp ! shoule be modified !!!!!!!!!!!!!!
 
       omega      = 0.0_dp ! angle between equinox and chosen day ! shoule be modified !!!!!!!!!!!!!!
@@ -125,7 +121,6 @@ contains
       omega0     = 100.0_dp   ! angle between equinox and periherion
       e          = 0.0_dp ! eccentricity
 
-      cst%g      = 8.87_dp ! gravity acceleration @ Venus
       cst%Mplanet= 0.815_dp*5.972e24_dp ! Mass of Venus
       cst%daysec = 24.0_dp * 3600.0_dp * 117_dp ! 1 day [sec] of Venus
 

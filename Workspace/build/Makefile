@@ -16,10 +16,7 @@ SRCS   = src/e__main.f90 \
          src/c__prm.f90 \
          src/p__io.f90 \
          src/p__search.f90 \
-         src/v__Venus.f90 \
-         src/v__Earth.f90 \
-         src/v__Mars.f90 \
-         src/v__Jupiter.f90 \
+         src/v__pref.f90 \
          src/p__EUVAC.f90 \
          src/p__EUV.f90 \
          src/p__UV.f90 \
@@ -76,10 +73,7 @@ src/e__main.o: src/v__tdec.o \
                src/c__prm.o \
                src/p__io.o \
                src/p__search.o \
-               src/v__Venus.o \
-               src/v__Earth.o \
-               src/v__Mars.o \
-               src/v__Jupiter.o \
+               src/v__pref.o \
                src/p__EUVAC.o \
                src/p__EUV.o \
                src/HEUVAC.o \
@@ -97,10 +91,7 @@ src/e__main.o: src/v__tdec.o \
                $(PROJECT)/v__in.o
 src/v__tdec.o:
 $(PROJECT)/v__in.o: src/v__tdec.o src/p__search.o
-src/v__Earth.o: src/v__tdec.o src/p__search.o
-src/v__Venus.o: src/v__tdec.o src/p__search.o
-src/v__Mars.o: src/v__tdec.o src/p__search.o
-src/v__Jupiter.o: src/v__tdec.o src/p__search.o
+src/v__pref.o: src/v__tdec.o src/p__search.o
 src/c__prm.o: src/v__tdec.o 
 src/p__search.o: src/v__tdec.o
 $(PROJECT)/p__PROTEUS.o:

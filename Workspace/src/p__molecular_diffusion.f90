@@ -20,7 +20,7 @@ contains
     type(grd_),           intent(in)    :: grd
     type(var_),           intent(inout) :: var
     integer iz, isp
-    real(dp) D_max, sigma_atom
+    real(dp) sigma_atom
     real(dp) tmp, tmp1, tmp2
 
     !--------------------------------------------------------------------------------------
@@ -96,12 +96,8 @@ contains
             var%nu(iz,isp) = tmp1 * ( tmp2 * ( 1.0_dp  + var%m_mean(iz) / var%m(isp) ) )**0.5_dp
 
             ! Diffusion Coefficient limit
-            D_max = 1.0d18
             tmp = cst%k_B * var%Ti(iz)
             var%D_mol(iz,isp) = tmp / var%m(isp) / var%nu(iz,isp)
-            if ( var%D_mol(iz,isp) > D_max ) then
-              var%D_mol(iz,isp) = D_max
-            end if
 
           end do
 
@@ -109,6 +105,40 @@ contains
       end do
     end if
 
+
+    !--------------------------------------------------------------------------------------
+    !
+    !                                Iskandar
+    !
+    !--------------------------------------------------------------------------------------
+    ! var%n_tot(iz) is total neutral density in the unit of [/m^3]
+    if (spl%planet == 'Iskandar') then
+      do isp = 1, spl%nsp
+        if ( spl%label_fix(isp) == 0 .and. spl%species(isp) /= 'M' ) then
+
+          do iz = 1, grd%nz
+
+            ! all species other than H, H2
+            var%D_mol(iz,isp) = 1.0e17_dp*var%Tn(iz)**(0.75_dp)/(var%n_tot(iz)/1.0e6_dp)! [cm^2/s]
+            var%D_mol(iz,isp) = var%D_mol(iz,isp)*1.0e-4_dp ! [cm^2/s] -> [m^2/s]
+
+            ! H
+            if (spl%species(isp)=='H') then
+              var%D_mol(iz,isp) = 8.4_dp*1.0e17_dp*var%Tn(iz)**(0.597_dp)/(var%n_tot(iz)/1.0e6_dp)! [cm^2/s]
+              var%D_mol(iz,isp) = var%D_mol(iz,isp)*1.0e-4_dp ! [cm^2/s] -> [m^2/s]
+
+            ! H2
+            else if (spl%species(isp)=='H2') then
+              var%D_mol(iz,isp) = 2.23_dp*1.0e17_dp*var%Tn(iz)**(0.75_dp)/(var%n_tot(iz)/1.0e6_dp)! [cm^2/s]
+              var%D_mol(iz,isp) = var%D_mol(iz,isp)*1.0e-4_dp ! [cm^2/s] -> [m^2/s]
+
+            end if 
+            
+          end do
+
+        end if
+      end do
+    end if
 
 
   end subroutine p__molecular_diffusion__exe

@@ -16,10 +16,7 @@ program e__main
   use v__tdec,                   only : set_, grd_, var_, cst_, xct_, spl_, flx_
   use c__prm,                    only : c__prm__ini, c__prm__planet
   use p__search,                 only : p__search_reactant, p__search_product, ch_identify, sp_index
-  use v__Earth,                  only : v__Earth__ini
-  use v__Venus,                  only : v__Venus__ini
-  use v__Mars,                   only : v__Mars__ini
-  use v__Jupiter,                only : v__Jupiter__ini
+  use v__pref,                   only : v__pref__ini
   use v__in,                     only : v__in__ini, v__in__exe
   use p__EUVAC,                  only : p__EUVAC_flux, p__EUVAC_cross_section
   use p__EUV,                    only : p__EUV_flux, p__EUV_cross_section
@@ -99,21 +96,10 @@ program e__main
   write(*,*) '----------------------------------------------------------------------------------------------------------'
 
   !-----------------------------------------------------
-  ! Special treatment for selected planet
+  ! Special reaction treatment
   !-----------------------------------------------------
-  if (      spl%planet == 'Venus' ) then
-    call v__Venus__ini(spl, cst, grd, flx, & ! in
-      &                var                 ) ! inout
-  else if ( spl%planet == 'Earth' ) then
-    call v__Earth__ini(spl, cst, grd, flx, & ! in
-      &                var                 ) ! inout
-  else if ( spl%planet == 'Mars' ) then
-    call v__Mars__ini(spl, cst, grd, flx, & ! in
-      &               var                 ) ! inout
-  else if ( spl%planet == 'Jupiter' ) then
-    call v__Jupiter__ini(spl, cst, grd, flx, set, & ! in
-      &                  var                      ) ! inout
-  end if
+  call v__pref__ini(spl, cst, grd, flx, set, & ! in
+    &                var                     ) ! inout
 
   !-----------------------------------------------------
   ! Solar irradiance data

@@ -87,12 +87,12 @@ contains
 
 
   integer function get_number_of_var_species()
-    get_number_of_var_species = 13
+    get_number_of_var_species = 16
   end function
 
 
   integer function get_number_of_fix_species()
-    get_number_of_fix_species = 4
+    get_number_of_fix_species = 1
   end function
 
 
@@ -121,30 +121,30 @@ contains
 
   function get_var_species_name()
     implicit none
-    character(len=256), dimension(13) :: get_var_species_name
-    get_var_species_name(1) = 'CO'
-    get_var_species_name(2) = 'O'
-    get_var_species_name(3) = 'O(1D)'
-    get_var_species_name(4) = 'H'
-    get_var_species_name(5) = 'OH'
-    get_var_species_name(6) = 'H2'
-    get_var_species_name(7) = 'O3'
-    get_var_species_name(8) = 'O2'
-    get_var_species_name(9) = 'HO2'
-    get_var_species_name(10) = 'H2O2'
-    get_var_species_name(11) = 'H2CO'
-    get_var_species_name(12) = 'HCO'
-    get_var_species_name(13) = 'HOCO'
+    character(len=256), dimension(16) :: get_var_species_name
+    get_var_species_name(1) = 'CO2'
+    get_var_species_name(2) = 'CO'
+    get_var_species_name(3) = 'O'
+    get_var_species_name(4) = 'O(1D)'
+    get_var_species_name(5) = 'H2O'
+    get_var_species_name(6) = 'H'
+    get_var_species_name(7) = 'OH'
+    get_var_species_name(8) = 'H2'
+    get_var_species_name(9) = 'O3'
+    get_var_species_name(10) = 'O2'
+    get_var_species_name(11) = 'HO2'
+    get_var_species_name(12) = 'H2O2'
+    get_var_species_name(13) = 'H2CO'
+    get_var_species_name(14) = 'HCO'
+    get_var_species_name(15) = 'HOCO'
+    get_var_species_name(16) = 'CO2+'
   end function
 
 
   function get_fix_species_name()
     implicit none
-    character(len=256), dimension(4) :: get_fix_species_name
-    get_fix_species_name(1) = 'CO2'
-    get_fix_species_name(2) = 'H2O'
-    get_fix_species_name(3) = 'M'
-    get_fix_species_name(4) = 'CO2+'
+    character(len=256), dimension(1) :: get_fix_species_name
+    get_fix_species_name(1) = 'M'
   end function
 
 
@@ -168,7 +168,7 @@ contains
     get_mass_of_species(12) = 34.0_dp * m_u ! H2O2
     get_mass_of_species(13) = 30.0_dp * m_u ! H2CO
     get_mass_of_species(14) = 29.0_dp * m_u ! HCO
-    get_mass_of_species(15) = 1000000.0_dp * m_u ! M
+    get_mass_of_species(15) = 10000000.0_dp * m_u ! M
     get_mass_of_species(16) = 45.0_dp * m_u ! HOCO
     get_mass_of_species(17) = 44.0_dp * m_u ! CO2+
   end function get_mass_of_species
@@ -429,8 +429,8 @@ contains
     !---------------------------------------------------------------------------------------------------------------------
     implicit none
     integer, parameter :: nsp = 17
-    integer, parameter :: nsp_fix_in = 4
-    integer, parameter :: nsp_var_in = 13
+    integer, parameter :: nsp_fix_in = 1
+    integer, parameter :: nsp_var_in = 16
     integer, parameter :: nch = 64
     integer,          intent(in)  :: nsp_var_out, nsp_fix_out, nx, ny, nz 
     character(len=*), intent(in)  :: var_species_list(nsp_var_out), fix_species_list(nsp_fix_out)
@@ -475,19 +475,22 @@ contains
     all_in_var_out = 0
     all_in_var_in  = 0
 
-    all_in_var_in(2) = 1 ! CO: variable
-    all_in_var_in(3) = 2 ! O: variable
-    all_in_var_in(4) = 3 ! O(1D): variable
-    all_in_var_in(6) = 4 ! H: variable
-    all_in_var_in(7) = 5 ! OH: variable
-    all_in_var_in(8) = 6 ! H2: variable
-    all_in_var_in(9) = 7 ! O3: variable
-    all_in_var_in(10) = 8 ! O2: variable
-    all_in_var_in(11) = 9 ! HO2: variable
-    all_in_var_in(12) = 10 ! H2O2: variable
-    all_in_var_in(13) = 11 ! H2CO: variable
-    all_in_var_in(14) = 12 ! HCO: variable
-    all_in_var_in(16) = 13 ! HOCO: variable
+    all_in_var_in(1) = 1 ! CO2: variable
+    all_in_var_in(2) = 2 ! CO: variable
+    all_in_var_in(3) = 3 ! O: variable
+    all_in_var_in(4) = 4 ! O(1D): variable
+    all_in_var_in(5) = 5 ! H2O: variable
+    all_in_var_in(6) = 6 ! H: variable
+    all_in_var_in(7) = 7 ! OH: variable
+    all_in_var_in(8) = 8 ! H2: variable
+    all_in_var_in(9) = 9 ! O3: variable
+    all_in_var_in(10) = 10 ! O2: variable
+    all_in_var_in(11) = 11 ! HO2: variable
+    all_in_var_in(12) = 12 ! H2O2: variable
+    all_in_var_in(13) = 13 ! H2CO: variable
+    all_in_var_in(14) = 14 ! HCO: variable
+    all_in_var_in(16) = 15 ! HOCO: variable
+    all_in_var_in(17) = 16 ! CO2+: variable
 
     do isp = 1, nsp_fix_out
       do jsp = 1, nsp
@@ -626,7 +629,16 @@ contains
 
       ! Production rate ---------------------------
       P = 0.0_dp
-      P(1) = k(1)*n(1) &
+      P(1) = k(18)*n(3)*n(10)*n(1) &
+             & + k(20)*n(3)*n(2)*n(15) &
+             & + k(25)*n(4)*n(1) &
+             & + k(29)*n(6)*n(6)*n(1) &
+             & + k(30)*n(6)*n(7)*n(1) &
+             & + k(49)*n(2)*n(7)*n(15) &
+             & + k(51)*n(16)*n(10) &
+             & + k(52)*n(17)*n(8) &
+             & + k(57)*n(3)*n(14)
+      P(2) = k(1)*n(1) &
              & + k(2)*n(1) &
              & + k(16)*n(13) &
              & + k(54)*n(6)*n(14) &
@@ -636,7 +648,7 @@ contains
              & + k(60)*n(14)*n(10) &
              & + 2.0_dp*k(63)*n(14)*n(14) &
              & + k(64)*n(11)*n(14)
-      P(2) = k(1)*n(1) &
+      P(3) = k(1)*n(1) &
              & + k(5)*n(9) &
              & + 2.0_dp*k(7)*n(10) &
              & + k(8)*n(10) &
@@ -646,13 +658,22 @@ contains
              & + 2.0_dp*k(23)*n(4)*n(9) &
              & + k(25)*n(4)*n(1) &
              & + k(41)*n(7)*n(7)
-      P(3) = k(2)*n(1) &
+      P(4) = k(2)*n(1) &
              & + k(4)*n(5) &
              & + k(6)*n(9) &
              & + k(8)*n(10) &
              & + k(11)*n(7) &
              & + k(32)*n(6)*n(11)
-      P(4) = k(3)*n(5) &
+      P(5) = k(28)*n(7)*n(8) &
+             & + k(30)*n(6)*n(7)*n(1) &
+             & + k(32)*n(6)*n(11) &
+             & + k(35)*n(6)*n(12) &
+             & + k(41)*n(7)*n(7) &
+             & + k(44)*n(7)*n(11) &
+             & + k(45)*n(7)*n(12) &
+             & + k(56)*n(7)*n(14) &
+             & + k(61)*n(13)*n(7)
+      P(6) = k(3)*n(5) &
              & + 2.0_dp*k(9)*n(8) &
              & + k(10)*n(7) &
              & + k(11)*n(7) &
@@ -665,7 +686,7 @@ contains
              & + k(49)*n(2)*n(7)*n(15) &
              & + 2.0_dp*k(52)*n(17)*n(8) &
              & + k(57)*n(3)*n(14)
-      P(5) = k(3)*n(5) &
+      P(7) = k(3)*n(5) &
              & + k(12)*n(11) &
              & + 2.0_dp*k(13)*n(12) &
              & + k(24)*n(4)*n(8) &
@@ -679,7 +700,7 @@ contains
              & + k(46)*n(11)*n(9) &
              & + k(58)*n(3)*n(14) &
              & + k(62)*n(13)*n(3)
-      P(6) = k(4)*n(5) &
+      P(8) = k(4)*n(5) &
              & + k(16)*n(13) &
              & + k(29)*n(6)*n(6)*n(1) &
              & + k(33)*n(6)*n(11) &
@@ -687,8 +708,8 @@ contains
              & + k(54)*n(6)*n(14) &
              & + k(59)*n(13)*n(6) &
              & + k(63)*n(14)*n(14)
-      P(7) = k(18)*n(3)*n(10)*n(1)
-      P(8) = k(5)*n(9) &
+      P(9) = k(18)*n(3)*n(10)*n(1)
+      P(10) = k(5)*n(9) &
              & + k(6)*n(9) &
              & + k(17)*n(3)*n(3)*n(15) &
              & + 2.0_dp*k(19)*n(3)*n(9) &
@@ -704,7 +725,7 @@ contains
              & + 2.0_dp*k(46)*n(11)*n(9) &
              & + k(47)*n(11)*n(11) &
              & + k(48)*n(11)*n(11)*n(15)
-      P(9) = k(14)*n(12) &
+      P(11) = k(14)*n(12) &
              & + k(34)*n(6)*n(12) &
              & + k(36)*n(6)*n(10)*n(15) &
              & + k(40)*n(3)*n(12) &
@@ -712,25 +733,32 @@ contains
              & + k(45)*n(7)*n(12) &
              & + k(51)*n(16)*n(10) &
              & + k(60)*n(14)*n(10)
-      P(10) = k(42)*n(7)*n(7)*n(15) &
+      P(12) = k(42)*n(7)*n(7)*n(15) &
              & + k(47)*n(11)*n(11) &
              & + k(48)*n(11)*n(11)*n(15) &
              & + k(64)*n(11)*n(14)
-      P(11) = k(55)*n(14)*n(14)
-      P(12) = k(15)*n(13) &
+      P(13) = k(55)*n(14)*n(14)
+      P(14) = k(15)*n(13) &
              & + k(53)*n(6)*n(2)*n(15) &
              & + k(59)*n(13)*n(6) &
              & + k(61)*n(13)*n(7) &
              & + k(62)*n(13)*n(3)
-      P(13) = k(50)*n(2)*n(7)*n(15)
+      P(15) = k(50)*n(2)*n(7)*n(15)
+      P(16) = 0.0_dp
 
       ! Loss rate ---------------------------
       L = 0.0_dp
-      L(1) = k(20)*n(3)*n(2)*n(15) &
+      L(1) = k(1)*n(1) &
+             & + k(2)*n(1) &
+             & + k(18)*n(3)*n(10)*n(1) &
+             & + k(25)*n(4)*n(1) &
+             & + k(29)*n(6)*n(6)*n(1) &
+             & + k(30)*n(6)*n(7)*n(1)
+      L(2) = k(20)*n(3)*n(2)*n(15) &
              & + k(49)*n(2)*n(7)*n(15) &
              & + k(50)*n(2)*n(7)*n(15) &
              & + k(53)*n(6)*n(2)*n(15)
-      L(2) = 2.0_dp*k(17)*n(3)*n(3)*n(15) &
+      L(3) = 2.0_dp*k(17)*n(3)*n(3)*n(15) &
              & + k(18)*n(3)*n(10)*n(1) &
              & + k(19)*n(3)*n(9) &
              & + k(20)*n(3)*n(2)*n(15) &
@@ -741,13 +769,16 @@ contains
              & + k(57)*n(3)*n(14) &
              & + k(58)*n(3)*n(14) &
              & + k(62)*n(13)*n(3)
-      L(3) = k(21)*n(4)*n(10) &
+      L(4) = k(21)*n(4)*n(10) &
              & + k(22)*n(4)*n(9) &
              & + k(23)*n(4)*n(9) &
              & + k(24)*n(4)*n(8) &
              & + k(25)*n(4)*n(1) &
              & + k(26)*n(4)*n(5)
-      L(4) = 2.0_dp*k(29)*n(6)*n(6)*n(1) &
+      L(5) = k(3)*n(5) &
+             & + k(4)*n(5) &
+             & + k(26)*n(4)*n(5)
+      L(6) = 2.0_dp*k(29)*n(6)*n(6)*n(1) &
              & + k(30)*n(6)*n(7)*n(1) &
              & + k(31)*n(6)*n(11) &
              & + k(32)*n(6)*n(11) &
@@ -759,7 +790,7 @@ contains
              & + k(53)*n(6)*n(2)*n(15) &
              & + k(54)*n(6)*n(14) &
              & + k(59)*n(13)*n(6)
-      L(5) = k(10)*n(7) &
+      L(7) = k(10)*n(7) &
              & + k(11)*n(7) &
              & + k(28)*n(7)*n(8) &
              & + k(30)*n(6)*n(7)*n(1) &
@@ -773,12 +804,12 @@ contains
              & + k(50)*n(2)*n(7)*n(15) &
              & + k(56)*n(7)*n(14) &
              & + k(61)*n(13)*n(7)
-      L(6) = k(9)*n(8) &
+      L(8) = k(9)*n(8) &
              & + k(24)*n(4)*n(8) &
              & + k(27)*n(8)*n(3) &
              & + k(28)*n(7)*n(8) &
              & + k(52)*n(17)*n(8)
-      L(7) = k(5)*n(9) &
+      L(9) = k(5)*n(9) &
              & + k(6)*n(9) &
              & + k(19)*n(3)*n(9) &
              & + k(22)*n(4)*n(9) &
@@ -786,14 +817,14 @@ contains
              & + k(37)*n(6)*n(9) &
              & + k(43)*n(7)*n(9) &
              & + k(46)*n(11)*n(9)
-      L(8) = k(7)*n(10) &
+      L(10) = k(7)*n(10) &
              & + k(8)*n(10) &
              & + k(18)*n(3)*n(10)*n(1) &
              & + k(21)*n(4)*n(10) &
              & + k(36)*n(6)*n(10)*n(15) &
              & + k(51)*n(16)*n(10) &
              & + k(60)*n(14)*n(10)
-      L(9) = k(12)*n(11) &
+      L(11) = k(12)*n(11) &
              & + k(31)*n(6)*n(11) &
              & + k(32)*n(6)*n(11) &
              & + k(33)*n(6)*n(11) &
@@ -803,18 +834,18 @@ contains
              & + 2.0_dp*k(47)*n(11)*n(11) &
              & + 2.0_dp*k(48)*n(11)*n(11)*n(15) &
              & + k(64)*n(11)*n(14)
-      L(10) = k(13)*n(12) &
+      L(12) = k(13)*n(12) &
              & + k(14)*n(12) &
              & + k(34)*n(6)*n(12) &
              & + k(35)*n(6)*n(12) &
              & + k(40)*n(3)*n(12) &
              & + k(45)*n(7)*n(12)
-      L(11) = k(15)*n(13) &
+      L(13) = k(15)*n(13) &
              & + k(16)*n(13) &
              & + k(59)*n(13)*n(6) &
              & + k(61)*n(13)*n(7) &
              & + k(62)*n(13)*n(3)
-      L(12) = k(54)*n(6)*n(14) &
+      L(14) = k(54)*n(6)*n(14) &
              & + 2.0_dp*k(55)*n(14)*n(14) &
              & + k(56)*n(7)*n(14) &
              & + k(57)*n(3)*n(14) &
@@ -822,7 +853,8 @@ contains
              & + k(60)*n(14)*n(10) &
              & + 2.0_dp*k(63)*n(14)*n(14) &
              & + k(64)*n(11)*n(14)
-      L(13) = k(51)*n(16)*n(10)
+      L(15) = k(51)*n(16)*n(10)
+      L(16) = k(52)*n(17)*n(8)
 
 
       ! Converting index --------------------------
@@ -877,8 +909,8 @@ contains
     !---------------------------------------------------------------------------------------------------------------------
     implicit none
     integer, parameter :: nsp = 17
-    integer, parameter :: nsp_fix_in = 4
-    integer, parameter :: nsp_var_in = 13
+    integer, parameter :: nsp_fix_in = 1
+    integer, parameter :: nsp_var_in = 16
     integer, parameter :: nch = 64
     integer,          intent(in)  :: nsp_var_out, nsp_fix_out, nz
     character(len=*), intent(in)  :: var_species_list(nsp_var_out), fix_species_list(nsp_fix_out)
@@ -921,19 +953,22 @@ contains
     all_in_var_out = 0
     all_in_var_in  = 0
 
-    all_in_var_in(2) = 1 ! CO: variable
-    all_in_var_in(3) = 2 ! O: variable
-    all_in_var_in(4) = 3 ! O(1D): variable
-    all_in_var_in(6) = 4 ! H: variable
-    all_in_var_in(7) = 5 ! OH: variable
-    all_in_var_in(8) = 6 ! H2: variable
-    all_in_var_in(9) = 7 ! O3: variable
-    all_in_var_in(10) = 8 ! O2: variable
-    all_in_var_in(11) = 9 ! HO2: variable
-    all_in_var_in(12) = 10 ! H2O2: variable
-    all_in_var_in(13) = 11 ! H2CO: variable
-    all_in_var_in(14) = 12 ! HCO: variable
-    all_in_var_in(16) = 13 ! HOCO: variable
+    all_in_var_in(1) = 1 ! CO2: variable
+    all_in_var_in(2) = 2 ! CO: variable
+    all_in_var_in(3) = 3 ! O: variable
+    all_in_var_in(4) = 4 ! O(1D): variable
+    all_in_var_in(5) = 5 ! H2O: variable
+    all_in_var_in(6) = 6 ! H: variable
+    all_in_var_in(7) = 7 ! OH: variable
+    all_in_var_in(8) = 8 ! H2: variable
+    all_in_var_in(9) = 9 ! O3: variable
+    all_in_var_in(10) = 10 ! O2: variable
+    all_in_var_in(11) = 11 ! HO2: variable
+    all_in_var_in(12) = 12 ! H2O2: variable
+    all_in_var_in(13) = 13 ! H2CO: variable
+    all_in_var_in(14) = 14 ! HCO: variable
+    all_in_var_in(16) = 15 ! HOCO: variable
+    all_in_var_in(17) = 16 ! CO2+: variable
 
     do isp = 1, nsp_fix_out
       do jsp = 1, nsp
@@ -976,28 +1011,74 @@ contains
 
       Jmtx_tmp = 0.0_dp
 
-      Jmtx_tmp(1,1) = - k(20)*n(3)*n(15) &
+      Jmtx_tmp(1,1) = k(18)*n(3)*n(10) &
+                  & + k(25)*n(4) &
+                  & + k(29)*n(6)*n(6) &
+                  & + k(30)*n(6)*n(7) &
+                  & - k(1) &
+                  & - k(2) &
+                  & - k(18)*n(3)*n(10) &
+                  & - k(25)*n(4) &
+                  & - k(29)*n(6)*n(6) &
+                  & - k(30)*n(6)*n(7)
+
+      Jmtx_tmp(1,2) = k(20)*n(3)*n(15) &
+                  & + k(49)*n(7)*n(15)
+
+      Jmtx_tmp(1,3) = k(18)*n(10)*n(1) &
+                  & + k(20)*n(2)*n(15) &
+                  & + k(57)*n(14) &
+                  & - k(18)*n(10)*n(1)
+
+      Jmtx_tmp(1,4) = k(25)*n(1) &
+                  & - k(25)*n(1)
+
+      Jmtx_tmp(1,6) = k(29)*n(1)*2.0_dp*n(6) &
+                  & + k(30)*n(7)*n(1) &
+                  & - k(29)*n(1)*2.0_dp*n(6) &
+                  & - k(30)*n(7)*n(1)
+
+      Jmtx_tmp(1,7) = k(30)*n(6)*n(1) &
+                  & + k(49)*n(2)*n(15) &
+                  & - k(30)*n(6)*n(1)
+
+      Jmtx_tmp(1,8) = k(52)*n(17)
+
+      Jmtx_tmp(1,10) = k(18)*n(3)*n(1) &
+                  & + k(51)*n(16) &
+                  & - k(18)*n(3)*n(1)
+
+      Jmtx_tmp(1,14) = k(57)*n(3)
+
+      Jmtx_tmp(1,15) = k(51)*n(10)
+
+      Jmtx_tmp(1,16) = k(52)*n(8)
+
+      Jmtx_tmp(2,1) = k(1) &
+                  & + k(2)
+
+      Jmtx_tmp(2,2) = - k(20)*n(3)*n(15) &
                   & - k(49)*n(7)*n(15) &
                   & - k(50)*n(7)*n(15) &
                   & - k(53)*n(6)*n(15)
 
-      Jmtx_tmp(1,2) = k(58)*n(14) &
+      Jmtx_tmp(2,3) = k(58)*n(14) &
                   & - k(20)*n(2)*n(15)
 
-      Jmtx_tmp(1,4) = k(54)*n(14) &
+      Jmtx_tmp(2,6) = k(54)*n(14) &
                   & - k(53)*n(2)*n(15)
 
-      Jmtx_tmp(1,5) = k(56)*n(14) &
+      Jmtx_tmp(2,7) = k(56)*n(14) &
                   & - k(49)*n(2)*n(15) &
                   & - k(50)*n(2)*n(15)
 
-      Jmtx_tmp(1,8) = k(60)*n(14)
+      Jmtx_tmp(2,10) = k(60)*n(14)
 
-      Jmtx_tmp(1,9) = k(64)*n(14)
+      Jmtx_tmp(2,11) = k(64)*n(14)
 
-      Jmtx_tmp(1,11) = k(16)
+      Jmtx_tmp(2,13) = k(16)
 
-      Jmtx_tmp(1,12) = k(54)*n(6) &
+      Jmtx_tmp(2,14) = k(54)*n(6) &
                   & + k(55)*2.0_dp*n(14) &
                   & + k(56)*n(7) &
                   & + k(58)*n(3) &
@@ -1005,9 +1086,13 @@ contains
                   & + 2.0_dp*k(63)*2.0_dp*n(14) &
                   & + k(64)*n(11)
 
-      Jmtx_tmp(2,1) = - k(20)*n(3)*n(15)
+      Jmtx_tmp(3,1) = k(1) &
+                  & + k(25)*n(4) &
+                  & - k(18)*n(3)*n(10)
 
-      Jmtx_tmp(2,2) = - 2.0_dp*k(17)*n(15)*2.0_dp*n(3) &
+      Jmtx_tmp(3,2) = - k(20)*n(3)*n(15)
+
+      Jmtx_tmp(3,3) = - 2.0_dp*k(17)*n(15)*2.0_dp*n(3) &
                   & - k(18)*n(10)*n(1) &
                   & - k(19)*n(9) &
                   & - k(20)*n(2)*n(15) &
@@ -1019,67 +1104,110 @@ contains
                   & - k(58)*n(14) &
                   & - k(62)*n(13)
 
-      Jmtx_tmp(2,3) = k(21)*n(10) &
+      Jmtx_tmp(3,4) = k(21)*n(10) &
                   & + 2.0_dp*k(23)*n(9) &
                   & + k(25)*n(1)
 
-      Jmtx_tmp(2,5) = k(10) &
+      Jmtx_tmp(3,7) = k(10) &
                   & + k(41)*2.0_dp*n(7) &
                   & - k(38)*n(3)
 
-      Jmtx_tmp(2,6) = - k(27)*n(3)
+      Jmtx_tmp(3,8) = - k(27)*n(3)
 
-      Jmtx_tmp(2,7) = k(5) &
+      Jmtx_tmp(3,9) = k(5) &
                   & + 2.0_dp*k(23)*n(4) &
                   & - k(19)*n(3)
 
-      Jmtx_tmp(2,8) = 2.0_dp*k(7) &
+      Jmtx_tmp(3,10) = 2.0_dp*k(7) &
                   & + k(8) &
                   & + k(21)*n(4) &
                   & - k(18)*n(3)*n(1)
 
-      Jmtx_tmp(2,9) = k(12) &
+      Jmtx_tmp(3,11) = k(12) &
                   & - k(39)*n(3)
 
-      Jmtx_tmp(2,10) = - k(40)*n(3)
+      Jmtx_tmp(3,12) = - k(40)*n(3)
 
-      Jmtx_tmp(2,11) = - k(62)*n(3)
+      Jmtx_tmp(3,13) = - k(62)*n(3)
 
-      Jmtx_tmp(2,12) = - k(57)*n(3) &
+      Jmtx_tmp(3,14) = - k(57)*n(3) &
                   & - k(58)*n(3)
 
-      Jmtx_tmp(3,3) = - k(21)*n(10) &
+      Jmtx_tmp(4,1) = k(2) &
+                  & - k(25)*n(4)
+
+      Jmtx_tmp(4,4) = - k(21)*n(10) &
                   & - k(22)*n(9) &
                   & - k(23)*n(9) &
                   & - k(24)*n(8) &
                   & - k(25)*n(1) &
                   & - k(26)*n(5)
 
-      Jmtx_tmp(3,4) = k(32)*n(11)
+      Jmtx_tmp(4,5) = k(4) &
+                  & - k(26)*n(4)
 
-      Jmtx_tmp(3,5) = k(11)
+      Jmtx_tmp(4,6) = k(32)*n(11)
 
-      Jmtx_tmp(3,6) = - k(24)*n(4)
+      Jmtx_tmp(4,7) = k(11)
 
-      Jmtx_tmp(3,7) = k(6) &
+      Jmtx_tmp(4,8) = - k(24)*n(4)
+
+      Jmtx_tmp(4,9) = k(6) &
                   & - k(22)*n(4) &
                   & - k(23)*n(4)
 
-      Jmtx_tmp(3,8) = k(8) &
+      Jmtx_tmp(4,10) = k(8) &
                   & - k(21)*n(4)
 
-      Jmtx_tmp(3,9) = k(32)*n(6)
+      Jmtx_tmp(4,11) = k(32)*n(6)
 
-      Jmtx_tmp(4,1) = k(49)*n(7)*n(15) &
+      Jmtx_tmp(5,1) = k(30)*n(6)*n(7)
+
+      Jmtx_tmp(5,4) = - k(26)*n(5)
+
+      Jmtx_tmp(5,5) = - k(3) &
+                  & - k(4) &
+                  & - k(26)*n(4)
+
+      Jmtx_tmp(5,6) = k(30)*n(7)*n(1) &
+                  & + k(32)*n(11) &
+                  & + k(35)*n(12)
+
+      Jmtx_tmp(5,7) = k(28)*n(8) &
+                  & + k(30)*n(6)*n(1) &
+                  & + k(41)*2.0_dp*n(7) &
+                  & + k(44)*n(11) &
+                  & + k(45)*n(12) &
+                  & + k(56)*n(14) &
+                  & + k(61)*n(13)
+
+      Jmtx_tmp(5,8) = k(28)*n(7)
+
+      Jmtx_tmp(5,11) = k(32)*n(6) &
+                  & + k(44)*n(7)
+
+      Jmtx_tmp(5,12) = k(35)*n(6) &
+                  & + k(45)*n(7)
+
+      Jmtx_tmp(5,13) = k(61)*n(7)
+
+      Jmtx_tmp(5,14) = k(56)*n(7)
+
+      Jmtx_tmp(6,1) = - 2.0_dp*k(29)*n(6)*n(6) &
+                  & - k(30)*n(6)*n(7)
+
+      Jmtx_tmp(6,2) = k(49)*n(7)*n(15) &
                   & - k(53)*n(6)*n(15)
 
-      Jmtx_tmp(4,2) = k(27)*n(8) &
+      Jmtx_tmp(6,3) = k(27)*n(8) &
                   & + k(38)*n(7) &
                   & + k(57)*n(14)
 
-      Jmtx_tmp(4,3) = k(24)*n(8)
+      Jmtx_tmp(6,4) = k(24)*n(8)
 
-      Jmtx_tmp(4,4) = - 2.0_dp*k(29)*n(1)*2.0_dp*n(6) &
+      Jmtx_tmp(6,5) = k(3)
+
+      Jmtx_tmp(6,6) = - 2.0_dp*k(29)*n(1)*2.0_dp*n(6) &
                   & - k(30)*n(7)*n(1) &
                   & - k(31)*n(11) &
                   & - k(32)*n(11) &
@@ -1092,56 +1220,63 @@ contains
                   & - k(54)*n(14) &
                   & - k(59)*n(13)
 
-      Jmtx_tmp(4,5) = k(10) &
+      Jmtx_tmp(6,7) = k(10) &
                   & + k(11) &
                   & + k(28)*n(8) &
                   & + k(38)*n(3) &
                   & + k(49)*n(2)*n(15) &
                   & - k(30)*n(6)*n(1)
 
-      Jmtx_tmp(4,6) = 2.0_dp*k(9) &
+      Jmtx_tmp(6,8) = 2.0_dp*k(9) &
                   & + k(24)*n(4) &
                   & + k(27)*n(3) &
                   & + k(28)*n(7) &
                   & + 2.0_dp*k(52)*n(17)
 
-      Jmtx_tmp(4,7) = - k(37)*n(6)
+      Jmtx_tmp(6,9) = - k(37)*n(6)
 
-      Jmtx_tmp(4,8) = - k(36)*n(6)*n(15)
+      Jmtx_tmp(6,10) = - k(36)*n(6)*n(15)
 
-      Jmtx_tmp(4,9) = - k(31)*n(6) &
+      Jmtx_tmp(6,11) = - k(31)*n(6) &
                   & - k(32)*n(6) &
                   & - k(33)*n(6)
 
-      Jmtx_tmp(4,10) = k(14) &
+      Jmtx_tmp(6,12) = k(14) &
                   & - k(34)*n(6) &
                   & - k(35)*n(6)
 
-      Jmtx_tmp(4,11) = k(15) &
+      Jmtx_tmp(6,13) = k(15) &
                   & - k(59)*n(6)
 
-      Jmtx_tmp(4,12) = k(57)*n(3) &
+      Jmtx_tmp(6,14) = k(57)*n(3) &
                   & - k(54)*n(6)
 
-      Jmtx_tmp(5,1) = - k(49)*n(7)*n(15) &
+      Jmtx_tmp(6,16) = 2.0_dp*k(52)*n(8)
+
+      Jmtx_tmp(7,1) = - k(30)*n(6)*n(7)
+
+      Jmtx_tmp(7,2) = - k(49)*n(7)*n(15) &
                   & - k(50)*n(7)*n(15)
 
-      Jmtx_tmp(5,2) = k(27)*n(8) &
+      Jmtx_tmp(7,3) = k(27)*n(8) &
                   & + k(39)*n(11) &
                   & + k(40)*n(12) &
                   & + k(58)*n(14) &
                   & + k(62)*n(13) &
                   & - k(38)*n(7)
 
-      Jmtx_tmp(5,3) = k(24)*n(8) &
+      Jmtx_tmp(7,4) = k(24)*n(8) &
                   & + 2.0_dp*k(26)*n(5)
 
-      Jmtx_tmp(5,4) = 2.0_dp*k(31)*n(11) &
+      Jmtx_tmp(7,5) = k(3) &
+                  & + 2.0_dp*k(26)*n(4)
+
+      Jmtx_tmp(7,6) = 2.0_dp*k(31)*n(11) &
                   & + k(35)*n(12) &
                   & + k(37)*n(9) &
                   & - k(30)*n(7)*n(1)
 
-      Jmtx_tmp(5,5) = - k(10) &
+      Jmtx_tmp(7,7) = - k(10) &
                   & - k(11) &
                   & - k(28)*n(8) &
                   & - k(30)*n(6)*n(1) &
@@ -1156,70 +1291,78 @@ contains
                   & - k(56)*n(14) &
                   & - k(61)*n(13)
 
-      Jmtx_tmp(5,6) = k(24)*n(4) &
+      Jmtx_tmp(7,8) = k(24)*n(4) &
                   & + k(27)*n(3) &
                   & - k(28)*n(7)
 
-      Jmtx_tmp(5,7) = k(37)*n(6) &
+      Jmtx_tmp(7,9) = k(37)*n(6) &
                   & + k(46)*n(11) &
                   & - k(43)*n(7)
 
-      Jmtx_tmp(5,9) = k(12) &
+      Jmtx_tmp(7,11) = k(12) &
                   & + 2.0_dp*k(31)*n(6) &
                   & + k(39)*n(3) &
                   & + k(46)*n(9) &
                   & - k(44)*n(7)
 
-      Jmtx_tmp(5,10) = 2.0_dp*k(13) &
+      Jmtx_tmp(7,12) = 2.0_dp*k(13) &
                   & + k(35)*n(6) &
                   & + k(40)*n(3) &
                   & - k(45)*n(7)
 
-      Jmtx_tmp(5,11) = k(62)*n(3) &
+      Jmtx_tmp(7,13) = k(62)*n(3) &
                   & - k(61)*n(7)
 
-      Jmtx_tmp(5,12) = k(58)*n(3) &
+      Jmtx_tmp(7,14) = k(58)*n(3) &
                   & - k(56)*n(7)
 
-      Jmtx_tmp(6,2) = - k(27)*n(8)
+      Jmtx_tmp(8,1) = k(29)*n(6)*n(6)
 
-      Jmtx_tmp(6,3) = - k(24)*n(8)
+      Jmtx_tmp(8,3) = - k(27)*n(8)
 
-      Jmtx_tmp(6,4) = k(29)*n(1)*2.0_dp*n(6) &
+      Jmtx_tmp(8,4) = - k(24)*n(8)
+
+      Jmtx_tmp(8,5) = k(4)
+
+      Jmtx_tmp(8,6) = k(29)*n(1)*2.0_dp*n(6) &
                   & + k(33)*n(11) &
                   & + k(34)*n(12) &
                   & + k(54)*n(14) &
                   & + k(59)*n(13)
 
-      Jmtx_tmp(6,5) = - k(28)*n(8)
+      Jmtx_tmp(8,7) = - k(28)*n(8)
 
-      Jmtx_tmp(6,6) = - k(9) &
+      Jmtx_tmp(8,8) = - k(9) &
                   & - k(24)*n(4) &
                   & - k(27)*n(3) &
                   & - k(28)*n(7) &
                   & - k(52)*n(17)
 
-      Jmtx_tmp(6,9) = k(33)*n(6)
+      Jmtx_tmp(8,11) = k(33)*n(6)
 
-      Jmtx_tmp(6,10) = k(34)*n(6)
+      Jmtx_tmp(8,12) = k(34)*n(6)
 
-      Jmtx_tmp(6,11) = k(16) &
+      Jmtx_tmp(8,13) = k(16) &
                   & + k(59)*n(6)
 
-      Jmtx_tmp(6,12) = k(54)*n(6) &
+      Jmtx_tmp(8,14) = k(54)*n(6) &
                   & + k(63)*2.0_dp*n(14)
 
-      Jmtx_tmp(7,2) = k(18)*n(10)*n(1) &
+      Jmtx_tmp(8,16) = - k(52)*n(8)
+
+      Jmtx_tmp(9,1) = k(18)*n(3)*n(10)
+
+      Jmtx_tmp(9,3) = k(18)*n(10)*n(1) &
                   & - k(19)*n(9)
 
-      Jmtx_tmp(7,3) = - k(22)*n(9) &
+      Jmtx_tmp(9,4) = - k(22)*n(9) &
                   & - k(23)*n(9)
 
-      Jmtx_tmp(7,4) = - k(37)*n(9)
+      Jmtx_tmp(9,6) = - k(37)*n(9)
 
-      Jmtx_tmp(7,5) = - k(43)*n(9)
+      Jmtx_tmp(9,7) = - k(43)*n(9)
 
-      Jmtx_tmp(7,7) = - k(5) &
+      Jmtx_tmp(9,9) = - k(5) &
                   & - k(6) &
                   & - k(19)*n(3) &
                   & - k(22)*n(4) &
@@ -1228,30 +1371,32 @@ contains
                   & - k(43)*n(7) &
                   & - k(46)*n(11)
 
-      Jmtx_tmp(7,8) = k(18)*n(3)*n(1)
+      Jmtx_tmp(9,10) = k(18)*n(3)*n(1)
 
-      Jmtx_tmp(7,9) = - k(46)*n(9)
+      Jmtx_tmp(9,11) = - k(46)*n(9)
 
-      Jmtx_tmp(8,2) = k(17)*n(15)*2.0_dp*n(3) &
+      Jmtx_tmp(10,1) = - k(18)*n(3)*n(10)
+
+      Jmtx_tmp(10,3) = k(17)*n(15)*2.0_dp*n(3) &
                   & + 2.0_dp*k(19)*n(9) &
                   & + k(38)*n(7) &
                   & + k(39)*n(11) &
                   & - k(18)*n(10)*n(1)
 
-      Jmtx_tmp(8,3) = k(21)*n(10) &
+      Jmtx_tmp(10,4) = k(21)*n(10) &
                   & + 2.0_dp*k(22)*n(9) &
                   & + k(23)*n(9) &
                   & - k(21)*n(10)
 
-      Jmtx_tmp(8,4) = k(33)*n(11) &
+      Jmtx_tmp(10,6) = k(33)*n(11) &
                   & + k(37)*n(9) &
                   & - k(36)*n(10)*n(15)
 
-      Jmtx_tmp(8,5) = k(38)*n(3) &
+      Jmtx_tmp(10,7) = k(38)*n(3) &
                   & + k(43)*n(9) &
                   & + k(44)*n(11)
 
-      Jmtx_tmp(8,7) = k(5) &
+      Jmtx_tmp(10,9) = k(5) &
                   & + k(6) &
                   & + 2.0_dp*k(19)*n(3) &
                   & + 2.0_dp*k(22)*n(4) &
@@ -1260,7 +1405,7 @@ contains
                   & + k(43)*n(7) &
                   & + 2.0_dp*k(46)*n(11)
 
-      Jmtx_tmp(8,8) = k(21)*n(4) &
+      Jmtx_tmp(10,10) = k(21)*n(4) &
                   & - k(7) &
                   & - k(8) &
                   & - k(18)*n(3)*n(1) &
@@ -1269,38 +1414,38 @@ contains
                   & - k(51)*n(16) &
                   & - k(60)*n(14)
 
-      Jmtx_tmp(8,9) = k(33)*n(6) &
+      Jmtx_tmp(10,11) = k(33)*n(6) &
                   & + k(39)*n(3) &
                   & + k(44)*n(7) &
                   & + 2.0_dp*k(46)*n(9) &
                   & + k(47)*2.0_dp*n(11) &
                   & + k(48)*n(15)*2.0_dp*n(11)
 
-      Jmtx_tmp(8,12) = - k(60)*n(10)
+      Jmtx_tmp(10,14) = - k(60)*n(10)
 
-      Jmtx_tmp(8,13) = - k(51)*n(10)
+      Jmtx_tmp(10,15) = - k(51)*n(10)
 
-      Jmtx_tmp(9,2) = k(40)*n(12) &
+      Jmtx_tmp(11,3) = k(40)*n(12) &
                   & - k(39)*n(11)
 
-      Jmtx_tmp(9,4) = k(34)*n(12) &
+      Jmtx_tmp(11,6) = k(34)*n(12) &
                   & + k(36)*n(10)*n(15) &
                   & - k(31)*n(11) &
                   & - k(32)*n(11) &
                   & - k(33)*n(11)
 
-      Jmtx_tmp(9,5) = k(43)*n(9) &
+      Jmtx_tmp(11,7) = k(43)*n(9) &
                   & + k(45)*n(12) &
                   & - k(44)*n(11)
 
-      Jmtx_tmp(9,7) = k(43)*n(7) &
+      Jmtx_tmp(11,9) = k(43)*n(7) &
                   & - k(46)*n(11)
 
-      Jmtx_tmp(9,8) = k(36)*n(6)*n(15) &
+      Jmtx_tmp(11,10) = k(36)*n(6)*n(15) &
                   & + k(51)*n(16) &
                   & + k(60)*n(14)
 
-      Jmtx_tmp(9,9) = - k(12) &
+      Jmtx_tmp(11,11) = - k(12) &
                   & - k(31)*n(6) &
                   & - k(32)*n(6) &
                   & - k(33)*n(6) &
@@ -1311,74 +1456,74 @@ contains
                   & - 2.0_dp*k(48)*n(15)*2.0_dp*n(11) &
                   & - k(64)*n(14)
 
-      Jmtx_tmp(9,10) = k(14) &
+      Jmtx_tmp(11,12) = k(14) &
                   & + k(34)*n(6) &
                   & + k(40)*n(3) &
                   & + k(45)*n(7)
 
-      Jmtx_tmp(9,12) = k(60)*n(10) &
+      Jmtx_tmp(11,14) = k(60)*n(10) &
                   & - k(64)*n(11)
 
-      Jmtx_tmp(9,13) = k(51)*n(10)
+      Jmtx_tmp(11,15) = k(51)*n(10)
 
-      Jmtx_tmp(10,2) = - k(40)*n(12)
+      Jmtx_tmp(12,3) = - k(40)*n(12)
 
-      Jmtx_tmp(10,4) = - k(34)*n(12) &
+      Jmtx_tmp(12,6) = - k(34)*n(12) &
                   & - k(35)*n(12)
 
-      Jmtx_tmp(10,5) = k(42)*n(15)*2.0_dp*n(7) &
+      Jmtx_tmp(12,7) = k(42)*n(15)*2.0_dp*n(7) &
                   & - k(45)*n(12)
 
-      Jmtx_tmp(10,9) = k(47)*2.0_dp*n(11) &
+      Jmtx_tmp(12,11) = k(47)*2.0_dp*n(11) &
                   & + k(48)*n(15)*2.0_dp*n(11) &
                   & + k(64)*n(14)
 
-      Jmtx_tmp(10,10) = - k(13) &
+      Jmtx_tmp(12,12) = - k(13) &
                   & - k(14) &
                   & - k(34)*n(6) &
                   & - k(35)*n(6) &
                   & - k(40)*n(3) &
                   & - k(45)*n(7)
 
-      Jmtx_tmp(10,12) = k(64)*n(11)
+      Jmtx_tmp(12,14) = k(64)*n(11)
 
-      Jmtx_tmp(11,2) = - k(62)*n(13)
+      Jmtx_tmp(13,3) = - k(62)*n(13)
 
-      Jmtx_tmp(11,4) = - k(59)*n(13)
+      Jmtx_tmp(13,6) = - k(59)*n(13)
 
-      Jmtx_tmp(11,5) = - k(61)*n(13)
+      Jmtx_tmp(13,7) = - k(61)*n(13)
 
-      Jmtx_tmp(11,11) = - k(15) &
+      Jmtx_tmp(13,13) = - k(15) &
                   & - k(16) &
                   & - k(59)*n(6) &
                   & - k(61)*n(7) &
                   & - k(62)*n(3)
 
-      Jmtx_tmp(11,12) = k(55)*2.0_dp*n(14)
+      Jmtx_tmp(13,14) = k(55)*2.0_dp*n(14)
 
-      Jmtx_tmp(12,1) = k(53)*n(6)*n(15)
+      Jmtx_tmp(14,2) = k(53)*n(6)*n(15)
 
-      Jmtx_tmp(12,2) = k(62)*n(13) &
+      Jmtx_tmp(14,3) = k(62)*n(13) &
                   & - k(57)*n(14) &
                   & - k(58)*n(14)
 
-      Jmtx_tmp(12,4) = k(53)*n(2)*n(15) &
+      Jmtx_tmp(14,6) = k(53)*n(2)*n(15) &
                   & + k(59)*n(13) &
                   & - k(54)*n(14)
 
-      Jmtx_tmp(12,5) = k(61)*n(13) &
+      Jmtx_tmp(14,7) = k(61)*n(13) &
                   & - k(56)*n(14)
 
-      Jmtx_tmp(12,8) = - k(60)*n(14)
+      Jmtx_tmp(14,10) = - k(60)*n(14)
 
-      Jmtx_tmp(12,9) = - k(64)*n(14)
+      Jmtx_tmp(14,11) = - k(64)*n(14)
 
-      Jmtx_tmp(12,11) = k(15) &
+      Jmtx_tmp(14,13) = k(15) &
                   & + k(59)*n(6) &
                   & + k(61)*n(7) &
                   & + k(62)*n(3)
 
-      Jmtx_tmp(12,12) = - k(54)*n(6) &
+      Jmtx_tmp(14,14) = - k(54)*n(6) &
                   & - 2.0_dp*k(55)*2.0_dp*n(14) &
                   & - k(56)*n(7) &
                   & - k(57)*n(3) &
@@ -1387,13 +1532,17 @@ contains
                   & - 2.0_dp*k(63)*2.0_dp*n(14) &
                   & - k(64)*n(11)
 
-      Jmtx_tmp(13,1) = k(50)*n(7)*n(15)
+      Jmtx_tmp(15,2) = k(50)*n(7)*n(15)
 
-      Jmtx_tmp(13,5) = k(50)*n(2)*n(15)
+      Jmtx_tmp(15,7) = k(50)*n(2)*n(15)
 
-      Jmtx_tmp(13,8) = - k(51)*n(16)
+      Jmtx_tmp(15,10) = - k(51)*n(16)
 
-      Jmtx_tmp(13,13) = - k(51)*n(10)
+      Jmtx_tmp(15,15) = - k(51)*n(10)
+
+      Jmtx_tmp(16,8) = - k(52)*n(17)
+
+      Jmtx_tmp(16,16) = - k(52)*n(8)
 
 
       ! Converting index --------------------------

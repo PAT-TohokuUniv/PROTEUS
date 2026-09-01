@@ -90,7 +90,7 @@ contains
 
     ! reactions, chemical species
     spl%nsp     = 17
-    spl%nsp_i   = 13
+    spl%nsp_i   = 16
     spl%nch     = 64
 
     ! allocate
@@ -164,11 +164,11 @@ contains
     spl%species(17) = "CO2+"
 
     ! label_fix
-    spl%label_fix(1) = 1
+    spl%label_fix(1) = 0
     spl%label_fix(2) = 0
     spl%label_fix(3) = 0
     spl%label_fix(4) = 0
-    spl%label_fix(5) = 1
+    spl%label_fix(5) = 0
     spl%label_fix(6) = 0
     spl%label_fix(7) = 0
     spl%label_fix(8) = 0
@@ -180,39 +180,45 @@ contains
     spl%label_fix(14) = 0
     spl%label_fix(15) = 1
     spl%label_fix(16) = 0
-    spl%label_fix(17) = 1
+    spl%label_fix(17) = 0
 
     ! all_to_var
     spl%all_to_var = 0
-    spl%all_to_var(2) = 1
-    spl%all_to_var(3) = 2
-    spl%all_to_var(4) = 3
-    spl%all_to_var(6) = 4
-    spl%all_to_var(7) = 5
-    spl%all_to_var(8) = 6
-    spl%all_to_var(9) = 7
-    spl%all_to_var(10) = 8
-    spl%all_to_var(11) = 9
-    spl%all_to_var(12) = 10
-    spl%all_to_var(13) = 11
-    spl%all_to_var(14) = 12
-    spl%all_to_var(16) = 13
+    spl%all_to_var(1) = 1
+    spl%all_to_var(2) = 2
+    spl%all_to_var(3) = 3
+    spl%all_to_var(4) = 4
+    spl%all_to_var(5) = 5
+    spl%all_to_var(6) = 6
+    spl%all_to_var(7) = 7
+    spl%all_to_var(8) = 8
+    spl%all_to_var(9) = 9
+    spl%all_to_var(10) = 10
+    spl%all_to_var(11) = 11
+    spl%all_to_var(12) = 12
+    spl%all_to_var(13) = 13
+    spl%all_to_var(14) = 14
+    spl%all_to_var(16) = 15
+    spl%all_to_var(17) = 16
 
     ! var_to_all
     spl%var_to_all = 0
-    spl%var_to_all(1) = 2
-    spl%var_to_all(2) = 3
-    spl%var_to_all(3) = 4
-    spl%var_to_all(4) = 6
-    spl%var_to_all(5) = 7
-    spl%var_to_all(6) = 8
-    spl%var_to_all(7) = 9
-    spl%var_to_all(8) = 10
-    spl%var_to_all(9) = 11
-    spl%var_to_all(10) = 12
-    spl%var_to_all(11) = 13
-    spl%var_to_all(12) = 14
-    spl%var_to_all(13) = 16
+    spl%var_to_all(1) = 1
+    spl%var_to_all(2) = 2
+    spl%var_to_all(3) = 3
+    spl%var_to_all(4) = 4
+    spl%var_to_all(5) = 5
+    spl%var_to_all(6) = 6
+    spl%var_to_all(7) = 7
+    spl%var_to_all(8) = 8
+    spl%var_to_all(9) = 9
+    spl%var_to_all(10) = 10
+    spl%var_to_all(11) = 11
+    spl%var_to_all(12) = 12
+    spl%var_to_all(13) = 13
+    spl%var_to_all(14) = 14
+    spl%var_to_all(15) = 16
+    spl%var_to_all(16) = 17
 
     ! Mass
     var%m(1) = 44.0_dp * cst%m_u ! CO2
@@ -229,7 +235,7 @@ contains
     var%m(12) = 34.0_dp * cst%m_u ! H2O2
     var%m(13) = 30.0_dp * cst%m_u ! H2CO
     var%m(14) = 29.0_dp * cst%m_u ! HCO
-    var%m(15) = 1000000.0_dp * cst%m_u ! M
+    var%m(15) = 10000000.0_dp * cst%m_u ! M
     var%m(16) = 45.0_dp * cst%m_u ! HOCO
     var%m(17) = 44.0_dp * cst%m_u ! CO2+
 

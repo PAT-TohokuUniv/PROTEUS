@@ -159,28 +159,17 @@ contains
       !
       ! Special reaction rate case
       !
-      ! if you input production or loss rate explicitly, please input as var%ki_special in p__planet__exe in p__planet.f90
-      do jch = 1, var%nspecial
-        ich = nint(var%ich_special(jch))
+      ! if you input production or loss rate explicitly, please input as var%ki_special in p__pref__exe in p__pref.f90
+      do ich = 1, spl%nch
         do iz = 1, grd%nz
           var%ni(iz,0) = 1.0_dp ! if there are no reactant like meteoroid ablation, P = k * ni(0,iz) = k
           if (    spl%reaction_type_char(ich) == 'electron impact' &
           &  .or. spl%reaction_type_char(ich) == 'proton impact' &
           &  .or. spl%reaction_type_char(ich) == 'H impact'  &
           &  .or. spl%reaction_type_char(ich) == 'Meteoroid ablation' &
-          &  .or. spl%reaction_type_char(ich) == 'Rainout' ) then
-            if (spl%reactant_list(ich,0) == 1 .and. spl%reactant_list(ich,1) == 0) then
-              J_rate_in(1,1,iz,ich) = var%ki_special(jch,grd%ix,grd%iy,iz) * 1.0e-6_dp
-            end if
-            if (spl%reactant_list(ich,0) == 1 .and. spl%reactant_list(ich,1) /= 0) then
-              J_rate_in(1,1,iz,ich) = var%ki_special(jch,grd%ix,grd%iy,iz) 
-            end if
-            if (spl%reactant_list(ich,0) == 2) then
-              J_rate_in(1,1,iz,ich) = var%ki_special(jch,grd%ix,grd%iy,iz) * 1.0e6_dp
-            end if
-            if (spl%reactant_list(ich,0) == 3) then
-              J_rate_in(1,1,iz,ich) = var%ki_special(jch,grd%ix,grd%iy,iz) * 1.0e12_dp
-            end if
+          &  .or. spl%reaction_type_char(ich) == 'Rainout' &
+          &  .or. spl%reaction_type_char(ich) == 'user-defined' ) then
+            J_rate_in(1,1,iz,ich) = var%ki_special(grd%ix,grd%iy,iz,ich) ! in cgs unit
           end if
         end do
       end do

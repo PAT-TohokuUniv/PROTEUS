@@ -7,14 +7,30 @@ module p__photoionization_rate
   private
 
   ! Module-level variables ---------------------------------------------------------------------------
-  integer,                         private :: nch_photoionization, nwl, nsp, nz, nch
+  integer,                         private :: nwl, nsp, nz, nch
   character(len=256), allocatable, private :: species(:)
-  real(dp),           allocatable, private :: sigma_dat(:,:,:,:,:), sigma_a(:,:), sigma_i(:,:)
+  real(dp),           allocatable, private :: sigma_a(:,:), sigma_i(:,:)
   real(dp),           allocatable, private :: lambda(:), dlambda(:), solar_flux(:), mass(:)
   integer,            allocatable, private :: reaction_type(:), product_list(:,:), reactant_list(:,:)
 
   ! For optical depth calculation 
   real(dp),           allocatable, private :: cln(:,:), tau(:,:), I_z(:,:)
+
+  type sigma_
+    character(len=256),            private :: dtype = ''
+    integer,                       private :: ncol = 0
+    real(dp), allocatable,         private :: axis(:)
+    real(dp), allocatable,         private :: value(:,:)
+    logical,  allocatable,         private :: valid(:)
+  end type sigma_
+
+  integer,    parameter,           private :: max_ndata = 20
+
+  type(sigma_), allocatable,       private :: species_data(:,:)
+  type(sigma_), allocatable,       private :: ionization_data(:,:)
+
+  integer, allocatable,            private :: n_species_data(:)
+  integer, allocatable,            private :: n_ionization_data(:)
 
   ! Public interfaces --------------------------------------------------------------------------------
   public :: p__photoionization_rate__ini, p__photoionization_rate__fin, &
@@ -36,7 +52,6 @@ contains
     integer,  intent(in) :: reaction_type_in(1:), reactant_list_in(1:,0:), product_list_in(1:,0:)
     real(dp), intent(in) :: lambda_in(1:), dlambda_in(1:), solar_flux_in(1:), mass_in(1:)
     character(len=*), intent(in) :: species_in(1:)
-    integer ich, nch_photoionization_priv
 
     nz  = nz_in
     nwl = nwl_in
@@ -46,6 +61,10 @@ contains
     ! Allocate arrays for reactions and species
     allocate(reaction_type(nch), product_list(nch, 0:20), reactant_list(nch, 0:20))
     allocate(species(1:nsp), mass(1:nsp))
+    allocate(species_data(nsp,max_ndata))
+    allocate(ionization_data(nch,max_ndata))
+    allocate(n_species_data(nsp))
+    allocate(n_ionization_data(nch))
 
     species(1:nsp) = species_in(1:nsp)
     mass(1:nsp) = mass_in(1:nsp)
@@ -53,22 +72,15 @@ contains
     reactant_list(1:nch, 0:20) = reactant_list_in(1:nch, 0:20)
     product_list(1:nch, 0:20) = product_list_in(1:nch, 0:20)
 
-    nch_photoionization_priv = 0
-    do ich = 1, nch
-      if (reaction_type(ich) == 1) then
-        nch_photoionization_priv = nch_photoionization_priv + 1
-      end if
-    end do
-
     ! Allocate the module-level array with the required dimensions
-    allocate(sigma_dat(-2:nwl, 1:nsp+nch_photoionization_priv, 0:1, 0:10, 0:2))
     allocate(sigma_a(-2:nwl, 1:nsp))
-    allocate(sigma_i(-2:nwl, 1:nch_photoionization_priv))
+    allocate(sigma_i(-2:nwl, 1:nch))
     allocate(lambda(1:nwl), dlambda(1:nwl), solar_flux(1:nwl))
     allocate(cln(nz, nsp), tau(nwl, nz), I_z(nwl, nz))
 
     ! Initialization
-    sigma_dat   = 0.0_dp
+    n_species_data = 0
+    n_ionization_data = 0
     sigma_a     = 0.0_dp
     sigma_i     = 0.0_dp
 
@@ -85,17 +97,20 @@ contains
   !
   !=======================================================================================================================
   subroutine p__photoionization_rate__fin()
-    if (allocated(sigma_dat))     deallocate(sigma_dat)
-    if (allocated(sigma_a))       deallocate(sigma_a)
-    if (allocated(sigma_i))       deallocate(sigma_i)
-    if (allocated(lambda))        deallocate(lambda)
-    if (allocated(dlambda))       deallocate(dlambda)
-    if (allocated(solar_flux))    deallocate(solar_flux)
-    if (allocated(reaction_type)) deallocate(reaction_type)
-    if (allocated(product_list))  deallocate(product_list)
-    if (allocated(reactant_list)) deallocate(reactant_list)
-    if (allocated(species))       deallocate(species)
-    if (allocated(mass))          deallocate(mass)
+    if (allocated(sigma_a))           deallocate(sigma_a)
+    if (allocated(sigma_i))           deallocate(sigma_i)
+    if (allocated(lambda))            deallocate(lambda)
+    if (allocated(dlambda))           deallocate(dlambda)
+    if (allocated(solar_flux))        deallocate(solar_flux)
+    if (allocated(reaction_type))     deallocate(reaction_type)
+    if (allocated(product_list))      deallocate(product_list)
+    if (allocated(reactant_list))     deallocate(reactant_list)
+    if (allocated(species))           deallocate(species)
+    if (allocated(mass))              deallocate(mass)
+    if (allocated(species_data))      deallocate(species_data)
+    if (allocated(ionization_data))   deallocate(ionization_data)
+    if (allocated(n_species_data))    deallocate(n_species_data)
+    if (allocated(n_ionization_data)) deallocate(n_ionization_data)
   end subroutine p__photoionization_rate__fin
 
 
@@ -109,12 +124,7 @@ contains
     character(len=*), intent(in) :: dirname
     integer isp, ich
     character(len=256) fname
-
-    ! initialization
-    nch_photoionization = 0
-    sigma_dat = 0.0_dp
-    sigma_dat(-2,:,:,1,1) = dble(nwl)
-    sigma_dat(-1,:,:,1,1) = dble(1.0_dp)
+    logical photoionization_not_registered
 
     ! Template --------------------------------------------------------
     !  isp = get_species_index_i('CO2') 
@@ -394,6 +404,48 @@ contains
       &                    'A', 'cm^2', &
       &                    'i', ich)
 
+
+    ! finish reading cross sections. -----------------------------------
+    photoionization_not_registered = .false.
+    do ich = 1, nch
+      if (reaction_type(ich) /= 1) cycle
+      if (n_ionization_data(ich) == 0) then
+        photoionization_not_registered = .true.
+        print *, 'Following photoionization reaction is not registered:'
+        if (product_list(ich,0) == 1) then 
+          print *, 'R', ich, ': '//trim(ADJUSTL(species(reactant_list(ich,1)))) &
+            & //' + hv -> ', trim(ADJUSTL(species(product_list(ich,1))))
+        else if (product_list(ich,0) == 2) then 
+          print *, 'R', ich, ': '//trim(ADJUSTL(species(reactant_list(ich,1)))) &
+            & //' + hv -> '//trim(ADJUSTL(species(product_list(ich,1)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,2))))
+        else if (product_list(ich,0) == 3) then 
+          print *, 'R', ich, ': '//trim(ADJUSTL(species(reactant_list(ich,1)))) &
+            & //' + hv -> '//trim(ADJUSTL(species(product_list(ich,1)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,2)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,3))))
+        else if (product_list(ich,0) == 4) then 
+          print *, 'R', ich, ': '//trim(ADJUSTL(species(reactant_list(ich,1)))) &
+            & //' + hv -> '//trim(ADJUSTL(species(product_list(ich,1)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,2)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,3)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,4))))
+        else if (product_list(ich,0) == 5) then 
+          print *, 'R', ich, ': '//trim(ADJUSTL(species(reactant_list(ich,1)))) &
+            & //' + hv -> '//trim(ADJUSTL(species(product_list(ich,1)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,2)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,3)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,4)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,5))))
+        end if
+        print *, ''
+      end if
+    end do
+    if (photoionization_not_registered) then 
+      print *, 'Error. Stopped.'
+      error stop
+    end if
+
   end subroutine load_EUV_cross_section_dat
 
 
@@ -406,28 +458,18 @@ contains
     implicit none       
     integer,    intent(in) :: outflag
     character(len=*), intent(in) :: flag
-    integer, parameter :: photoionization = 2 ! reaction type index for photoionization
-    integer iwl, iz, isp, ich, jch, swl, ewl
+    integer iwl, isp, ich, swl, ewl
     character(len=256) fname
-    real(dp), parameter :: pi = dacos(-1.0_dp)
 
     !----------------------------------------------------------------------------------------------------
     ! UV photoabsorption cross section
 
     if (flag == 'absorption') then
 
-       sigma_a(0,:) = 0 ! reset cross section existence flag
-      
+       sigma_a = 0.0_dp
        do isp = 1, nsp
-
-        if (nint(sigma_dat(0,isp,0,0,0)) == 0) cycle ! skip if no data
-
-        ! For normal species ------------------------------------------
-
+        if (n_species_data(isp) == 0) cycle ! skip if no data
         call calc_sigma_a(isp) ! in
-
-        ! For exceptional species -------------------------------------
-
        end do !isp
 
 
@@ -438,7 +480,6 @@ contains
 
       ! output cross sections ------
       if (outflag == 1) then 
-        iz = 1 ! select altitude grid
         do isp = 1, nsp
           if (nint(sigma_a(0,isp)) == 1) then 
             fname = './EUV/xsect/absorption/'//trim(ADJUSTL(species(isp)))//'.dat'
@@ -463,15 +504,11 @@ contains
 
     if (flag == 'photoionization') then
 
-      do ich = 1, nch_photoionization
-
-        ! For normal photoionization reactions -----------------------------
-
-        call calc_sigma_i(ich) ! in
-
-        ! For exceptional photoionization reactions ------------------------
-
-      end do !ich
+      sigma_i = 0.0_dp
+      do ich = 1, nch
+        if (reaction_type(ich) /= 1) cycle
+        call calc_sigma_i(ich)
+      end do
 
 
       ! if cross sections are less than 0, they are set to 0 ------
@@ -481,45 +518,42 @@ contains
 
       ! output cross sections ------
       if (outflag == 1) then 
-        iz = 1 ! select altitude grid
-        do jch = 1, nch_photoionization
-          ich = nint(sigma_dat(0,nsp+jch,0,0,0)) ! reaction index
-          if (reaction_type(ich) == 1) then
-            if (nint(sigma_i(0,jch)) == 1) then 
-              if (product_list(ich,0)==1) then 
-                fname = './EUV/xsect/ionization/'&
-                  &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,1))))//'.dat'
-              else if (product_list(ich,0)==2) then 
-                fname = './EUV/xsect/ionization/'&
-                  &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,2))))//'.dat'
-              else if (product_list(ich,0)==3) then 
-                fname = './EUV/xsect/ionization/'&
-                  &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,2))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,3))))//'.dat'
-              else if (product_list(ich,0)==4) then 
-                fname = './EUV/xsect/ionization/'&
-                  &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,2))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,3))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,4))))//'.dat'
-              end if
-              open(11, file = fname, status = 'replace' )
-              swl = nint(sigma_i(-2,jch))
-              ewl = nint(sigma_i(-1,jch))
-              !print *, ich, swl, ewl, trim(fname)
-              if (swl >= 1) then 
-                do iwl = swl, ewl
-                  write(11, *) lambda(iwl), sigma_i(iwl,jch)
-                end do
-              end if
-              close(11)
+        do ich = 1, nch
+          if (reaction_type(ich) /= 1) cycle
+          if (nint(sigma_i(0,ich)) == 1) then 
+            if (product_list(ich,0)==1) then 
+              fname = './EUV/xsect/ionization/'&
+                &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
+                &     //trim(ADJUSTL(species(product_list(ich,1))))//'.dat'
+            else if (product_list(ich,0)==2) then 
+              fname = './EUV/xsect/ionization/'&
+                &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
+                &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,2))))//'.dat'
+            else if (product_list(ich,0)==3) then 
+              fname = './EUV/xsect/ionization/'&
+                &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
+                &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,2))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,3))))//'.dat'
+            else if (product_list(ich,0)==4) then 
+              fname = './EUV/xsect/ionization/'&
+                &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
+                &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,2))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,3))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,4))))//'.dat'
             end if
+            open(11, file = fname, status = 'replace' )
+            swl = nint(sigma_i(-2,ich))
+            ewl = nint(sigma_i(-1,ich))
+            !print *, ich, swl, ewl, trim(fname)
+            if (swl >= 1) then 
+              do iwl = swl, ewl
+                write(11, *) lambda(iwl), sigma_i(iwl,ich)
+              end do
+            end if
+            close(11)
           end if
         end do 
       end if
@@ -543,7 +577,7 @@ contains
     real(dp), intent(in)    :: sza, rplanet, mplanet
     real(dp), intent(inout) :: J_rate(1:,1:) ! 1:nz, 1:nch
     real(dp) hmin
-    integer isp, ich, jch, iz, swl, ewl
+    integer isp, ich, iz, swl, ewl
 
     ! for solar zenith angle near and greater than 90deg [Smith et al., 1972]
     real(dp) Hz, yz, Xz, chiz, Chfunc, cln_Ch, g
@@ -615,15 +649,14 @@ contains
     end do
 
     ! photoionization rate ---------------------------
-    do ich = 1, nch_photoionization
-
+    do ich = 1, nch
+      if (reaction_type(ich) /= 1) cycle
       if (nint(sigma_i(0,ich)) == 0) cycle ! skip if no data
       swl = nint(sigma_i(-2,ich))
       ewl = nint(sigma_i(-1,ich))
-      jch = nint(sigma_dat(0,nsp+ich,0,0,0)) ! reaction index
 
       do iz = 1, nz
-        J_rate(iz,jch) = dot_product(I_z(swl:ewl,iz), sigma_i(swl:ewl,ich))
+        J_rate(iz,ich) = dot_product(I_z(swl:ewl,iz), sigma_i(swl:ewl,ich))
       end do
 
     end do ! ich
@@ -637,12 +670,13 @@ contains
   !   if the data bin is larger than the model bin, the data is interpolated.
   !   if the data bin is smaller than the model bin, the data is binned.
   !----------------------------------------------------------------------------------------------
-  subroutine binning_cross_section(nl, idata,      & ! in
-    &                              odata, swl, ewl ) ! out
+  subroutine binning_cross_section(nl, idata,              & ! in
+    &                              odata, ovalid, swl, ewl ) ! out
     implicit none
     integer,    intent(in)  :: nl
     real(dp),   intent(in)  :: idata(nl,2)
     real(dp),   intent(out) :: odata(nwl)
+    logical,    intent(out) :: ovalid(nwl)
     integer,    intent(out) :: swl, ewl
     integer iwl, il, label, il0, ndata
     real(dp) idata_tmp(nl,2)
@@ -657,7 +691,8 @@ contains
       idata_tmp(:,:) = idata(:,:)
     end if
   
-    odata = 0.0_dp
+    odata  = 0.0_dp
+    ovalid = .false.
     swl = 9999999
     ewl = 0
     il0 = 1
@@ -722,6 +757,8 @@ contains
         if (i0 <= o0 .and. o0 < ip) then 
           tmp = (idata_tmp(il,2)*(ip-o0) + idata_tmp(il+1,2)*(o0-i0))/(ip-i0)
           if (label /= 1) label = 0
+          if (swl > iwl) swl = iwl
+          if (ewl < iwl) ewl = iwl
         end if
 
         ! to escape from this loop
@@ -738,11 +775,13 @@ contains
       ! binning if an input bin is smaller than a model bin
       if (label == 1) then 
         odata(iwl) = sum_data / sum_wl
+        ovalid(iwl) = .true.
       end if
   
       ! interpolate if an input bin is larger than a model bin
       if (label == 0) then 
         odata(iwl) = tmp
+        ovalid(iwl) = .true.
       end if
   
     end do ! iwl
@@ -777,47 +816,60 @@ contains
     implicit none
     integer,          intent(in)    :: id_in
     character(len=*), intent(in)    :: unit1, unit2, fname, dtype
-    integer i, nh, il, nl, swl, ewl, idtype, ndata, id, id_flag
+    integer i, nh, il, nl, swl, ewl, idat
     real(dp), allocatable :: idata(:,:), odata(:)
+    logical, allocatable :: ovalid(:)
+
+    select case (trim(dtype))
+    case ('a', 'a-excep', 'i', 'i-excep')
+      continue
+    case default
+      print *, 'Unknown EUV spectral data type: ', trim(dtype)
+      stop
+    end select
 
     if (id_in >= 1) then 
 
-      ndata = 1
+      if (dtype == 'a' .or. dtype == 'a-excep') then
+        idat = n_species_data(id_in) + 1
 
-      if (dtype == 'a') then 
-        idtype = 2**0 ! absorption
-        id = id_in
-      else if (dtype == 'a-excep') then 
-        idtype = 2**3 ! exception for absorption
-        id = id_in
-      else if (dtype == 'i') then 
-        idtype = 2**6 ! ionization
-      else if (dtype == 'i-excep') then 
-        idtype = 2**9 ! exception for ionization
-      else 
-        print *, ''
-        print *, 'error!'
-        print *, '  The dtype "'//trim(adjustl(dtype))//'" is not recognized.'
-        stop
-      end if
+        if (idat > max_ndata) then
+          print *, 'Too many EUV datasets for species: ', id_in
+          stop
+        end if
 
-      id_flag = 0
-      if (idtype >= 10) then
-        do i = nsp+1, nsp+nch_photoionization
-          if (nint(sigma_dat(0,i,0,0,0)) == id_in) then 
-            id = i
-            id_flag = 1
-          end if
-        end do 
-      end if
-      if (idtype >= 10 .and. id_flag == 0) then 
-        nch_photoionization = nch_photoionization + 1
-        id = nsp + nch_photoionization
+        n_species_data(id_in) = idat
+        species_data(id_in,idat)%dtype = trim(dtype)
+        species_data(id_in,idat)%ncol = 1
+
+        allocate(species_data(id_in,idat)%value(nwl,1))
+        allocate(species_data(id_in,idat)%valid(nwl))
+
+        species_data(id_in,idat)%value = 0.0_dp
+        species_data(id_in,idat)%valid = .false.
+
+      else
+        idat = n_ionization_data(id_in) + 1
+
+        if (idat > max_ndata) then
+          print *, 'Too many EUV datasets for reaction: ', id_in
+          stop
+        end if
+
+        n_ionization_data(id_in) = idat
+        ionization_data(id_in,idat)%dtype = trim(dtype)
+        ionization_data(id_in,idat)%ncol = 1
+
+        allocate(ionization_data(id_in,idat)%value(nwl,1))
+        allocate(ionization_data(id_in,idat)%valid(nwl))
+
+        ionization_data(id_in,idat)%value = 0.0_dp
+        ionization_data(id_in,idat)%valid = .false.
       end if
       
       write(*,'(a)',advance='no')  '  Reading datafile: '//trim(ADJUSTL(fname))//'...'
 
-      allocate(odata(nwl))
+      allocate(odata(nwl), ovalid(nwl))
 
       call get_header_line_number(nh, fname)
       call get_data_line_number(nl, fname)
@@ -880,18 +932,18 @@ contains
         end do
       close(11)
 
-      call binning_cross_section(nl, idata,      &
-        &                        odata, swl, ewl )
-      if (sigma_dat(-2,id,1,1,1) > dble(swl)) sigma_dat(-2,id,1,1,1) = dble(swl) ! start wavelength
-      if (sigma_dat(-1,id,1,1,1) < dble(ewl)) sigma_dat(-1,id,1,1,1) = dble(ewl) ! end wavelength
-      sigma_dat(0,id,1,1,1) = 1.0_dp ! existence flag
-      if (dtype=='a' .or. dtype=='i' .or. dtype=='qy')sigma_dat(1,id,0,1,1) = sigma_dat(1,id,0,1,1) + dble(ndata)
-      sigma_dat(0,id,1,1,0) = sigma_dat(0,id,1,1,0) + dble(idtype)
-      sigma_dat(swl:ewl,id,1,1,2) = odata(swl:ewl)
-      sigma_dat(0,id,0,0,0) = dble(id_in) ! reaction index
+      call binning_cross_section(nl, idata,              &
+        &                        odata, ovalid, swl, ewl )
+      if (dtype == 'a' .or. dtype == 'a-excep') then
+        species_data(id_in,idat)%value(:,1) = odata
+        species_data(id_in,idat)%valid = ovalid
+      else
+        ionization_data(id_in,idat)%value(:,1) = odata
+        ionization_data(id_in,idat)%valid = ovalid
+      end if
 
       deallocate(idata)
-      deallocate(odata)
+      deallocate(odata, ovalid)
 
       write(*,*) 'done.'
 
@@ -901,55 +953,112 @@ contains
 
 
   !------------------------------------------------------------
-  ! Absorption cross section data are automatically adapted.
+  ! Find the index of the spectral dataset for a given data type.
   !------------------------------------------------------------
-  subroutine calc_sigma_a(isp) ! inout
+  integer function find_spec(data, ndata, dtype, occurrence) result(idat)
     implicit none
-    integer, intent(in) :: isp
-    integer ndata, swl, ewl, dtype
+    type(sigma_),      intent(in) :: data(:)
+    integer,           intent(in) :: ndata
+    character(len=*),  intent(in) :: dtype
+    integer, optional, intent(in) :: occurrence
+    integer i, count, target
 
-    sigma_a(0,isp) = sigma_dat(0,isp,1,1,1)
-
-    swl = nint(sigma_dat(-2,isp,1,1,1)) ! start wavelength
-    ewl = nint(sigma_dat(-1,isp,1,1,1)) ! end wavelength
-    sigma_a(-2,isp) = dble(swl)
-    sigma_a(-1,isp) = dble(ewl)
-    ndata = nint(sigma_dat(1,isp,0,1,1)) ! number of data columns
-    dtype = nint(sigma_dat(0,isp,1,1,0)) ! data type
-
-    if (mod(dtype,2**3) /= 0) then 
-      if (mod(ndata,1000) == 1) then 
-        sigma_a(swl:ewl,isp) = sigma_dat(swl:ewl,isp,1,1,2)
-      end if
+    if (ndata < 0 .or. ndata > size(data)) then
+      print *, 'Invalid number of spectral datasets: ', ndata
+      stop
     end if
 
+    target = 1
+    if (present(occurrence)) target = occurrence
+
+    if (target < 1) then
+      print *, 'Invalid spectral-data occurrence: ', target
+      stop
+    end if
+
+    idat = 0
+    count = 0
+
+    do i = 1, ndata
+      if (trim(adjustl(data(i)%dtype)) == trim(adjustl(dtype))) then
+        count = count + 1
+        if (count == target) idat = i
+      end if
+    end do
+
+    if (.not. present(occurrence) .and. count > 1) then
+      print *, 'Duplicated spectral data type: ', trim(dtype)
+      stop
+    end if
+  end function find_spec
+
+
+  !------------------------------------------------------------
+  ! Find the start and end indices of valid spectral data.
+  !------------------------------------------------------------
+  subroutine get_sigma_range(valid, swl, ewl)
+    implicit none
+
+    logical, intent(in)  :: valid(:)
+    integer, intent(out) :: swl, ewl
+    integer :: iwl
+
+    swl = 0
+    ewl = 0
+
+    do iwl = 1, size(valid)
+      if (valid(iwl)) then
+        if (swl == 0) swl = iwl
+        ewl = iwl
+      end if
+    end do
+
+  end subroutine get_sigma_range
+
+
+  !------------------------------------------------------------
+  ! Absorption cross section data are automatically adapted.
+  !------------------------------------------------------------
+  subroutine calc_sigma_a(isp)
+    implicit none
+    integer, intent(in) :: isp
+    integer idat, swl, ewl
+
+    idat = find_spec(species_data(isp,:), n_species_data(isp), 'a')
+    if (idat == 0) return
+    call get_sigma_range(species_data(isp,idat)%valid, swl, ewl)
+    if (swl == 0) return
+
+    sigma_a(0,isp)  = 1.0_dp
+    sigma_a(-2,isp) = dble(swl)
+    sigma_a(-1,isp) = dble(ewl)
+
+    where (species_data(isp,idat)%valid)
+      sigma_a(1:nwl,isp) = species_data(isp,idat)%value(:,1)
+    end where
   end subroutine calc_sigma_a
 
 
   !------------------------------------------------------------
   ! Absorption cross section data are automatically adapted.
   !------------------------------------------------------------
-  subroutine calc_sigma_i(ich) ! inout
+  subroutine calc_sigma_i(ich)
     implicit none
     integer, intent(in) :: ich
-    integer ndata, swl, ewl, dtype
+    integer idat, swl, ewl
 
-    sigma_i(0,ich) = sigma_dat(0,nsp+ich,1,1,1)
+    idat = find_spec(ionization_data(ich,:), n_ionization_data(ich), 'i')
+    if (idat == 0) return
+    call get_sigma_range(ionization_data(ich,idat)%valid, swl, ewl)
+    if (swl == 0) return
 
-    swl = nint(sigma_dat(-2,nsp+ich,1,1,1)) ! start wavelength
-    ewl = nint(sigma_dat(-1,nsp+ich,1,1,1)) ! end wavelength
+    sigma_i(0,ich)  = 1.0_dp
     sigma_i(-2,ich) = dble(swl)
     sigma_i(-1,ich) = dble(ewl)
 
-    ndata = nint(sigma_dat(1,nsp+ich,0,1,1)) ! number of data columns
-    dtype = nint(sigma_dat(0,nsp+ich,1,1,0)) ! data type
-
-    if (mod(dtype,2**9) /= 0) then 
-      if (mod(ndata,1000) == 1) then 
-        sigma_i(swl:ewl,ich) = sigma_dat(swl:ewl,nsp+ich,1,1,2)
-      end if
-    end if
-
+    where (ionization_data(ich,idat)%valid)
+      sigma_i(1:nwl,ich) = ionization_data(ich,idat)%value(:,1)
+    end where
   end subroutine calc_sigma_i
 
 

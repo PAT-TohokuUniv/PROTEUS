@@ -40,6 +40,9 @@ contains
     flx%F107 = set%F107 ! F10.7 at Earth
     F107A = set%F107a
 
+    xct%sigma_a_EUV = 0.0_dp
+    xct%sigma_i_EUV = 0.0_dp
+
     ! [nm]
     flx%lambda_EUV(1)  =    75.0d-1
     flx%lambda_EUV(2)  =   125.0d-1

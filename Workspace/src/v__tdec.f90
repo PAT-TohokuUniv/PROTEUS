@@ -36,7 +36,7 @@ module v__tdec
 
   ! variables
   type var_
-    integer                :: nsteps, istep, nspecial, iter ! number and index of time steps
+    integer                :: nsteps, istep, iter ! number and index of time steps, number of iterations
     real(dp)               :: t1, t2, t3, t4
     character(len=256)     :: species_i, reactants(10), products(10)
     real(dp), allocatable  :: m(:), m_mean(:), q(:)
@@ -48,7 +48,7 @@ module v__tdec
     real(dp), allocatable  :: tau_EUV(:,:), tau_RS(:,:)
     real(dp), allocatable  :: E_fld(:,:,:), B_fld(:,:,:) ! electric and magnetic field
     real(dp)               :: dtime, sum_time
-    real(dp), allocatable  :: ki(:,:), ki_special(:,:,:,:), ich_special(:)
+    real(dp), allocatable  :: ki(:,:), ki_special(:,:,:,:)
     real(dp), allocatable  :: Pi(:,:), Li(:,:), Jmtx(:,:), rate(:,:), Pij(:,:,:), Lij(:,:,:)
     real(dp), allocatable  :: Fluxup(:,:), Fluxdwn(:,:), vFluxup(:,:), vFluxdwn(:,:)
     real(dp), allocatable  :: Upper_n(:,:), Upper_f(:,:), Upper_v(:,:), Lower_n(:,:), Lower_f(:,:), Lower_v(:,:) ! upper and lower boundary condition: label, (density, flux, velocity)
@@ -87,7 +87,6 @@ module v__tdec
     real(dp)               :: pi, c, h ! pi, speed of light, Planck constant
     real(dp)               :: NA  ! Avogadro constant
     real(dp)               :: k_B ! Boltzmann constant
-    real(dp)               :: g   ! gravitational acceleration
     real(dp)               :: BigG ! gravitational constant
     real(dp)               :: Mplanet ! gravitational acceleration
     real(dp)               :: R   ! planetary radius

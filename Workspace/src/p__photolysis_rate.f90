@@ -7,9 +7,9 @@ module p__photolysis_rate
   private
 
   ! Module-level variables ---------------------------------------------------------------------------
-  integer,                         private :: nch_photolysis, nwl, nsp, nz, nch
+  integer,                         private :: nwl, nsp, nz, nch
   character(len=256), allocatable, private :: species(:)
-  real(dp),           allocatable, private :: sigma_dat(:,:,:,:,:), sigma_a(:,:,:), sigma_d(:,:,:)
+  real(dp),           allocatable, private :: sigma_a(:,:,:), sigma_d(:,:,:)
   real(dp),           allocatable, private :: lambda(:), dlambda(:), solar_flux(:), mass(:)
   integer,            allocatable, private :: reaction_type(:), product_list(:,:), reactant_list(:,:)
   real(dp),           allocatable, private :: Tdep_list(:)
@@ -21,6 +21,21 @@ module p__photolysis_rate
 
   ! For optical depth calculation 
   real(dp),           allocatable, private :: cln(:,:), tau(:,:), I_z(:,:)
+
+  type sigma_
+    character(len=256),            private :: dtype = ''
+    integer,                       private :: ncol  = 0
+    real(dp),         allocatable, private :: axis(:)
+    real(dp),         allocatable, private :: value(:,:)
+    logical,          allocatable, private :: valid(:)
+  end type sigma_
+  
+  integer,            parameter,   private :: max_ndata = 20
+  type(sigma_),       allocatable, private :: species_data(:,:)
+  type(sigma_),       allocatable, private :: photolysis_data(:,:)
+
+  integer,            allocatable, private :: n_species_data(:)
+  integer,            allocatable, private :: n_photolysis_data(:)
 
   ! Public interfaces --------------------------------------------------------------------------------
   public :: p__photolysis_rate__ini, p__photolysis_rate__fin, &
@@ -42,7 +57,6 @@ contains
     integer,  intent(in) :: reaction_type_in(1:), reactant_list_in(1:,0:), product_list_in(1:,0:)
     real(dp), intent(in) :: lambda_in(1:), dlambda_in(1:), solar_flux_in(1:), mass_in(1:)
     character(len=*), intent(in) :: species_in(1:)
-    integer ich, nch_photolysis_priv
 
     nz  = nz_in
     nwl = nwl_in
@@ -59,20 +73,16 @@ contains
     reactant_list(1:nch, 0:20) = reactant_list_in(1:nch, 0:20)
     product_list(1:nch, 0:20) = product_list_in(1:nch, 0:20)
 
-    nch_photolysis_priv = 0
-    do ich = 1, nch
-      if (reaction_type(ich) == 2) then
-        nch_photolysis_priv = nch_photolysis_priv + 1
-      end if
-    end do
-
     ! Allocate the module-level array with the required dimensions
-    allocate(sigma_dat(-2:nwl, 1:nsp+nch_photolysis_priv, 0:20, 0:10, 0:2))
     allocate(sigma_a(-2:nwl, 1:nz, 1:nsp))
-    allocate(sigma_d(-2:nwl, 1:nz, 1:nch_photolysis_priv))
+    allocate(sigma_d(-2:nwl, 1:nz, 1:nch))
     allocate(lambda(1:nwl), dlambda(1:nwl), solar_flux(1:nwl))
     allocate(cln(nz, nsp), tau(nwl, nz), I_z(nwl, nz))
     allocate(Tdep_list(0:100))
+    allocate(species_data(nsp,max_ndata))
+    allocate(photolysis_data(nch,max_ndata))
+    allocate(n_species_data(nsp))
+    allocate(n_photolysis_data(nch))
 
     ! Allocate arrays for exceptional cases
     allocate(larr(nwl, 10))
@@ -80,9 +90,11 @@ contains
     allocate(qy_O1D(nwl))
 
     ! Initialization
-    sigma_dat   = 0.0_dp
     sigma_a     = 0.0_dp
     sigma_d     = 0.0_dp
+
+    n_species_data = 0
+    n_photolysis_data = 0
 
     lambda(1:nwl) = lambda_in(1:nwl)
     dlambda(1:nwl) = dlambda_in(1:nwl)
@@ -97,25 +109,28 @@ contains
   !
   !=======================================================================================================================
   subroutine p__photolysis_rate__fin()
-    if (allocated(sigma_dat))     deallocate(sigma_dat)
-    if (allocated(sigma_a))       deallocate(sigma_a)
-    if (allocated(sigma_d))       deallocate(sigma_d)
-    if (allocated(lambda))        deallocate(lambda)
-    if (allocated(dlambda))       deallocate(dlambda)
-    if (allocated(solar_flux))    deallocate(solar_flux)
-    if (allocated(reaction_type)) deallocate(reaction_type)
-    if (allocated(product_list))  deallocate(product_list)
-    if (allocated(reactant_list)) deallocate(reactant_list)
-    if (allocated(species))       deallocate(species)
-    if (allocated(mass))          deallocate(mass)
-    if (allocated(larr))          deallocate(larr)
-    if (allocated(Tdep_list))     deallocate(Tdep_list)
-    if (allocated(qy_H))          deallocate(qy_H)
-    if (allocated(qy_CO_300K))    deallocate(qy_CO_300K)
-    if (allocated(qy_CO_T))       deallocate(qy_CO_T)
-    if (allocated(a_300K))        deallocate(a_300K)
-    if (allocated(a_T))           deallocate(a_T)
-    if (allocated(qy_O1D))        deallocate(qy_O1D)
+    if (allocated(sigma_a))           deallocate(sigma_a)
+    if (allocated(sigma_d))           deallocate(sigma_d)
+    if (allocated(lambda))            deallocate(lambda)
+    if (allocated(dlambda))           deallocate(dlambda)
+    if (allocated(solar_flux))        deallocate(solar_flux)
+    if (allocated(reaction_type))     deallocate(reaction_type)
+    if (allocated(product_list))      deallocate(product_list)
+    if (allocated(reactant_list))     deallocate(reactant_list)
+    if (allocated(species))           deallocate(species)
+    if (allocated(mass))              deallocate(mass)
+    if (allocated(larr))              deallocate(larr)
+    if (allocated(Tdep_list))         deallocate(Tdep_list)
+    if (allocated(qy_H))              deallocate(qy_H)
+    if (allocated(qy_CO_300K))        deallocate(qy_CO_300K)
+    if (allocated(qy_CO_T))           deallocate(qy_CO_T)
+    if (allocated(a_300K))            deallocate(a_300K)
+    if (allocated(a_T))               deallocate(a_T)
+    if (allocated(qy_O1D))            deallocate(qy_O1D)
+    if (allocated(species_data))      deallocate(species_data)
+    if (allocated(photolysis_data))   deallocate(photolysis_data)
+    if (allocated(n_species_data))    deallocate(n_species_data)
+    if (allocated(n_photolysis_data)) deallocate(n_photolysis_data)
   end subroutine p__photolysis_rate__fin
 
 
@@ -130,13 +145,10 @@ contains
     integer isp, ich
     real(dp) dummy(1), dummy2(20)
     character(len=256) fname
+    logical photolysis_not_registered
 
     ! initialization
-    nch_photolysis = 0
     Tdep_list = 1.0_dp 
-    sigma_dat = 0.0_dp
-    sigma_dat(-2,:,:,1,1) = dble(nwl)
-    sigma_dat(-1,:,:,1,1) = dble(1.0_dp)
     dummy(1) = 1.0_dp ! dummy variable for temperature array
     dummy2(1:20) = 1.0_dp ! dummy variable for temperature array
 
@@ -147,7 +159,7 @@ contains
     !  fname = trim(ADJUSTL(dirname))//'/sigma_*.dat'
     !  call read_binning_data(fname, Tdep_list,         & ! fixed, do not modify these three
     !    &                    bin1, bin2, unit1, unit2, & ! You should modify these three inputs
-    !    &                    sigma_dat, type, index    )
+    !    &                    type, index    )
     !   n_T_bin: number of cross section data column, e.g.) 12 (if there are cross sections for 12 temperatures)
     !   unit1: unit of column 1 of the datafile, 'nm', 'cm', or 'cm-1'.
     !   unit2: unit of column 2 of the datafile, 'cm2', 'm2', or ''.
@@ -1120,6 +1132,45 @@ contains
 
 
     ! finish reading cross sections. -----------------------------------
+    photolysis_not_registered = .false.
+    do ich = 1, nch
+      if (reaction_type(ich) /= 2) cycle
+      if (n_photolysis_data(ich) == 0) then
+        photolysis_not_registered = .true.
+        print *, 'Following photodissociation reaction is not registered:'
+        if (product_list(ich,0) == 1) then 
+          print *, 'R', ich, ': '//trim(ADJUSTL(species(reactant_list(ich,1)))) &
+            & //' + hv -> ', trim(ADJUSTL(species(product_list(ich,1))))
+        else if (product_list(ich,0) == 2) then 
+          print *, 'R', ich, ': '//trim(ADJUSTL(species(reactant_list(ich,1)))) &
+            & //' + hv -> '//trim(ADJUSTL(species(product_list(ich,1)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,2))))
+        else if (product_list(ich,0) == 3) then 
+          print *, 'R', ich, ': '//trim(ADJUSTL(species(reactant_list(ich,1)))) &
+            & //' + hv -> '//trim(ADJUSTL(species(product_list(ich,1)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,2)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,3))))
+        else if (product_list(ich,0) == 4) then 
+          print *, 'R', ich, ': '//trim(ADJUSTL(species(reactant_list(ich,1)))) &
+            & //' + hv -> '//trim(ADJUSTL(species(product_list(ich,1)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,2)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,3)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,4))))
+        else if (product_list(ich,0) == 5) then 
+          print *, 'R', ich, ': '//trim(ADJUSTL(species(reactant_list(ich,1)))) &
+            & //' + hv -> '//trim(ADJUSTL(species(product_list(ich,1)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,2)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,3)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,4)))) &
+            & //' + '//trim(ADJUSTL(species(product_list(ich,5))))
+        end if
+        print *, ''
+      end if
+    end do
+    if (photolysis_not_registered) then 
+      print *, 'Error. Stopped.'
+      error stop
+    end if
     print *, 'Finished reading cross section data.'
 
 
@@ -1138,7 +1189,7 @@ contains
     real(dp),   intent(in) :: ntot(1:)
     character(len=*), intent(in) :: flag
     integer, parameter :: photolysis = 2 ! reaction type index for photolysis
-    integer iwl, iz, isp, ksp, ich, jch, kch, swl, ewl
+    integer iwl, iz, isp, ksp, ich, kch, swl, ewl
     character(len=256) fname
     real(dp), parameter :: pi = dacos(-1.0_dp)
 
@@ -1147,11 +1198,11 @@ contains
 
     if (flag == 'absorption') then
 
-       sigma_a(0,:,:) = 0 ! reset cross section existence flag
+       sigma_a = 0.0_dp
       
        do isp = 1, nsp
 
-        if (nint(sigma_dat(0,isp,0,0,0)) == 0) cycle ! skip if no data
+        if (n_species_data(isp) == 0) cycle ! skip if no data
 
         ! For normal species ------------------------------------------
 
@@ -1225,12 +1276,15 @@ contains
 
     if (flag == 'photolysis') then
 
-      do ich = 1, nch_photolysis
+      sigma_d = 0.0_dp
+      
+      do ich = 1, nch
+
+        if (reaction_type(ich) /= 2) cycle
 
         ! For normal photolysis reactions -----------------------------
 
-        jch = nint(sigma_dat(0,nsp+ich,0,0,0)) ! reaction index
-        isp = reactant_list(jch,1) ! reactant species index
+        isp = reactant_list(ich,1) ! reactant species index
         call calc_sigma_d(isp, ich, T) ! inout
 
         ! For exceptional photolysis reactions ------------------------
@@ -1239,18 +1293,18 @@ contains
         ksp = get_species_index('O3')
         if (ksp==isp) then 
           kch = get_reaction_index(['O3'], ['O2','O '])
-          if (kch==jch) call calc_sigma_d_O3(isp, ich, T, 'O') ! in
+          if (kch==ich) call calc_sigma_d_O3(isp, ich, T, 'O') ! in
           kch = get_reaction_index(['O3'], ['O2   ','O(1D)'])
-          if (kch==jch) call calc_sigma_d_O3(isp, ich, T, 'O(1D)') ! in
+          if (kch==ich) call calc_sigma_d_O3(isp, ich, T, 'O(1D)') ! in
         end if
 
         ! H2CO quantum yield
         ksp = get_species_index('H2CO')
         if (ksp==isp) then 
           kch = get_reaction_index(['H2CO'], ['H2','CO'])
-          if (kch==jch) call calc_sigma_d_H2CO(isp, ich, T, ntot, 'CO') ! in
+          if (kch==ich) call calc_sigma_d_H2CO(isp, ich, T, ntot, 'CO') ! in
           kch = get_reaction_index(['H2CO'], ['HCO','H  '])
-          if (kch==jch) call calc_sigma_d_H2CO(isp, ich, T, ntot, 'H') ! in
+          if (kch==ich) call calc_sigma_d_H2CO(isp, ich, T, ntot, 'H') ! in
         end if
 
       end do !ich
@@ -1264,44 +1318,42 @@ contains
       ! output cross sections ------
       if (outflag == 1) then 
         iz = 1 ! select altitude grid
-        do jch = 1, nch_photolysis
-          ich = nint(sigma_dat(0,nsp+jch,0,0,0)) ! reaction index
-          if (reaction_type(ich) == 2) then
-            if (nint(sigma_d(0,1,jch)) == 1) then 
-              if (product_list(ich,0)==1) then 
-                fname = './UV/xsect/dissociation/'&
-                  &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,1))))//'.dat'
-              else if (product_list(ich,0)==2) then 
-                fname = './UV/xsect/dissociation/'&
-                  &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,2))))//'.dat'
-              else if (product_list(ich,0)==3) then 
-                fname = './UV/xsect/dissociation/'&
-                  &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,2))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,3))))//'.dat'
-              else if (product_list(ich,0)==4) then 
-                fname = './UV/xsect/dissociation/'&
-                  &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,2))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,3))))//'_plus_'&
-                  &     //trim(ADJUSTL(species(product_list(ich,4))))//'.dat'
-              end if
-              open(11, file = fname, status = 'replace' )
-              swl = nint(sigma_d(-2,1,jch))
-              ewl = nint(sigma_d(-1,1,jch))
-              !print *, ich, swl, ewl, trim(fname)
-              if (swl >= 1) then 
-                do iwl = swl, ewl
-                  write(11, *) lambda(iwl), sigma_d(iwl,1,jch)
-                end do
-              end if
-              close(11)
+        do ich = 1, nch
+          if (reaction_type(ich) /= 2) cycle
+          if (nint(sigma_d(0,1,ich)) == 1) then 
+            if (product_list(ich,0)==1) then 
+              fname = './UV/xsect/dissociation/'&
+                &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
+                &     //trim(ADJUSTL(species(product_list(ich,1))))//'.dat'
+            else if (product_list(ich,0)==2) then 
+              fname = './UV/xsect/dissociation/'&
+                &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
+                &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,2))))//'.dat'
+            else if (product_list(ich,0)==3) then 
+              fname = './UV/xsect/dissociation/'&
+                &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
+                &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,2))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,3))))//'.dat'
+            else if (product_list(ich,0)==4) then 
+              fname = './UV/xsect/dissociation/'&
+                &     //trim(ADJUSTL(species(reactant_list(ich,1))))//'_plus_hv_to_'&
+                &     //trim(ADJUSTL(species(product_list(ich,1))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,2))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,3))))//'_plus_'&
+                &     //trim(ADJUSTL(species(product_list(ich,4))))//'.dat'
             end if
+            open(11, file = fname, status = 'replace' )
+            swl = nint(sigma_d(-2,1,ich))
+            ewl = nint(sigma_d(-1,1,ich))
+            !print *, ich, swl, ewl, trim(fname)
+            if (swl >= 1) then 
+              do iwl = swl, ewl
+                write(11, *) lambda(iwl), sigma_d(iwl,1,ich)
+              end do
+            end if
+            close(11)
           end if
         end do 
       end if
@@ -1325,7 +1377,7 @@ contains
     real(dp), intent(in)    :: sza, rplanet, mplanet
     real(dp), intent(inout) :: J_rate(1:,1:) ! 1:nz, 1:nch
     real(dp) hmin
-    integer isp, ich, jch, iz, swl, ewl
+    integer isp, ich, iz, swl, ewl
 
     ! for solar zenith angle near and greater than 90deg [Smith et al., 1972]
     real(dp) Hz, yz, Xz, chiz, Chfunc, cln_Ch, g
@@ -1397,15 +1449,15 @@ contains
     end do
 
     ! photolysis rate ---------------------------
-    do ich = 1, nch_photolysis
+    do ich = 1, nch
 
-      if (nint(sigma_d(0,1,ich)) == 0) cycle ! skip if no data
+      if (reaction_type(ich) /= 2) cycle
+      if (nint(sigma_d(0,1,ich)) == 0) cycle
       swl = nint(sigma_d(-2,1,ich))
       ewl = nint(sigma_d(-1,1,ich))
-      jch = nint(sigma_dat(0,nsp+ich,0,0,0)) ! reaction index
 
       do iz = 1, nz
-        J_rate(iz,jch) = dot_product(I_z(swl:ewl,iz), sigma_d(swl:ewl,iz,ich))
+        J_rate(iz,ich) = dot_product(I_z(swl:ewl,iz), sigma_d(swl:ewl,iz,ich))
       end do
 
     end do ! ich
@@ -1419,12 +1471,13 @@ contains
   !   if the data bin is larger than the model bin, the data is interpolated.
   !   if the data bin is smaller than the model bin, the data is binned.
   !----------------------------------------------------------------------------------------------
-  subroutine binning_cross_section(nl, idata,      & ! in
-    &                              odata, swl, ewl ) ! out
+  subroutine binning_cross_section(nl, idata,              & ! in
+    &                              odata, ovalid, swl, ewl ) ! out
     implicit none
     integer,    intent(in)  :: nl
     real(dp),   intent(in)  :: idata(nl,2)
     real(dp),   intent(out) :: odata(nwl)
+    logical,    intent(out) :: ovalid(nwl)
     integer,    intent(out) :: swl, ewl
     integer iwl, il, label, il0, ndata
     real(dp) idata_tmp(nl,2)
@@ -1440,6 +1493,7 @@ contains
     end if
   
     odata = 0.0_dp
+    ovalid = .false.
     swl = 9999999
     ewl = 0
     il0 = 1
@@ -1504,6 +1558,8 @@ contains
         if (i0 <= o0 .and. o0 < ip) then 
           tmp = (idata_tmp(il,2)*(ip-o0) + idata_tmp(il+1,2)*(o0-i0))/(ip-i0)
           if (label /= 1) label = 0
+          if (swl > iwl) swl = iwl
+          if (ewl < iwl) ewl = iwl
         end if
 
         ! to escape from this loop
@@ -1520,11 +1576,13 @@ contains
       ! binning if an input bin is smaller than a model bin
       if (label == 1) then 
         odata(iwl) = sum_data / sum_wl
+        ovalid(iwl) = .true.
       end if
   
       ! interpolate if an input bin is larger than a model bin
       if (label == 0) then 
         odata(iwl) = tmp
+        ovalid(iwl) = .true.
       end if
   
     end do ! iwl
@@ -1561,51 +1619,78 @@ contains
     integer,          intent(in)    :: id_in
     integer,          intent(in)    :: sdata, edata
     character(len=*), intent(in)    :: unit1, unit2, fname, dtype
-    integer i, j, nh, il, nl, swl, ewl, idtype, ndata, id, id_flag
+    integer i, j, nh, il, nl, swl, ewl, ndata, idat
     real(dp), allocatable :: idata(:,:), odata(:), rdata(:,:)
+    logical,  allocatable :: ovalid(:)
+
+    select case (trim(dtype))
+    case ('a', 'a-excep', 'd', 'd-excep', 'qy', 'qy-excep')
+      continue
+    case default
+      print *, 'Unknown spectral data type: ', trim(dtype)
+      stop
+    end select
 
     if (id_in >= 1) then 
 
       ndata = edata - sdata + 1
 
-      if (dtype == 'a') then 
-        idtype = 2**0 ! absorption
-        id = id_in
-      else if (dtype == 'a-excep') then 
-        idtype = 2**3 ! exception for absorption
-        id = id_in
-      else if (dtype == 'd') then 
-        idtype = 2**6 ! dissociation
-      else if (dtype == 'd-excep') then 
-        idtype = 2**9 ! exception for dissociation
-      else if (dtype == 'qy') then 
-        idtype = 2**12 ! quantum yield
-      else if (dtype == 'qy-excep') then 
-        idtype = 2**15 ! exception
-      else 
-        print *, ''
-        print *, 'error!'
-        print *, '  The dtype "'//trim(adjustl(dtype))//'" is not recognized.'
-        stop
+      if (dtype == 'a' .or. dtype == 'a-excep') then
+        idat = n_species_data(id_in) + 1
+
+        if (idat > max_ndata) then
+          print *, 'Spectral datasets for species: ', &
+            trim(species(id_in)), &
+            ' exceed the maximum number of datasets: ', max_ndata
+          stop
+        end if
+
+        n_species_data(id_in) = idat
+
+        species_data(id_in,idat)%dtype = trim(dtype)
+        species_data(id_in,idat)%ncol  = ndata
+
+        allocate(species_data(id_in,idat)%value(nwl,ndata))
+        allocate(species_data(id_in,idat)%valid(nwl))
+
+        species_data(id_in,idat)%value = 0.0_dp
+        species_data(id_in,idat)%valid = .false.
+
+      else
+
+        idat = n_photolysis_data(id_in) + 1
+
+        if (idat > max_ndata) then
+          print *, 'Too many spectral datasets for reaction: ', id_in
+          stop
+        end if
+
+        n_photolysis_data(id_in) = idat
+
+        photolysis_data(id_in,idat)%dtype = trim(dtype)
+        photolysis_data(id_in,idat)%ncol  = ndata
+
+        allocate(photolysis_data(id_in,idat)%value(nwl,ndata))
+        allocate(photolysis_data(id_in,idat)%valid(nwl))
+
+        photolysis_data(id_in,idat)%value = 0.0_dp
+        photolysis_data(id_in,idat)%valid = .false.
+
       end if
 
-      id_flag = 0
-      if (idtype >= 10) then
-        do i = nsp+1, nsp+nch_photolysis
-          if (nint(sigma_dat(0,i,0,0,0)) == id_in) then 
-            id = i
-            id_flag = 1
-          end if
-        end do 
+      if (dtype == 'a' .and. ndata >= 2) then
+        allocate(species_data(id_in,idat)%axis(ndata))
+        species_data(id_in,idat)%axis(:) = Tdep_list(1:ndata)
       end if
-      if (idtype >= 10 .and. id_flag == 0) then 
-        nch_photolysis = nch_photolysis + 1
-        id = nsp + nch_photolysis
+
+      if ((dtype == 'd' .or. dtype == 'qy') .and. ndata >= 2) then
+        allocate(photolysis_data(id_in,idat)%axis(ndata))
+        photolysis_data(id_in,idat)%axis(:) = Tdep_list(1:ndata)
       end if
 
       write(*,'(a)',advance='no')  '  Reading datafile: '//trim(ADJUSTL(fname))//'...'
 
-      allocate(odata(nwl))
+      allocate(odata(nwl), ovalid(nwl))
 
       if (ndata == 1) then 
 
@@ -1666,15 +1751,16 @@ contains
           end do
         close(11)
 
-        call binning_cross_section(nl, idata,      &
-          &                        odata, swl, ewl )
-        if (sigma_dat(-2,id,1,1,1) > dble(swl)) sigma_dat(-2,id,1,1,1) = dble(swl) ! start wavelength
-        if (sigma_dat(-1,id,1,1,1) < dble(ewl)) sigma_dat(-1,id,1,1,1) = dble(ewl) ! end wavelength
-        sigma_dat(0,id,1,1,1) = 1.0_dp ! existence flag
-        if (dtype=='a' .or. dtype=='d' .or. dtype=='qy')sigma_dat(1,id,0,1,1) = sigma_dat(1,id,0,1,1) + dble(ndata)
-        sigma_dat(0,id,1,1,0) = sigma_dat(0,id,1,1,0) + dble(idtype)
-        sigma_dat(swl:ewl,id,sdata,1,2) = odata(swl:ewl)
-        sigma_dat(0,id,0,0,0) = dble(id_in) ! reaction index
+        call binning_cross_section(nl, idata,              &
+          &                        odata, ovalid, swl, ewl )
+
+        if (dtype == 'a' .or. dtype == 'a-excep') then
+          species_data(id_in,idat)%value(:,1) = odata(:)
+          species_data(id_in,idat)%valid(:)   = ovalid(:)
+        else
+          photolysis_data(id_in,idat)%value(:,1) = odata(:)
+          photolysis_data(id_in,idat)%valid(:)   = ovalid(:)
+        end if
 
         deallocate(idata)
 
@@ -1736,27 +1822,45 @@ contains
           end do
         close(11)
 
-        sigma_dat(0,id,1,1,1) = 1.0_dp ! existence flag
-        sigma_dat(0,id,1,1,0) = sigma_dat(0,id,1,1,0) + dble(idtype)
-        if (dtype=='a' .or. dtype=='d' .or. dtype=='qy') then 
-          sigma_dat(1,id,0,1,1) = sigma_dat(1,id,0,1,1) + dble(ndata) * 1000.0_dp
-        end if
         do i = sdata, edata
-          idata(:,2) = rdata(:,i-sdata+1) ! copy data to idata
-          call binning_cross_section(nl, idata,      &
-            &                        odata, swl, ewl )
-          if (sigma_dat(-2,id,i,1,1) > dble(swl)) sigma_dat(-2,id,i,1,1) = dble(swl) ! start wavelength
-          if (sigma_dat(-1,id,i,1,1) < dble(ewl)) sigma_dat(-1,id,i,1,1) = dble(ewl) ! end wavelength
-          sigma_dat(1,id,i,1,1) = Tdep_list(i-sdata+1) ! temperature
-          sigma_dat(swl:ewl,id,i,1,2) = odata(swl:ewl)
+          j = i - sdata + 1
+          idata(:,2) = rdata(:,j) ! copy data to idata
+          call binning_cross_section(nl, idata,              &
+            &                        odata, ovalid, swl, ewl )
+
+          if (dtype == 'a' .or. dtype == 'a-excep') then
+            species_data(id_in,idat)%value(:,j) = odata(:)
+          else
+            photolysis_data(id_in,idat)%value(:,j) = odata(:)
+          end if
+          if (j == 1) then
+            if (dtype == 'a' .or. dtype == 'a-excep') then
+              species_data(id_in,idat)%valid(:) = ovalid(:)
+            else
+              photolysis_data(id_in,idat)%valid(:) = ovalid(:)
+            end if
+          end if
+          if (j >= 2) then
+            if (dtype == 'a' .or. dtype == 'a-excep') then
+              if (any(species_data(id_in,idat)%valid .neqv. ovalid)) then
+                print *, 'Inconsistent wavelength coverage: ', trim(fname)
+                stop
+              end if
+            else
+              if (any(photolysis_data(id_in,idat)%valid .neqv. ovalid)) then
+                print *, 'Inconsistent wavelength coverage: ', trim(fname)
+                stop
+              end if
+            end if
+          end if
+
         end do 
-        sigma_dat(0,id,0,0,0) = dble(id_in) ! reaction index
 
         deallocate(idata, rdata)
 
       end if
 
-      deallocate(odata)
+      deallocate(odata, ovalid)
 
       write(*,*) 'done.'
 
@@ -1766,60 +1870,145 @@ contains
 
 
   !------------------------------------------------------------
+  ! Find the index of the spectral dataset for a given data type.
+  !------------------------------------------------------------
+  integer function find_spec(data, ndata, dtype, occurrence) result(idat)
+    implicit none
+    type(sigma_),      intent(in) :: data(:)
+    integer,           intent(in) :: ndata
+    character(len=*),  intent(in) :: dtype
+    integer, optional, intent(in) :: occurrence
+    integer i, count, target
+
+    if (ndata < 0 .or. ndata > size(data)) then
+      print *, 'Invalid number of spectral datasets: ', ndata
+      stop
+    end if
+
+    target = 1
+    if (present(occurrence)) target = occurrence
+
+    if (target < 1) then
+      print *, 'Invalid spectral-data occurrence: ', target
+      stop
+    end if
+
+    idat = 0
+    count = 0
+
+    do i = 1, ndata
+      if (trim(adjustl(data(i)%dtype)) == trim(adjustl(dtype))) then
+        count = count + 1
+        if (count == target) idat = i
+      end if
+    end do
+
+    if (.not. present(occurrence) .and. count > 1) then
+      print *, 'Duplicated spectral data type: ', trim(dtype)
+      stop
+    end if
+  end function find_spec
+
+
+  !------------------------------------------------------------
+  ! Find the start and end indices of valid spectral data.
+  !------------------------------------------------------------
+  subroutine get_sigma_range(valid, swl, ewl)
+    implicit none
+
+    logical, intent(in)  :: valid(:)
+    integer, intent(out) :: swl, ewl
+    integer :: iwl
+
+    swl = 0
+    ewl = 0
+
+    do iwl = 1, size(valid)
+      if (valid(iwl)) then
+        if (swl == 0) swl = iwl
+        ewl = iwl
+      end if
+    end do
+
+  end subroutine get_sigma_range
+
+
+  !------------------------------------------------------------
   ! Absorption cross section data are automatically adapted.
   !------------------------------------------------------------
   subroutine calc_sigma_a(isp, T) ! inout
     implicit none
     real(dp),              intent(in)    :: T(1:)
     integer,               intent(in)    :: isp
-    integer i, iz, Tlabel, Tlabel1, ndata, swl, ewl, dtype
+    integer i, iz, Tlabel, Tlabel1, ndata, swl, ewl, idat
     real(dp) T0, T1, Tfrac, Tclamp, one_Tfrac
 
-    sigma_a(0,:,isp) = sigma_dat(0,isp,1,1,1)
+    idat = find_spec(species_data(isp,:), n_species_data(isp), 'a')
+    if (idat == 0) return
+    call get_sigma_range(species_data(isp,idat)%valid, swl, ewl)
 
-    swl = nint(sigma_dat(-2,isp,1,1,1)) ! start wavelength
-    ewl = nint(sigma_dat(-1,isp,1,1,1)) ! end wavelength
+    if (swl == 0) return
+
+    sigma_a(0,:,isp)  = 1.0_dp
     sigma_a(-2,:,isp) = dble(swl)
     sigma_a(-1,:,isp) = dble(ewl)
-    ndata = nint(sigma_dat(1,isp,0,1,1)) ! number of data columns
-    dtype = nint(sigma_dat(0,isp,1,1,0)) ! data type
+    ndata = species_data(isp,idat)%ncol ! number of data columns
 
-    do iz = 1, nz
-
-      if (mod(dtype,2**3) /= 0) then 
-        if (mod(ndata,1000) == 1) then 
-          sigma_a(swl:ewl,iz,isp) = sigma_dat(swl:ewl,isp,1,1,2)
-        else if (ndata >= 1000) then 
-          Tclamp = T(iz)
-          if (T(iz)<=sigma_dat(1,isp,1,1,1)) then 
-            Tlabel = 1
-            Tlabel1 = 1
-            Tclamp = sigma_dat(1,isp,1,1,1)
-            Tfrac  = 0.0_dp
-          end if
-          do i = 1, ndata/1000-1
-            T0 = sigma_dat(1,isp,i,1,1)
-            T1 = sigma_dat(1,isp,i+1,1,1)
-            if (T(iz)>T0 .and. T(iz)<=T1) then
-              Tlabel = i
-              Tlabel1 = i+1
-              Tfrac  = (Tclamp-T0)/(T1-T0)
-            end if
-          end do
-          if (T(iz)>sigma_dat(1,isp,ndata/1000,1,1)) then 
-            Tlabel = ndata/1000
-            Tlabel1 = ndata/1000
-            Tclamp = sigma_dat(1,isp,ndata/1000,1,1)
-            Tfrac  = 1.0_dp
-          end if
-          one_Tfrac = 1.0_dp - Tfrac
-
-          sigma_a(swl:ewl,iz,isp) = one_Tfrac*sigma_dat(swl:ewl,isp,Tlabel, 1,2) &
-            &                     +     Tfrac*sigma_dat(swl:ewl,isp,Tlabel1,1,2)
-        end if
+    if (ndata == 1) then
+      do iz = 1, nz
+        where (species_data(isp,idat)%valid)
+          sigma_a(1:nwl,iz,isp) = species_data(isp,idat)%value(:,1)
+        end where
+      end do
+    else if (ndata >= 2) then
+      if (.not. allocated(species_data(isp,idat)%axis)) then
+        print *, 'Temperature axis is not allocated: ', isp
+        stop
       end if
 
-    end do 
+      if (size(species_data(isp,idat)%axis) /= ndata) then
+        print *, 'Inconsistent temperature axis size: ', isp
+        stop
+      end if
+
+      do i = 1, ndata-1
+        if (species_data(isp,idat)%axis(i+1) <= species_data(isp,idat)%axis(i)) then
+          print *, 'Temperature axis must be increasing: ', isp
+          stop
+        end if
+      end do
+
+      do iz = 1, nz
+        Tclamp = min(max(T(iz), species_data(isp,idat)%axis(1)), &
+                            species_data(isp,idat)%axis(ndata))
+
+        if (Tclamp >= species_data(isp,idat)%axis(ndata)) then
+          Tlabel  = ndata
+          Tlabel1 = ndata
+          Tfrac   = 0.0_dp
+        else
+          do i = 1, ndata-1
+            T0 = species_data(isp,idat)%axis(i)
+            T1 = species_data(isp,idat)%axis(i+1)
+
+            if (Tclamp >= T0 .and. Tclamp <= T1) then
+              Tlabel  = i
+              Tlabel1 = i + 1
+              Tfrac   = (Tclamp-T0)/(T1-T0)
+              exit
+            end if
+          end do
+        end if
+
+        one_Tfrac = 1.0_dp - Tfrac
+
+        where (species_data(isp,idat)%valid)
+          sigma_a(1:nwl,iz,isp) = &
+              one_Tfrac * species_data(isp,idat)%value(:,Tlabel) + &
+                  Tfrac * species_data(isp,idat)%value(:,Tlabel1)
+        end where
+      end do
+    end if
 
   end subroutine calc_sigma_a
 
@@ -1831,92 +2020,100 @@ contains
     implicit none
     real(dp),              intent(in)    :: T(1:)
     integer,               intent(in)    :: ich, isp
-    integer i, iz, Tlabel, Tlabel1, ndata, swl, ewl, dtype
+    integer i, iz, Tlabel, Tlabel1, ndata, swl, ewl, idat
     real(dp) T0, T1, Tfrac, Tclamp, one_Tfrac
+    logical use_qy
 
-    sigma_d(0,:,ich) = sigma_dat(0,nsp+ich,1,1,1)
+    idat = find_spec(photolysis_data(ich,:), n_photolysis_data(ich), 'd')
+    if (idat /= 0) then
+      use_qy = .false.
+    else
+      idat = find_spec(photolysis_data(ich,:), n_photolysis_data(ich), 'qy')
+      if (idat == 0) return
+      use_qy = .true.
+    end if
 
-    swl = nint(sigma_dat(-2,nsp+ich,1,1,1)) ! start wavelength
-    ewl = nint(sigma_dat(-1,nsp+ich,1,1,1)) ! end wavelength
+    call get_sigma_range(photolysis_data(ich,idat)%valid, swl, ewl)
+    if (swl == 0) return
+
+    sigma_d(0,:,ich)  = 1.0_dp
     sigma_d(-2,:,ich) = dble(swl)
     sigma_d(-1,:,ich) = dble(ewl)
 
-    ndata = nint(sigma_dat(1,nsp+ich,0,1,1)) ! number of data columns
-    dtype = nint(sigma_dat(0,nsp+ich,1,1,0)) ! data type
+    ndata = photolysis_data(ich,idat)%ncol
 
-    do iz = 1, nz
-
-      ! Use dissociation cross section data
-      if (mod(dtype,2**9) /= 0) then 
-
-        if (mod(ndata,1000) == 1) then 
-          sigma_d(swl:ewl,iz,ich) = sigma_dat(swl:ewl,nsp+ich,1,1,2)
-        else if (ndata >= 1000) then 
-          Tclamp = T(iz)
-          if (T(iz)<=sigma_dat(1,nsp+ich,1,1,1)) then 
-            Tlabel = 1
-            Tlabel1 = 1
-            Tclamp = sigma_dat(1,nsp+ich,1,1,1)
-            Tfrac  = 0.0_dp
-          end if
-          do i = 1, ndata/1000-1
-            T0 = sigma_dat(1,nsp+ich,i,1,1)
-            T1 = sigma_dat(1,nsp+ich,i+1,1,1)
-            if (T(iz)>T0 .and. T(iz)<=T1) then
-              Tlabel = i
-              Tlabel1 = i+1
-              Tfrac  = (Tclamp-T0)/(T1-T0)
-            end if
-          end do
-          if (T(iz)>sigma_dat(1,nsp+ich,ndata/1000,1,1)) then 
-            Tlabel = ndata/1000
-            Tlabel1 = ndata/1000
-            Tclamp = sigma_dat(1,nsp+ich,ndata/1000,1,1)
-            Tfrac  = 1.0_dp
-          end if
-          one_Tfrac = 1.0_dp - Tfrac
-
-          sigma_d(swl:ewl,iz,ich) = one_Tfrac*sigma_dat(swl:ewl,nsp+ich,Tlabel, 1,2) &
-            &                     +     Tfrac*sigma_dat(swl:ewl,nsp+ich,Tlabel1,1,2)
+    
+    if (ndata == 1) then
+      do iz = 1, nz
+        if (use_qy) then
+          where (photolysis_data(ich,idat)%valid)
+            sigma_d(1:nwl,iz,ich) = sigma_a(1:nwl,iz,isp) * &
+                                    photolysis_data(ich,idat)%value(:,1)
+          end where
+        else
+          where (photolysis_data(ich,idat)%valid)
+            sigma_d(1:nwl,iz,ich) = &
+                photolysis_data(ich,idat)%value(:,1)
+          end where
         end if
-
-      ! use quantum yield and absorption cross section data
-      else if (mod(dtype,2**15) /= 0) then
-
-        if (mod(ndata,1000) == 1) then 
-          sigma_d(swl:ewl,iz,ich) = sigma_a(swl:ewl,iz,isp) * sigma_dat(swl:ewl,nsp+ich,1,1,2)
-        else if (ndata >= 1000) then 
-          Tclamp = T(iz)
-          if (T(iz)<=sigma_dat(1,nsp+ich,1,1,1)) then 
-            Tlabel = 1
-            Tlabel1 = 1
-            Tclamp = sigma_dat(1,nsp+ich,1,1,1)
-            Tfrac  = 0.0_dp
-          end if
-          do i = 1, ndata/1000-1
-            T0 = sigma_dat(1,nsp+ich,i,1,1)
-            T1 = sigma_dat(1,nsp+ich,i+1,1,1)
-            if (T(iz)>T0 .and. T(iz)<=T1) then
-              Tlabel = i
-              Tlabel1 = i+1
-              Tfrac  = (Tclamp-T0)/(T1-T0)
-            end if
-          end do
-          if (T(iz)>sigma_dat(1,nsp+ich,ndata/1000,1,1)) then 
-            Tlabel = ndata/1000
-            Tlabel1 = ndata/1000
-            Tclamp = sigma_dat(1,nsp+ich,ndata/1000,1,1)
-            Tfrac  = 1.0_dp
-          end if
-          one_Tfrac = 1.0_dp - Tfrac
-
-          sigma_d(swl:ewl,iz,ich) = one_Tfrac*sigma_a(swl:ewl,iz,isp)*sigma_dat(swl:ewl,nsp+ich,Tlabel, 1,2) &
-            &                     +     Tfrac*sigma_a(swl:ewl,iz,isp)*sigma_dat(swl:ewl,nsp+ich,Tlabel1,1,2)
-        end if
-
+      end do
+    else if (ndata >= 2) then
+      if (.not. allocated(photolysis_data(ich,idat)%axis)) then
+        print *, 'Temperature axis is not allocated: ', ich
+        stop
       end if
 
-    end do 
+      if (size(photolysis_data(ich,idat)%axis) /= ndata) then
+        print *, 'Inconsistent temperature axis size: ', ich
+        stop
+      end if
+
+      do i = 1, ndata-1
+        if (photolysis_data(ich,idat)%axis(i+1) <= photolysis_data(ich,idat)%axis(i)) then
+          print *, 'Temperature axis must be increasing: ', ich
+          stop
+        end if
+      end do
+
+      do iz = 1, nz
+        Tclamp = min(max(T(iz), photolysis_data(ich,idat)%axis(1)), &
+                            photolysis_data(ich,idat)%axis(ndata))
+
+        if (Tclamp >= photolysis_data(ich,idat)%axis(ndata)) then
+          Tlabel  = ndata
+          Tlabel1 = ndata
+          Tfrac   = 0.0_dp
+        else
+          do i = 1, ndata-1
+            T0 = photolysis_data(ich,idat)%axis(i)
+            T1 = photolysis_data(ich,idat)%axis(i+1)
+
+            if (Tclamp >= T0 .and. Tclamp <= T1) then
+              Tlabel  = i
+              Tlabel1 = i + 1
+              Tfrac   = (Tclamp-T0)/(T1-T0)
+              exit
+            end if
+          end do
+        end if
+
+        one_Tfrac = 1.0_dp - Tfrac
+
+        if (use_qy) then
+          where (photolysis_data(ich,idat)%valid)
+            sigma_d(1:nwl,iz,ich) = sigma_a(1:nwl,iz,isp) * ( &
+              & one_Tfrac * photolysis_data(ich,idat)%value(:,Tlabel) &
+              & +   Tfrac * photolysis_data(ich,idat)%value(:,Tlabel1))
+          end where
+        else
+          where (photolysis_data(ich,idat)%valid)
+            sigma_d(1:nwl,iz,ich) = &
+              &  one_Tfrac * photolysis_data(ich,idat)%value(:,Tlabel) &
+              & +    Tfrac * photolysis_data(ich,idat)%value(:,Tlabel1)
+          end where
+        end if
+      end do
+    end if
 
   end subroutine calc_sigma_d
 
@@ -1928,13 +2125,33 @@ contains
     implicit none
     integer,               intent(in)    :: isp
     real(dp),              intent(in)    :: T(1:)
-    integer iz, swl, ewl
+    integer iz, swl, ewl, idat1, idat2, idat3
     real(dp) Tz, delta, delta2
 
-    swl = nint(sigma_dat(-2,isp,3,1,1)) ! start wavelength
-    ewl = nint(sigma_dat(-1,isp,3,1,1)) ! end wavelength
-    if (sigma_a(-2,1,1) > dble(swl)) sigma_a(-2,:,isp) = dble(swl)
-    if (sigma_a(-1,1,1) < dble(ewl)) sigma_a(-1,:,isp) = dble(ewl)
+    idat1 = find_spec(species_data(isp,:), n_species_data(isp), 'a-excep', 1)
+    idat2 = find_spec(species_data(isp,:), n_species_data(isp), 'a-excep', 2)
+    idat3 = find_spec(species_data(isp,:), n_species_data(isp), 'a-excep', 3)
+    if (idat1 == 0 .or. idat2 == 0 .or. idat3 == 0) then
+      print *, 'O2 Schumann-Runge data not found'
+      stop
+    end if
+    if (any(species_data(isp,idat1)%valid .neqv. &
+            species_data(isp,idat2)%valid) .or. &
+        any(species_data(isp,idat1)%valid .neqv. &
+            species_data(isp,idat3)%valid)) then
+      print *, 'Inconsistent O2 Schumann-Runge wavelength coverage'
+      stop
+    end if
+    call get_sigma_range(species_data(isp,idat1)%valid, swl, ewl)
+    if (swl == 0) return
+    if (nint(sigma_a(0,1,isp)) == 0) then
+      sigma_a(0,:,isp)  = 1.0_dp
+      sigma_a(-2,:,isp) = dble(swl)
+      sigma_a(-1,:,isp) = dble(ewl)
+    else
+      sigma_a(-2,:,isp) = min(sigma_a(-2,1,isp), dble(swl))
+      sigma_a(-1,:,isp) = max(sigma_a(-1,1,isp), dble(ewl))
+    end if
 
     ! Schumann-Runge bands according to Minschwaner et al. (1992)
     do iz = 1, nz
@@ -1949,17 +2166,20 @@ contains
       delta2 = delta*delta
 
       if (Tz >= 130.0_dp .and. Tz < 190.0_dp) then 
-        sigma_a(swl:ewl,iz,isp) = 1.0e-24_dp * ( sigma_dat(swl:ewl,isp,3,1,2) * delta2 &
-          &                            +         sigma_dat(swl:ewl,isp,4,1,2) * delta &
-          &                            +         sigma_dat(swl:ewl,isp,5,1,2) )
+        sigma_a(swl:ewl,iz,isp) = 1.0e-24_dp * ( &
+          & species_data(isp,idat1)%value(swl:ewl,1) * delta2 + &
+          & species_data(isp,idat1)%value(swl:ewl,2) * delta  + &
+          & species_data(isp,idat1)%value(swl:ewl,3) )
       else if (Tz >= 190.0_dp .and. Tz < 280.0_dp) then 
-        sigma_a(swl:ewl,iz,isp) = 1.0e-24_dp * ( sigma_dat(swl:ewl,isp,8,1,2) * delta2 &
-          &                            +         sigma_dat(swl:ewl,isp,9,1,2) * delta &
-          &                            +         sigma_dat(swl:ewl,isp,10,1,2) )
+        sigma_a(swl:ewl,iz,isp) = 1.0e-24_dp * ( &
+          & species_data(isp,idat2)%value(swl:ewl,1) * delta2 + &
+          & species_data(isp,idat2)%value(swl:ewl,2) * delta  + &
+          & species_data(isp,idat2)%value(swl:ewl,3) )
       else if (Tz >= 280.0_dp .and. Tz <= 500.0_dp) then 
-        sigma_a(swl:ewl,iz,isp) = 1.0e-24_dp * ( sigma_dat(swl:ewl,isp,13,1,2) * delta2 &
-          &                            +         sigma_dat(swl:ewl,isp,14,1,2) * delta &
-          &                            +         sigma_dat(swl:ewl,isp,15,1,2) )
+        sigma_a(swl:ewl,iz,isp) = 1.0e-24_dp * ( &
+          & species_data(isp,idat3)%value(swl:ewl,1) * delta2 + &
+          & species_data(isp,idat3)%value(swl:ewl,2) * delta  + &
+          & species_data(isp,idat3)%value(swl:ewl,3) )
       end if
 
     end do
@@ -2080,16 +2300,35 @@ contains
     implicit none
     integer,               intent(in)    :: isp
     real(dp),              intent(in)    :: T(1:)
-    integer iz, swl, ewl
+    integer iz, swl, ewl, idat0, idat1
     real(dp) Tz, Tz_298, sigma0(nwl), sigma1(nwl)
 
-    sigma_a(0,:,isp) = 1.0_dp ! existence flag
-
     ! Temperature gradient by Meller and Moortgat(2000)
-    swl = nint(sigma_dat(-2,isp,1,1,1)) ! start wavelength
-    ewl = nint(sigma_dat(-1,isp,1,1,1)) ! end wavelength
-    if (sigma_a(-2,1,isp) > dble(swl)) sigma_a(-2,1,isp) = dble(swl)
-    if (sigma_a(-1,1,isp) < dble(ewl)) sigma_a(-1,1,isp) = dble(ewl)
+
+    idat0 = find_spec(species_data(isp,:), n_species_data(isp), 'a-excep', 1)
+    idat1 = find_spec(species_data(isp,:), n_species_data(isp), 'a-excep', 2)
+    if (idat0 == 0 .or. idat1 == 0) then
+      print *, 'H2CO absorption or gamma data not found'
+      stop
+    end if
+    call get_sigma_range(species_data(isp,idat0)%valid, swl, ewl)
+
+    if (swl == 0) return
+
+    sigma_a(0,:,isp)  = 1.0_dp
+    sigma_a(-2,:,isp) = dble(swl)
+    sigma_a(-1,:,isp) = dble(ewl)
+
+    sigma0 = 0.0_dp
+    sigma1 = 0.0_dp
+
+    where (species_data(isp,idat0)%valid)
+      sigma0 = species_data(isp,idat0)%value(:,1)
+    end where
+
+    where (species_data(isp,idat1)%valid)
+      sigma1 = species_data(isp,idat1)%value(:,1)
+    end where
 
     do iz = 1, nz
       Tz = T(iz)
@@ -2100,9 +2339,9 @@ contains
       end if
       Tz_298 = Tz - 298.0_dp
 
-      sigma0(swl:ewl) = sigma_dat(swl:ewl,isp,1,1,2)
-      sigma1(swl:ewl) = sigma_dat(swl:ewl,isp,2,1,2)
-      sigma_a(swl:ewl,iz,isp) = sigma0(swl:ewl) + sigma1(swl:ewl) * Tz_298
+      where (species_data(isp,idat0)%valid)
+        sigma_a(1:nwl,iz,isp) = sigma0 + sigma1*Tz_298
+      end where
     end do
 
   end subroutine calc_sigma_a_H2CO_Tdependent
@@ -2115,16 +2354,25 @@ contains
     implicit none
     integer,               intent(in)    :: isp
     real(dp),              intent(in)    :: T(1:)
-    integer  iz, swl, ewl
+    integer  iz, swl, ewl, idat
     real(dp) Tz, invTz1000
 
-    sigma_a(0,:,isp) = 1.0_dp ! existence flag
-
     ! Harwood et al., 1993
-    swl = nint(sigma_dat(-2,isp,2,1,1)) ! start wavelength
-    ewl = nint(sigma_dat(-1,isp,2,1,1)) ! end wavelength
-    if (sigma_a(-2,1,isp) > dble(swl)) sigma_a(-2,1,isp) = dble(swl)
-    if (sigma_a(-1,1,isp) < dble(ewl)) sigma_a(-1,1,isp) = dble(ewl)
+    idat = find_spec(species_data(isp,:), n_species_data(isp), 'a-excep')
+    if (idat == 0) then
+      print *, 'N2O5 exceptional absorption data not found'
+      stop
+    end if
+    call get_sigma_range(species_data(isp,idat)%valid, swl, ewl)
+    if (swl == 0) return
+    if (nint(sigma_a(0,1,isp)) == 0) then
+      sigma_a(0,:,isp)  = 1.0_dp
+      sigma_a(-2,:,isp) = dble(swl)
+      sigma_a(-1,:,isp) = dble(ewl)
+    else
+      sigma_a(-2,:,isp) = min(sigma_a(-2,1,isp), dble(swl))
+      sigma_a(-1,:,isp) = max(sigma_a(-1,1,isp), dble(ewl))
+    end if
 
     do iz = 1, nz
       Tz = T(iz)
@@ -2135,9 +2383,11 @@ contains
       end if
       invTz1000 = 1000.0_dp / Tz
 
-      sigma_a(swl:ewl,iz,isp) = 10.0_dp**(sigma_dat(swl:ewl,isp,2,1,2) &
-          &                             + sigma_dat(swl:ewl,isp,3,1,2) * invTz1000) &
-          &                             * 1.0e-4_dp
+      where (species_data(isp,idat)%valid)
+        sigma_a(1:nwl,iz,isp) = 10.0_dp**( &
+            species_data(isp,idat)%value(:,1) + &
+            species_data(isp,idat)%value(:,2) * invTz1000) * 1.0e-4_dp
+      end where
     end do
 
   end subroutine calc_sigma_a_N2O5_Tdependent
@@ -2150,21 +2400,33 @@ contains
     implicit none
     integer,               intent(in)    :: isp
     real(dp),              intent(in)    :: T(1:)
-    integer iz, swl, ewl
+    integer iz, swl, ewl, idat
     real(dp) Tz
 
-    sigma_a(0,:,isp) = 1.0_dp ! existence flag
-
     ! Burkholder et al., 1993
-    swl = nint(sigma_dat(-2,isp,2,1,1)) ! start wavelength
-    ewl = nint(sigma_dat(-1,isp,2,1,1)) ! end wavelength
-    if (sigma_a(-2,1,isp) > dble(swl)) sigma_a(-2,1,isp) = dble(swl)
-    if (sigma_a(-1,1,isp) < dble(ewl)) sigma_a(-1,1,isp) = dble(ewl)
+    idat = find_spec(species_data(isp,:), n_species_data(isp), 'a-excep')
+    if (idat == 0) then
+      print *, 'HNO3 exceptional absorption data not found'
+      stop
+    end if
+    call get_sigma_range(species_data(isp,idat)%valid, swl, ewl)
+    if (swl == 0) return
+    if (nint(sigma_a(0,1,isp)) == 0) then
+      sigma_a(0,:,isp)  = 1.0_dp
+      sigma_a(-2,:,isp) = dble(swl)
+      sigma_a(-1,:,isp) = dble(ewl)
+    else
+      sigma_a(-2,:,isp) = min(sigma_a(-2,1,isp), dble(swl))
+      sigma_a(-1,:,isp) = max(sigma_a(-1,1,isp), dble(ewl))
+    end if
 
     do iz = 1, nz
       Tz = T(iz)
-      sigma_a(swl:ewl,iz,isp) = sigma_a(swl:ewl,iz,isp) &
-          &                   * dexp(sigma_dat(swl:ewl,isp,2,1,2) * 1.0e-3_dp * (Tz-298.0_dp))
+      where (species_data(isp,idat)%valid)
+        sigma_a(1:nwl,iz,isp) = sigma_a(1:nwl,iz,isp) &
+          & * dexp(species_data(isp,idat)%value(:,1) &
+          & * 1.0e-3_dp * (Tz-298.0_dp))
+      end where
     end do
 
   end subroutine calc_sigma_a_HNO3_Tdependent
@@ -2177,26 +2439,38 @@ contains
     implicit none
     integer,               intent(in)    :: isp
     real(dp),              intent(in)    :: T(1:)
-    integer iz, swl, ewl
+    integer iz, swl, ewl, idat
     real(dp) Tz, invQ
 
-    sigma_a(0,:,isp) = 1.0_dp ! existence flag
-
     ! Knight et al. 2002
-    swl = nint(sigma_dat(-2,isp,2,1,1)) ! start wavelength
-    ewl = nint(sigma_dat(-1,isp,2,1,1)) ! end wavelength
-    if (sigma_a(-2,1,isp) > dble(swl)) sigma_a(-2,1,isp) = dble(swl)
-    if (sigma_a(-1,1,isp) < dble(ewl)) sigma_a(-1,1,isp) = dble(ewl)
+    idat = find_spec(species_data(isp,:), n_species_data(isp), 'a-excep')
+    if (idat == 0) then
+      print *, 'HO2NO2 exceptional absorption data not found'
+      stop
+    end if
+    call get_sigma_range(species_data(isp,idat)%valid, swl, ewl)
+    if (swl == 0) return
+    if (nint(sigma_a(0,1,isp)) == 0) then
+      sigma_a(0,:,isp)  = 1.0_dp
+      sigma_a(-2,:,isp) = dble(swl)
+      sigma_a(-1,:,isp) = dble(ewl)
+    else
+      sigma_a(-2,:,isp) = min(sigma_a(-2,1,isp), dble(swl))
+      sigma_a(-1,:,isp) = max(sigma_a(-1,1,isp), dble(ewl))
+    end if
 
     do iz = 1, nz
       Tz = T(iz)
       if (Tz < 273.0_dp) Tz = 273.0_dp
       if (Tz > 343.0_dp) Tz = 343.0_dp
-      invQ = 1.0_dp + dexp(-988.0_dp/(0.69_dp*Tz))
+      invQ = 1.0_dp / (1.0_dp + dexp(-988.0_dp/(0.69_dp*Tz)))
 
-      sigma_a(swl:ewl,iz,isp) = ( sigma_dat(swl:ewl,isp,2,1,2) * invQ &
-          &                     + sigma_dat(swl:ewl,isp,3,1,2) * (1.0_dp - invQ)) &
-          &                   * 1.0e-24_dp
+      where (species_data(isp,idat)%valid)
+        sigma_a(1:nwl,iz,isp) = ( &
+          &   species_data(isp,idat)%value(:,1) * invQ &
+          & + species_data(isp,idat)%value(:,2) * (1.0_dp-invQ)) &
+          & * 1.0e-24_dp
+      end where
     end do
 
   end subroutine calc_sigma_a_HO2NO2_Tdependent
@@ -2237,8 +2511,10 @@ contains
 
     swl = nint(sigma_a(-2,1,isp)) ! start wavelength
     ewl = nint(sigma_a(-1,1,isp)) ! end wavelength
-    if (sigma_d(-2,1,ich) > dble(swl)) sigma_d(-2,:,ich) = dble(swl)
-    if (sigma_d(-1,1,ich) < dble(ewl)) sigma_d(-1,:,ich) = dble(ewl)
+    if (swl == 0) return
+    sigma_d(0,:,ich)  = 1.0_dp
+    sigma_d(-2,:,ich) = dble(swl)
+    sigma_d(-1,:,ich) = dble(ewl)
 
     !   Evaluation: J. B. Burkholder, S. P. Sander, J. Abbatt, J. R. Barker, R. E. Huie, C. E. Kolb, 
     !               M. J. Kurylo, V. L. Orkin, D. M. Wilmouth, and P. H. Wine 
@@ -2293,18 +2569,18 @@ contains
     real(dp),              intent(in)    :: T(1:)
     real(dp),              intent(in)    :: ntot(1:)
     character(len=*),      intent(in)    :: HorCO
-    integer i, iz, iwl, l250, l330, l338, l360, swl, ewl
+    integer i, iz, iwl, l250, l330, l338, l360, swl, ewl, idat
     real(dp) l, Tclamp, P, kB
     real(dp) a(0:4)
-
-    sigma_d(0,:,ich) = 1.0_dp ! existence flag
 
     kB = 1.38064852e-23_dp
 
     swl = nint(sigma_a(-2,1,isp)) ! start wavelength
     ewl = nint(sigma_a(-1,1,isp)) ! end wavelength
-    if (sigma_d(-2,1,ich) > dble(swl)) sigma_d(-2,1,ich) = dble(swl)
-    if (sigma_d(-1,1,ich) < dble(ewl)) sigma_d(-1,1,ich) = dble(ewl)
+    if (swl == 0) return
+    sigma_d(0,:,ich)  = 1.0_dp
+    sigma_d(-2,:,ich) = dble(swl)
+    sigma_d(-1,:,ich) = dble(ewl)
 
     a(0) = 557.95835182_dp
     a(1) = -7.31994058026_dp
@@ -2341,6 +2617,16 @@ contains
     !               "Chemical Kinetics and Photochemical Data for Use in Atmospheric Studies, Evaluation No. 18," 
     !               JPL Publication 15-10, Jet Propulsion Laboratory, Pasadena, 2015 http://jpldataeval.jpl.nasa.gov.
     
+    if (HorCO == 'CO') then
+      idat = find_spec(photolysis_data(ich,:), n_photolysis_data(ich), 'qy')
+      if (idat == 0) then
+        print *, 'H2CO -> H2 + CO quantum yield not found'
+        stop
+      end if
+      qy_CO_300K(l250:l360) = photolysis_data(ich,idat)%value(l250:l360,1)
+      a_300K(l250:l360) = 1.0_dp/qy_CO_300K(l250:l360) - 1.0_dp/(1.0_dp-qy_H(l250:l360))
+    end if
+
     do iz = 1, nz
 
       Tclamp = T(iz)
@@ -2349,21 +2635,29 @@ contains
 
       P = ntot(iz) * kB * T(iz) / 101325.0_dp ! [atm]
 
-      qy_CO_300K(l250:l360) = sigma_dat(l250:l360,nsp+ich,1,1,2) ! quantum yield at 300K
+      if (HorCO == 'H') then
 
-      ! Temperature and pressure dependent yield of H2 + CO
-      a_300K(l250:l360) = 1.0_dp / qy_CO_300K(l250:l360) - 1.0_dp / (1.0_dp - qy_H(l250:l360))
-      a_T(l250:l360)    = a_300K(l250:l360) * (1.0_dp + 0.05_dp*(lambda(l250:l360)-329.0_dp)*((300.0_dp-Tclamp)/80.0_dp))
-      qy_CO_T(l250:l360) = 1.0_dp / ( 1.0_dp / (1.0_dp-qy_H(l250:l360)) + a_T(l250:l360)*P )
+        sigma_d(l250:l360,iz,ich) = sigma_a(l250:l360,iz,isp) * qy_H(l250:l360)
 
-      if (HorCO == 'H')  sigma_d(l250:l360,iz,ich) = sigma_a(l250:l360,iz,isp) * qy_H(l250:l360)
-      if (HorCO == 'CO') sigma_d(l250:l360,iz,ich) = sigma_a(l250:l360,iz,isp) * qy_CO_T(l250:l360)
+      else if (HorCO == 'CO') then
+
+        a_T(l250:l360) = a_300K(l250:l360) &
+          & * (1.0_dp + 0.05_dp*(lambda(l250:l360)-329.0_dp) &
+          & * ((300.0_dp-Tclamp)/80.0_dp))
+
+        qy_CO_T(l250:l360) = 1.0_dp / ( &
+          &   1.0_dp/(1.0_dp-qy_H(l250:l360)) &
+          & + a_T(l250:l360)*P )
+
+        sigma_d(l250:l360,iz,ich) = sigma_a(l250:l360,iz,isp) * qy_CO_T(l250:l360)
+
+      end if
 
       !do iwl = l250, l360
       !  print *, iz, T(iz), P, lambda(iwl), qy_H(iwl), qy_CO_300K(iwl), qy_CO_T(iwl)
       !end do 
       !print *, '--------------------------------------------------------'
-      
+    
     end do
 
   end subroutine calc_sigma_d_H2CO
